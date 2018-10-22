@@ -6,8 +6,8 @@
  */
 
 namespace App\Models;
+use Illuminate\Database\Eloquent\Model;
 
-use Reliese\Database\Eloquent\Model as Eloquent;
 
 /**
  * Class Course
@@ -22,7 +22,7 @@ use Reliese\Database\Eloquent\Model as Eloquent;
  *
  * @package App\Models
  */
-class Course extends Eloquent
+class Course extends Model
 {
 	use \Illuminate\Database\Eloquent\SoftDeletes;
 
@@ -41,5 +41,17 @@ class Course extends Eloquent
     public function payments(){
         return $this->hasMany(Payment::class);
     }
+
+    public function lessons(){
+        return $this->hasMany(Lesson::class);
+    }
+
+    public function status(){
+        return $this->belongsTo(CourseStatus::class);
+    }
+    public function type(){
+        return $this->belongsTo(CourseType::class);
+    }
+
 
 }

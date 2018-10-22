@@ -6,8 +6,7 @@
  */
 
 namespace App\Models;
-
-use Reliese\Database\Eloquent\Model as Eloquent;
+use Illuminate\Database\Eloquent\Model;
 
 /**
  * Class License
@@ -15,22 +14,35 @@ use Reliese\Database\Eloquent\Model as Eloquent;
  * @property int $id
  * @property int $license_type_id
  * @property string $text
+ * @property int $nip
  * @property string $deleted_at
  * @property \Carbon\Carbon $created_at
  * @property \Carbon\Carbon $updated_at
  *
  * @package App\Models
  */
-class License extends Eloquent
+class License extends Model
 {
 	use \Illuminate\Database\Eloquent\SoftDeletes;
 
 	protected $casts = [
-		'license_type_id' => 'int'
+		'license_type_id' => 'int',
+        'nip' => 'int'
 	];
 
 	protected $fillable = [
 		'license_type_id',
-		'text'
+		'text',
+        'nip'
 	];
+
+
+    public function members(){
+        return $this->belongsToMany(Member::class)->withPivot('valid_from');
+    }
+
+    public function type(){
+        return $this->belongsTo(LicenseType::class);
+    }
+
 }

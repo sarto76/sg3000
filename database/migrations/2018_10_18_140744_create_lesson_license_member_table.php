@@ -19,7 +19,6 @@ class CreateLessonLicenseMemberTable extends Migration
             $table->integer('lesson_id');
             $table->text('notes');
             $table->integer('license_member_id');
-            $table->date('valid_from');
             $table->softDeletes();
 
             $table->timestamps();

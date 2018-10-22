@@ -18,7 +18,6 @@ class CreateLicenseMemberTable extends Migration
 
             $table->integer('license_id');
             $table->integer('member_id');
-            $table->integer('nip');
             $table->date('valid_from');
             $table->softDeletes();
 

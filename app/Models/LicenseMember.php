@@ -6,8 +6,7 @@
  */
 
 namespace App\Models;
-
-use Reliese\Database\Eloquent\Model as Eloquent;
+use Illuminate\Database\Eloquent\Model;
 
 /**
  * Class LicenseMember
@@ -15,7 +14,6 @@ use Reliese\Database\Eloquent\Model as Eloquent;
  * @property int $id
  * @property int $license_id
  * @property int $member_id
- * @property int $nip
  * @property \Carbon\Carbon $valid_from
  * @property string $deleted_at
  * @property \Carbon\Carbon $created_at
@@ -23,7 +21,7 @@ use Reliese\Database\Eloquent\Model as Eloquent;
  *
  * @package App\Models
  */
-class LicenseMember extends Eloquent
+class LicenseMember extends Model
 {
 	use \Illuminate\Database\Eloquent\SoftDeletes;
 	protected $table = 'license_member';
@@ -31,7 +29,6 @@ class LicenseMember extends Eloquent
 	protected $casts = [
 		'license_id' => 'int',
 		'member_id' => 'int',
-		'nip' => 'int'
 	];
 
 	protected $dates = [
@@ -41,7 +38,10 @@ class LicenseMember extends Eloquent
 	protected $fillable = [
 		'license_id',
 		'member_id',
-		'nip',
 		'valid_from'
 	];
+
+    public function lessons(){
+        return $this->belongsToMany(Lesson::class,'lesson_license_member','license_member_id','lesson_id')->withPivot('notes');
+    }
 }

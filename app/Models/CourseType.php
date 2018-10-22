@@ -6,8 +6,7 @@
  */
 
 namespace App\Models;
-
-use Reliese\Database\Eloquent\Model as Eloquent;
+use Illuminate\Database\Eloquent\Model;
 
 /**
  * Class CourseType
@@ -22,7 +21,7 @@ use Reliese\Database\Eloquent\Model as Eloquent;
  *
  * @package App\Models
  */
-class CourseType extends Eloquent
+class CourseType extends Model
 {
 	use \Illuminate\Database\Eloquent\SoftDeletes;
 	protected $table = 'course_type';
@@ -36,4 +35,9 @@ class CourseType extends Eloquent
 		'long_description',
 		'number_lessons'
 	];
+
+    public function courses()
+    {
+        $this->hasMany(Course::class);
+    }
 }

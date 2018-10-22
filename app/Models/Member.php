@@ -69,12 +69,19 @@ class Member extends Model
 	    return $this->belongsTo(UserStatus::class);
     }
 
-    public function messages(){
-        return $this->hasMany(Message::class);
+    public function instructorsMessage(){
+        return $this->belongsToMany(Instructor::class,'messages','instructor_id','member_id')->withPivot(['title','text']);
     }
+
 
     public function payments(){
         return $this->hasMany(Payment::class);
     }
+
+    public function licenses(){
+        return $this->belongsToMany(License::class)->withPivot('valid_from');
+    }
+
+
 
 }

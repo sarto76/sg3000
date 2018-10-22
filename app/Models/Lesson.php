@@ -6,8 +6,7 @@
  */
 
 namespace App\Models;
-
-use Reliese\Database\Eloquent\Model as Eloquent;
+use Illuminate\Database\Eloquent\Model;
 
 /**
  * Class Lesson
@@ -24,7 +23,7 @@ use Reliese\Database\Eloquent\Model as Eloquent;
  *
  * @package App\Models
  */
-class Lesson extends Eloquent
+class Lesson extends Model
 {
 	use \Illuminate\Database\Eloquent\SoftDeletes;
 
@@ -46,4 +45,15 @@ class Lesson extends Eloquent
 		'instructor_id',
 		'course_status_id'
 	];
+
+    public function LicenseMember(){
+        return $this->belongsToMany(LicenseMember::class,'lesson_license_member','license_member_id','lesson_id')->withPivot('notes');
+    }
+    public function course(){
+        return $this->belongsTo(Course::class);
+    }
+
+    public function status(){
+        return $this->belongsTo(CourseStatus::class);
+    }
 }

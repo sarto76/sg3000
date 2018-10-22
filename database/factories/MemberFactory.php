@@ -16,6 +16,7 @@ use Faker\Generator as Faker;
 $factory->define(App\Models\Member::class, function (Faker $faker) {
     return [
         'email' => $faker->email,
+        'nip' =>  $faker->numberBetween(1000000, 9999999),
         'firstname' => $faker->firstName,
         'lastname' => $faker->lastName,
         'title' => $faker->title(),

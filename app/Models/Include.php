@@ -6,8 +6,7 @@
  */
 
 namespace App\Models;
-
-use Reliese\Database\Eloquent\Model as Eloquent;
+use Illuminate\Database\Eloquent\Model;
 
 /**
  * Class Include
@@ -22,7 +21,7 @@ use Reliese\Database\Eloquent\Model as Eloquent;
  *
  * @package App\Models
  */
-class Inclusion extends Eloquent
+class Inclusion extends Model
 {
 	use \Illuminate\Database\Eloquent\SoftDeletes;
 	protected $table='includes';

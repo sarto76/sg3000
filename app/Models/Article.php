@@ -6,8 +6,7 @@
  */
 
 namespace App\Models;
-
-use Reliese\Database\Eloquent\Model as Eloquent;
+use Illuminate\Database\Eloquent\Model;
 
 /**
  * Class Article
@@ -26,7 +25,7 @@ use Reliese\Database\Eloquent\Model as Eloquent;
  *
  * @package App\Models
  */
-class Article extends Eloquent
+class Article extends Model
 {
 	use \Illuminate\Database\Eloquent\SoftDeletes;
 

@@ -6,8 +6,7 @@
  */
 
 namespace App\Models;
-
-use Reliese\Database\Eloquent\Model as Eloquent;
+use Illuminate\Database\Eloquent\Model;
 
 /**
  * Class LessonLicenseMember
@@ -23,7 +22,7 @@ use Reliese\Database\Eloquent\Model as Eloquent;
  *
  * @package App\Models
  */
-class LessonLicenseMember extends Eloquent
+class LessonLicenseMember extends Model
 {
 	use \Illuminate\Database\Eloquent\SoftDeletes;
 	protected $table = 'lesson_license_member';

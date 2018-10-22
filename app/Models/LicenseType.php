@@ -6,8 +6,7 @@
  */
 
 namespace App\Models;
-
-use Reliese\Database\Eloquent\Model as Eloquent;
+use Illuminate\Database\Eloquent\Model;
 
 /**
  * Class LicenseType
@@ -22,7 +21,7 @@ use Reliese\Database\Eloquent\Model as Eloquent;
  *
  * @package App\Models
  */
-class LicenseType extends Eloquent
+class LicenseType extends Model
 {
 	use \Illuminate\Database\Eloquent\SoftDeletes;
 	protected $table = 'license_type';
@@ -36,4 +35,9 @@ class LicenseType extends Eloquent
 		'long_description',
 		'month_duration'
 	];
+
+	public function licenses()
+    {
+        $this->hasMany(License::class);
+    }
 }

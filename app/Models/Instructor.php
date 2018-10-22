@@ -6,8 +6,7 @@
  */
 
 namespace App\Models;
-
-use Reliese\Database\Eloquent\Model as Eloquent;
+use Illuminate\Database\Eloquent\Model;
 
 /**
  * Class Instructor
@@ -32,7 +31,7 @@ use Reliese\Database\Eloquent\Model as Eloquent;
  *
  * @package App\Models
  */
-class Instructor extends Eloquent
+class Instructor extends Model
 {
 	use \Illuminate\Database\Eloquent\SoftDeletes;
 
@@ -68,10 +67,13 @@ class Instructor extends Eloquent
     public function user_status(){
         return $this->belongsTo(UserStatus::class);
     }
-    public function messages(){
-        return $this->hasMany(Message::class);
+    public function membersMessage(){
+        return $this->belongsToMany(Member::class,'messages','instructor_id','member_id')->withPivot(['title','text']);
     }
+
+
     public function payments(){
         return $this->hasMany(Payment::class);
     }
+
 }

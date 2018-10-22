@@ -6,8 +6,7 @@
  */
 
 namespace App\Models;
-
-use Reliese\Database\Eloquent\Model as Eloquent;
+use Illuminate\Database\Eloquent\Model;
 
 /**
  * Class CourseStatus
@@ -20,7 +19,7 @@ use Reliese\Database\Eloquent\Model as Eloquent;
  *
  * @package App\Models
  */
-class CourseStatus extends Eloquent
+class CourseStatus extends Model
 {
 	use \Illuminate\Database\Eloquent\SoftDeletes;
 	protected $table = 'course_status';
@@ -28,4 +27,12 @@ class CourseStatus extends Eloquent
 	protected $fillable = [
 		'description'
 	];
+
+    public function lessons(){
+        return $this->hasMany(Lesson::class);
+    }
+
+    public function courses(){
+        return $this->hasMany(Course::class);
+    }
 }

@@ -7,7 +7,6 @@
 
 namespace App\Models;
 
-use Reliese\Database\Eloquent\Model as Eloquent;
 
 /**
  * Class UserStatus
@@ -20,7 +19,7 @@ use Reliese\Database\Eloquent\Model as Eloquent;
  *
  * @package App\Models
  */
-class UserStatus extends Eloquent
+class UserStatus extends Model
 {
 	use \Illuminate\Database\Eloquent\SoftDeletes;
 	protected $table = 'user_status';

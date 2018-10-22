@@ -15,22 +15,31 @@
     return view('welcome');
 });*/
 
+Route::view('/', 'contact');
 
-Route::get('/',function(){
+
+
+///////////////////////////////MEMBERS///////////////////////////////
+
+
+/*Route::get('/',function(){
     $members=\App\Models\Member::orderBy('created_at', 'asc')->get();
 
-    return view('members',[
+    return view('member',[
         'members' => $members
     ]);
-});
+});*/
+
+
+Route::get('/member', 'MemberController@index')->name('member.index');
+Route::get('/member/create', 'MemberController@create')->name('member.create');
+Route::post('/member/store', 'MemberController@store')->name('member.store');
+
 
 Route::post('/member',function(\Illuminate\Http\Request $request){
     $validator=Validator::make($request->all(),[
         'firstname' => 'required|max:100'
         ]);
-
-
-
 
 
     if($validator->fails()){
@@ -51,3 +60,5 @@ Route::delete('/member/{id}', function ($id) {
 
     return redirect('/');
 });
+
+///////////////LESSONS///////////////
