@@ -1,56 +1,44 @@
-<!-- Navigation -->
-<nav class="navbar navbar-default ">
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <a class="navbar-brand" href="/">{{__('navigation.title')}}</a>
     <div class="container">
-        <!-- Brand and toggle get grouped for better mobile display -->
-        <div class="navbar-header page-scroll">
-            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-                <span class="sr-only">Toggle navigation</span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </button>
-            <a class="navbar-brand page-scroll" href="#page-top">{{__('navigation.title')}}</a>
-        </div>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
 
-        <!-- Collect the nav links, forms, and other content for toggling -->
-        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-            <ul class="nav navbar-nav navbar-right">
-                <li class="hidden">
-                    <a href="#page-top"></a>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item">
+                    <a class="nav-link {{Request::is('/') ? 'active' : '' }}" href="#services">{{__('navigation.home')}}</a>
                 </li>
-                <li>
-                    <a class="page-scroll" href="#services">{{__('navigation.home')}}</a>
+                <li class="nav-item">
+                    <a class="nav-link" href="#portfolio">{{__('navigation.teo')}}</a>
                 </li>
-                <li>
-                    <a class="page-scroll" href="#portfolio">{{__('navigation.teo')}}</a>
+                <li class="nav-item">
+                    <a class="nav-link" href="#about">{{__('navigation.socc')}}</a>
                 </li>
-                <li>
-                    <a class="page-scroll" href="#about">{{__('navigation.socc')}}</a>
+                <li class="nav-item">
+                    <a class="nav-link" href="#team">{{__('navigation.sens')}}</a>
                 </li>
-                <li>
-                    <a class="page-scroll" href="#team">{{__('navigation.sens')}}</a>
+                <li class="nav-item">
+                    <a class="nav-link" href="#contact">{{__('navigation.moto')}}</a>
                 </li>
-                <li>
-                    <a class="page-scroll" href="#contact">{{__('navigation.moto')}}</a>
+                <li class="nav-item">
+                    <a class="nav-link {{Request::is('/member') ? 'active' : '' }}" href="{{ url('/member') }}">{{__('navigation.all')}}</a>
                 </li>
-                <li>
-                    <a class="page-scroll" href="{{ url('/member') }}">{{__('navigation.all')}}</a>
+                <li class="nav-item">
+                    <a class="nav-link" href="#contact">{{__('navigation.stat')}}</a>
                 </li>
-                <li>
-                    <a class="page-scroll" href="#contact">{{__('navigation.stat')}}</a>
+                <li class="nav-item">
+                    <a class="nav-link" href="#contact">{{__('navigation.ann')}}</a>
                 </li>
-                <li>
-                    <a class="page-scroll" href="#contact">{{__('navigation.ann')}}</a>
+                <li class="nav-item">
+                    <a class="nav-link" href="#contact">{{__('navigation.setup')}}</a>
                 </li>
-                <li>
-                    <a class="page-scroll" href="#contact">{{__('navigation.setup')}}</a>
-                </li>
-                <li>
-                    <a class="page-scroll" href="/contact">{{__('navigation.logout')}}</a>
+                <li class="nav-item">
+                    <a class="nav-link" href="/contact">{{__('navigation.logout')}}</a>
                 </li>
             </ul>
         </div>
         <!-- /.navbar-collapse -->
     </div>
-    <!-- /.container-fluid -->
 </nav>

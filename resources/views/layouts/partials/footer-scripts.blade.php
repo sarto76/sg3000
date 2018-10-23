@@ -1,35 +1,51 @@
-<!-- Bootstrap core JavaScript
-
-================================================= -->
-
-<!-- Placed at the end of the document so the pages load faster -->
-
-<script src="https://code.jquery.com/jquery-3.1.1.slim.min.js" integrity="sha384-A7FZj7v+d/sdmMqp/nOQwliLvUsJfDHW+k9Omg/a/EheAdgtzNs3hpfag6Ed950n" crossorigin="anonymous"></script>
-
-<script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script>
-
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
-
-
 
 <!-- Bootstrap core JavaScript
 
 ================================================= -->
 
 <!-- Placed at the end of the document so the pages load faster -->
-
-<script src="https://code.jquery.com/jquery-3.1.1.slim.min.js" integrity="sha384-A7FZj7v+d/sdmMqp/nOQwliLvUsJfDHW+k9Omg/a/EheAdgtzNs3hpfag6Ed950n" crossorigin="anonymous"></script>
-
-<script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script>
-
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
-
+<script src="{{ asset('js/jQuery/jquery-3.3.1.min.js') }}" ></script>
+<script src="{{ asset('js/tether/tether.min.js') }}" ></script>
+<script src="{{ asset('js/bootstrap-4.0/bootstrap.min.js') }}" ></script>
 <!-- Bootstrap Core CSS -->
 <!-- Latest compiled and minified CSS -->
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 
-<!-- Optional theme -->
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+<link rel="stylesheet" href="{{ asset('css/bootstrap-4.0//bootstrap.min.css') }}">
 
-<!-- Latest compiled and minified JavaScript -->
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+<!-- Personal Scripts
+
+================================================= -->
+
+
+
+<script type="text/javascript" src="{{ asset('js/datetimepicker/bootstrap-datetimepicker.js') }}" charset="UTF-8"></script>
+
+
+
+
+<script src="{{ asset('js/jQuery/jquery-ui.min.js') }}" charset="UTF-8"></script>
+<link rel="stylesheet" href="{{ asset('css/jquery-ui.css')}}">
+
+<link href={{ asset('css/bootstrap-datetimepicker.css')}} rel="stylesheet" media="screen">
+<script type="text/javascript" src="{{ asset('js/datetimepicker/locales/bootstrap-datetimepicker.it.js') }}" charset="UTF-8"></script>
+
+
+
+<script type="text/javascript">
+    $(".form_datetime").datetimepicker({
+        format: 'yyyy-mm-dd hh:ii',
+        language: "<?php echo Config::get('app.locale'); ?>"
+    });
+</script>
+
+<script type="text/javascript">
+    $(".form_date").datetimepicker({
+        minView: 2,
+        format: 'dd-mm-yyyy',
+        autoclose: true,
+        language: "<?php echo Config::get('app.locale'); ?>"
+    });
+</script>
+
+
+

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Symfony\Component\Routing\RequestContext;
 use Validator;
 
 class MemberController extends Controller
@@ -14,6 +15,7 @@ class MemberController extends Controller
      */
     public function index()
     {
+
         $members=\App\Models\Member::orderBy('created_at', 'asc')->paginate(15);
         //print_r($members);
 
@@ -45,8 +47,18 @@ class MemberController extends Controller
     public function store(Request $request)
     {
         $validator=Validator::make($request->all(),[
-            'nome' => 'required|max:100',
-            'cognome' => 'required|max:100'
+            'title'=> 'required|max:50',
+            'firstname' => 'required|max:100',
+            'lastname'  => 'required|max:100',
+            'email'     => 'email',
+            'address'=> 'max:100',
+            'zip'=> 'min:1000|max:9999|numeric',
+            'city'=> 'max:100',
+            'phone'=> 'max:100',
+            'mobile'=> 'max:100',
+            'work'=> 'max:100',
+            'birthdate'=> 'date',
+
         ]);
 
 
@@ -57,7 +69,24 @@ class MemberController extends Controller
                 ->withErrors($validator);
         }
         $member=new \App\Models\Member();
+
+        $member->title =$request->title;
         $member->firstname=$request->firstname;
+        $member->lastname=$request->lastname;
+        $member->email=$request->email;
+        $member->address=$request->address;
+        $member->zip=$request->zip;
+        $member->city=$request->city;
+        $member->phone=$request->phone;
+        $member->mobile=$request->mobile;
+        $member->work=$request->work;
+        $member->birthdate=$request->birthdate;
+
+
+
+
+
+
         $member->save();
         return redirect()->route('member.index')->with('success','Member Added');
     }

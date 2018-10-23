@@ -12,67 +12,91 @@
             {{ csrf_field() }}
 
 
-                <div class="col-xs-8">
-                    <label for="email">{{__('member.email')}}</label>
-                    <input type="text" name="email" id="email" class="form-control">
+                <div class="form-group">
                 </div>
                 <div class="col-xs-8">
-                    <label for="nome">{{__('member.firstname')}}</label>
-                        <input type="text" name="nome" id="nome" class="form-control">
-                </div>
-                <div class="col-xs-8">
-                        <label for="cognome">{{__('member.lastname')}}</label>
-                        <input type="text" name="cognome" id="cognome" class="form-control">
+                    <label for="title">{{__('member.title')}}</label>
+                    {!! Form::select('title', array('m' => \Illuminate\Support\Facades\Lang::get('member.mr'), 'f' => \Illuminate\Support\Facades\Lang::get('member.ms')), 'm'); !!}
                 </div>
 
-                <div class="col-xs-8">
-                    <label for="indirizzo">{{__('member.address')}}</label>
-                    <input type="text" name="indirizzo" id="indirizzo" class="form-control">
-                </div>
-                <div class="col-xs-8">
-                    <label for="NAP">{{__('member.zip')}}</label>
-                    <input type="text" name="NAP" id="NAP" class="form-control">
-                </div>
-                <div class="col-xs-8">
-                    <label for="citta">{{__('member.city')}}</label>
-                    <input type="text" name="citta" id="citta" class="form-control">
-                </div>
-                <div class="col-xs-8">
-                    <label for="telefono">{{__('member.phone')}}</label>
-                    <input type="text" name="telefono" id="telefono" class="form-control">
-                </div>
-                <div class="col-xs-8">
-                    <label for="cellulare">{{__('member.mobile')}}</label>
-                    <input type="text" name="cellulare" id="cellulare" class="form-control">
-                </div>
-                <div class="col-xs-8">
-                    <label for="lavoro">{{__('member.work')}}</label>
-                    <input type="text" name="lavoro" id="lavoro" class="form-control">
-                </div>
-                <div class="col-xs-8">
-                    <label for="nascita">{{__('member.birthdate')}}</label>
-                    <input type="text" name="nascita" id="nascita" class="form-control">
-                </div>
+                <div class="row">
+                    <div class="form-group">
+                    </div>
+                    <div class="col">
+                        <label for="firstname">{{__('member.firstname')}}</label>
+                            <input type="text" name="firstname" id="firstname" class="form-control">
+                    </div>
+                    <div class="col">
+                            <label for="lastname">{{__('member.lastname')}}</label>
+                            <input type="text" name="lastname" id="lastname" class="form-control">
+                    </div>
 
+                </div>
                 <div class="form-group">
                 </div>
 
+                <div class="row">
+
+                    <div class="col">
+                        <label for="birthdate">{{__('member.birthdate')}}</label>
+                        <div class="form-group">
+                        {!! Form::text('date', '', array('class' => 'form_date','id' => 'birthdate','name' => 'birthdate','data-date-format' =>'dd-mm-yyyy')) !!}
+                        </div>
+
+                        <input size="16" type="text" value="2012-06-15" readonly class="form_date" id="birthdate" data-date-format="yyyy-mm-dd" name="birthdate">
+
+                    </div>
+                    <div class="form-group">
+                    </div>
+                    <div class="col">
+                        <label for="email">{{__('member.email')}}</label>
+                        <input type="text" name="email" id="email" class="form-control">
+                    </div>
+                </div>
+                <div class="col-xs-12">
+                    <label for="address">{{__('member.address')}}</label>
+                    <input type="text" name="address" id="address" class="form-control">
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <label for="zip">{{__('member.zip')}}</label>
+                        <input type="number" name="zip" id="zip" class="form-control" min="1000" max="9999">
+                    </div>
+                    <div class="col">
+                        <label for="city">{{__('member.city')}}</label>
+                        <input type="text" name="city" id="city" class="form-control">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <label for="phone">{{__('member.phone')}}</label>
+                        <input type="text" name="phone" id="phone" class="form-control">
+                    </div>
+                    <div class="col">
+                        <label for="mobile">{{__('member.mobile')}}</label>
+                        <input type="text" name="mobile" id="mobile" class="form-control">
+                    </div>
+                </div>
+                <div class="col-xs-6">
+                    <label for="work">{{__('member.work')}}</label>
+                    <input type="text" name="work" id="work" class="form-control">
+                </div>
 
 
-
+                <div class="form-group">
+                </div>
 
                 <!-- Add Member Button -->
                 <div class="form-group">
-                    <div class="col-sm-offset-1 col-sm-6">
-                        <button type="submit" class="btn btn-default">
+
+                        <button type="submit" class="btn btn-primary">
                             <i class="fa fa-plus"></i> {{__('member.add')}}
                         </button>
-                    </div>
+
                 </div>
             </form>
         </div>
     </div>
-
 
 
 @endsection

@@ -6,10 +6,13 @@
         @if (count($members) > 0)
             <div class="panel-body">
 
-
+                <div class="form-group">
+                </div>
                 <div class="panel-body">
                     <div class="pull-right">
                         <a class="btn btn-success" href="{{ route('member.create') }}">{{__('member.add')}}</a>
+                    </div>
+                    <div class="form-group">
                     </div>
                     <table class="table table-striped">
 
