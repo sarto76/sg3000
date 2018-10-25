@@ -8,7 +8,7 @@
         @include('common.errors')
 
         <!-- New member Form -->
-            <form action="{{ route('member.store') }}" method="POST" class="form-horizontal ">
+            <form action="{{ route('memberStore') }}" method="POST" class="form-horizontal ">
             {{ csrf_field() }}
 
 
@@ -24,11 +24,11 @@
                     </div>
                     <div class="col">
                         <label for="firstname">{{__('member.firstname')}}</label>
-                            <input type="text" name="firstname" id="firstname" class="form-control">
+                            <input type="text" name="firstname" id="firstname" class="form-control" value="{{ old('firstname') }}">
                     </div>
                     <div class="col">
                             <label for="lastname">{{__('member.lastname')}}</label>
-                            <input type="text" name="lastname" id="lastname" class="form-control">
+                            <input type="text" name="lastname" id="lastname" class="form-control" value="{{ old('lastname') }}">
                     </div>
 
                 </div>
@@ -39,47 +39,49 @@
 
                     <div class="col">
                         <label for="birthdate">{{__('member.birthdate')}}</label>
-                        <div class="form-group">
-                        {!! Form::text('date', '', array('class' => 'form_date','id' => 'birthdate','name' => 'birthdate','data-date-format' =>'dd-mm-yyyy')) !!}
+
+
+                        <div class="input-append date form_date">
+                            <input size="16" type="text" value="{{ old('birthdate') }}" readonly id="birthdate" name="birthdate">
+                            <span class="add-on"><i class="fa fa-calendar"></i></span>
                         </div>
 
-                        <input size="16" type="text" value="2012-06-15" readonly class="form_date" id="birthdate" data-date-format="yyyy-mm-dd" name="birthdate">
 
                     </div>
                     <div class="form-group">
                     </div>
                     <div class="col">
                         <label for="email">{{__('member.email')}}</label>
-                        <input type="text" name="email" id="email" class="form-control">
+                        <input type="text" name="email" id="email" class="form-control" value="{{ old('email') }}">
                     </div>
                 </div>
                 <div class="col-xs-12">
                     <label for="address">{{__('member.address')}}</label>
-                    <input type="text" name="address" id="address" class="form-control">
+                    <input type="text" name="address" id="address" class="form-control" value="{{ old('address') }}">
                 </div>
                 <div class="row">
                     <div class="col">
                         <label for="zip">{{__('member.zip')}}</label>
-                        <input type="number" name="zip" id="zip" class="form-control" min="1000" max="9999">
+                        <input type="number" name="zip" id="zip" class="form-control" min="1000" max="9999" value="{{ old('zip') }}">
                     </div>
                     <div class="col">
                         <label for="city">{{__('member.city')}}</label>
-                        <input type="text" name="city" id="city" class="form-control">
+                        <input type="text" name="city" id="city" class="form-control" value="{{ old('city') }}">
                     </div>
                 </div>
                 <div class="row">
                     <div class="col">
                         <label for="phone">{{__('member.phone')}}</label>
-                        <input type="text" name="phone" id="phone" class="form-control">
+                        <input type="text" name="phone" id="phone" class="form-control" value="{{ old('phone') }}">
                     </div>
                     <div class="col">
                         <label for="mobile">{{__('member.mobile')}}</label>
-                        <input type="text" name="mobile" id="mobile" class="form-control">
+                        <input type="text" name="mobile" id="mobile" class="form-control" value="{{ old('mobile') }}">
                     </div>
                 </div>
                 <div class="col-xs-6">
                     <label for="work">{{__('member.work')}}</label>
-                    <input type="text" name="work" id="work" class="form-control">
+                    <input type="text" name="work" id="work" class="form-control" value="{{ old('work') }}">
                 </div>
 
 

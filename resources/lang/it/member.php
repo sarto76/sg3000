@@ -11,7 +11,7 @@ return [
     'firstname'=> 'Nome',
     'lastname'=> 'Cognome',
     'title'=> 'Titolo',
-    'address'=> 'indirizzo',
+    'address'=> 'Indirizzo',
     'zip'=> 'NAP',
     'city'=> 'Città',
     'phone'=> 'Tel. privato',
@@ -23,5 +23,7 @@ return [
     'session'=> 'sessione',
     'mr'=> 'Signor',
     'ms'=> 'Signora',
+    'id'=> 'id',
+    'update'=> 'modifica',
 
 ];

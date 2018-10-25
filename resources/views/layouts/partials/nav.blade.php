@@ -8,7 +8,7 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item">
-                    <a class="nav-link {{Request::is('/') ? 'active' : '' }}" href="#services">{{__('navigation.home')}}</a>
+                    <a class=" {{Request::is('/')? 'nav-link active' : 'nav-link'}}" href="/home">{{__('navigation.home')}}</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="#portfolio">{{__('navigation.teo')}}</a>
@@ -23,7 +23,7 @@
                     <a class="nav-link" href="#contact">{{__('navigation.moto')}}</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link {{Request::is('/member') ? 'active' : '' }}" href="{{ url('/member') }}">{{__('navigation.all')}}</a>
+                    <a class="{{Request::is('member')? 'nav-link active' : 'nav-link'}}" href="{{ url('/member') }}">{{__('navigation.all')}}</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="#contact">{{__('navigation.stat')}}</a>

@@ -30,13 +30,33 @@ Route::view('/', 'contact');
     ]);
 });*/
 
+/*Route::controller('datatables', 'MemberController', [
+    'anyData'  => 'datatables.data',
+    'getIndex' => 'datatables',
+]);*/
 
-Route::get('/member', 'MemberController@index')->name('member.index');
-Route::get('/member/create', 'MemberController@create')->name('member.create');
-Route::post('/member/store', 'MemberController@store')->name('member.store');
+// Display view
+Route::get('datatable', 'Web\MemberController@getIndex');
+Route::get('member', 'Web\MemberController@getIndex')->name('member');
+Route::get('member/{id}/edit', 'Web\MemberController@edit');
+Route::post('/member/update', 'Web\MemberController@update')->name('member.update');
+
+// Get Data
+Route::get('datatable/anyData', 'Web\MemberController@anyData')->name('datatable/anyData');
+Route::get('member/anyData', 'Web\MemberController@anyData')->name('memberAnyData');
+//Route::get('member/index', 'Web\MemberController@index')->name('member/index');
 
 
-Route::post('/member',function(\Illuminate\Http\Request $request){
+//Route::get('/members', 'Web\MemberController@index')->name('member.index');
+// Route::get('/members', 'api\MemberController@index');
+
+Route::get('/member/create', 'Web\MemberController@create')->name('memberCreate');
+Route::post('/member/store', 'Web\MemberController@store')->name('memberStore');
+Route::delete('/member/{id}',array('uses' => 'Web\MemberController@destroy', 'as' => 'memberDestroy'));
+
+//Route::resource('/member', 'Web\MemberController');
+
+/*Route::post('/member',function(\Illuminate\Http\Request $request){
     $validator=Validator::make($request->all(),[
         'firstname' => 'required|max:100'
         ]);
@@ -52,13 +72,13 @@ Route::post('/member',function(\Illuminate\Http\Request $request){
     $member->save();
     return redirect('/');
 
-});
+});*/
 
 
-Route::delete('/member/{id}', function ($id) {
+/*Route::delete('/member/{id}', function ($id) {
     \App\Models\Member::findOrFail($id)->delete();
 
     return redirect('/');
-});
+});*/
 
 ///////////////LESSONS///////////////

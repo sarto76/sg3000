@@ -10,11 +10,15 @@
 <!-- Bootstrap Core CSS -->
 <!-- Latest compiled and minified CSS -->
 
-<link rel="stylesheet" href="{{ asset('css/bootstrap-4.0//bootstrap.min.css') }}">
+<link rel="stylesheet" href="{{ asset('css/bootstrap-4.0/bootstrap.min.css') }}">
+<link rel="stylesheet" href="{{ asset('css/font-awesome-4.7.0/css/font-awesome.min.css') }}">
 
-<!-- Personal Scripts
+<link rel="stylesheet" href="{{ asset('css/font-awesome-4.7.0/css/font-awesome.min.css') }}">
 
-================================================= -->
+
+<link rel="stylesheet" href="{{ asset('/plugins/datatables/datatables.css')}}">
+<script src="{{ asset('/plugins/datatables/datatables.min.js')}}"></script>
+
 
 
 
@@ -47,5 +51,108 @@
     });
 </script>
 
+<!--
+<script type="text/javascript">
+    $(document).ready(function() {
+        $('#datatable').DataTable({
+            responsive: true,
+
+            "language": {
+                "url": "{{ asset('/plugins/datatables/lang').'/'.Config::get('app.locale').'.json'}}"
+            },
+
+            "processing": true,
+            "serverSide": true,
+            "ajax": "{{ Illuminate\Support\Facades\URL::to('/').'/api/member'}}"
+
+        });
+    });
 
 
+<script type="text/javascript">
+
+    $(document).ready(function() {
+        $('#datatable-member').DataTable({
+            responsive: true,
+
+            "language": {
+                "url": "{{ asset('/plugins/datatables/lang').'/'.Config::get('app.locale').'.json'}}"
+            },
+            processing: true,
+            serverSide: true,
+            ajax: '{{ route('member') }}',
+            columns: [
+                { data: 'email', name: 'email' },
+                { data: 'firstname', name: 'firstname' },
+                { data: 'lastname', name: 'lastname' },
+                { data: 'address', name: 'address' },
+                { data: 'zip', name: 'zip' },
+                { data: 'city', name: 'city' },
+                { data: 'phone', name: 'phone' },
+                { data: 'mobile', name: 'mobile' },
+                { data: 'work', name: 'work' },
+                { data: 'birthdate', name: 'birthdate' }
+            ]
+        });
+    });
+</script>
+-->
+
+<script type="text/javascript">
+
+    var table = $('#datatable-member').DataTable({
+        responsive: true,
+        "language": {
+            "url": "{{ asset('/plugins/datatables/lang').'/'.Config::get('app.locale').'.json'}}"
+        },
+        processing: true,
+        serverSide: true,
+        ajax: '{{ route('memberAnyData') }}',
+        columns: [
+            {
+                "className": 'details-control',
+                "orderable": false,
+                "searchable": false,
+                "data": null,
+                "defaultContent": ''
+            },
+            { data: 'id', name: 'id' },
+            { data: 'email', name: 'email' },
+            { data: 'firstname', name: 'firstname' },
+            { data: 'lastname', name: 'lastname' },
+            { data: 'address', name: 'address' },
+            { data: 'zip', name: 'zip' },
+            { data: 'city', name: 'city' },
+            { data: 'phone', name: 'phone' },
+            { data: 'mobile', name: 'mobile' },
+            { data: 'work', name: 'work' },
+            { data: 'birthdate', name: 'birthdate' },
+            {data: 'action', name: 'action', orderable: false, searchable: false}
+        ],
+        order: [[1, 'asc']]
+    });
+
+
+    $('#datatable-member').on('click', '.btn-delete[data-remote]', function (e) {
+        e.preventDefault();
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+        var url = $(this).data('remote');
+        alert(url);
+        $.ajax({
+            url: url,
+            type: 'DELETE',
+            dataType: 'json',
+            data: {method: '_DELETE', submit: true}
+        }).always(function (data) {
+            $('#datatable-member').DataTable().draw(false);
+        });
+    });
+
+
+    //table.on('draw.dt', function (e) {alert('test')});
+
+</script>

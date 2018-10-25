@@ -8,13 +8,15 @@
 
                 <div class="form-group">
                 </div>
-                <div class="panel-body">
-                    <div class="pull-right">
-                        <a class="btn btn-success" href="{{ route('member.create') }}">{{__('member.add')}}</a>
-                    </div>
+                <div class="pull-left">
+                    <a class="btn btn-success" href="{{ route('member.create') }}">{{__('member.add')}}</a>
+                </div>
+                <div class="table-responsive">
+
                     <div class="form-group">
                     </div>
-                    <table class="table table-striped">
+
+                    <table class="table table-striped" id="datatable-member" name ="datatable">
 
                         <!-- Table Headings -->
                         <thead>
@@ -57,10 +59,14 @@
                                 </td>
                             </tr>
                         @endforeach
-                        </tbody>
 
+                        </tbody>
                     </table>
-                    {!!  $members->links()  !!}
+
+                    <div class="pull-right align-bottom">
+                        {-- !!  $members->links()  !! --}
+                    </div>
+
                 </div>
             </div>
     </div>
