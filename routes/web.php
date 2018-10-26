@@ -22,6 +22,33 @@ Route::view('/', 'contact');
 ///////////////////////////////MEMBERS///////////////////////////////
 
 
+
+Route::group(['prefix' => 'admin', 'namespace' => 'Admin'], function () {
+    Route::get('members/anydata', 'MemberController@anyData')->name('members.anydata');
+    Route::resource('members', 'MemberController');
+
+});
+
+/*Route::get('datatable', 'Web\MemberController@getIndex');
+Route::get('member', 'Web\MemberController@getIndex')->name('member');
+Route::get('member/{id}/edit', 'Web\MemberController@edit');
+Route::post('/member/update', 'Web\MemberController@update')->name('member.update');
+
+
+Route::get('datatable/anyData', 'Web\MemberController@anyData')->name('datatable/anyData');
+Route::get('member/anyData', 'Web\MemberController@anyData')->name('memberAnyData');
+
+
+Route::get('/member/create', 'Web\MemberController@create')->name('memberCreate');
+Route::post('/member/store', 'Web\MemberController@store')->name('memberStore');
+Route::delete('/member/{id}',array('uses' => 'Web\MemberController@destroy', 'as' => 'memberDestroy'));*/
+
+
+
+
+
+
+//Route::get('member/index', 'Web\MemberController@index')->name('member/index');
 /*Route::get('/',function(){
     $members=\App\Models\Member::orderBy('created_at', 'asc')->get();
 
@@ -35,27 +62,9 @@ Route::view('/', 'contact');
     'getIndex' => 'datatables',
 ]);*/
 
-// Display view
-Route::get('datatable', 'Web\MemberController@getIndex');
-Route::get('member', 'Web\MemberController@getIndex')->name('member');
-Route::get('member/{id}/edit', 'Web\MemberController@edit');
-Route::post('/member/update', 'Web\MemberController@update')->name('member.update');
-
-// Get Data
-Route::get('datatable/anyData', 'Web\MemberController@anyData')->name('datatable/anyData');
-Route::get('member/anyData', 'Web\MemberController@anyData')->name('memberAnyData');
-//Route::get('member/index', 'Web\MemberController@index')->name('member/index');
-
-
 //Route::get('/members', 'Web\MemberController@index')->name('member.index');
 // Route::get('/members', 'api\MemberController@index');
-
-Route::get('/member/create', 'Web\MemberController@create')->name('memberCreate');
-Route::post('/member/store', 'Web\MemberController@store')->name('memberStore');
-Route::delete('/member/{id}',array('uses' => 'Web\MemberController@destroy', 'as' => 'memberDestroy'));
-
 //Route::resource('/member', 'Web\MemberController');
-
 /*Route::post('/member',function(\Illuminate\Http\Request $request){
     $validator=Validator::make($request->all(),[
         'firstname' => 'required|max:100'

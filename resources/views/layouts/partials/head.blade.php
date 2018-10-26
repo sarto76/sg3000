@@ -4,3 +4,4 @@
 <meta name="description" content="">
 <meta name="author" content="">
 <title>Scuola guida</title>
+<meta name="csrf-token" content="{{ csrf_token() }}">

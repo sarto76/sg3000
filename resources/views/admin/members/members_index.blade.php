@@ -9,7 +9,7 @@
             <div class="form-group">
             </div>
             <div class="pull-left">
-                <a class="btn btn-success" href="{{ route('memberCreate') }}">{{__('member.add')}}</a>
+                <a class="btn btn-success" href="{{ route('members.create') }}">{{__('member.add')}}</a>
             </div>
 
             <div class="form-group">

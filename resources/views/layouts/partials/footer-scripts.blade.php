@@ -80,7 +80,7 @@
             },
             processing: true,
             serverSide: true,
-            ajax: '{{ route('member') }}',
+            ajax: '{{ route('members.index') }}',
             columns: [
                 { data: 'email', name: 'email' },
                 { data: 'firstname', name: 'firstname' },
@@ -107,7 +107,7 @@
         },
         processing: true,
         serverSide: true,
-        ajax: '{{ route('memberAnyData') }}',
+        ajax: '{{ route('members.anydata') }}',
         columns: [
             {
                 "className": 'details-control',

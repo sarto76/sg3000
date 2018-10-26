@@ -23,7 +23,7 @@
                     <a class="nav-link" href="#contact">{{__('navigation.moto')}}</a>
                 </li>
                 <li class="nav-item">
-                    <a class="{{Request::is('member')? 'nav-link active' : 'nav-link'}}" href="{{ url('/member') }}">{{__('navigation.all')}}</a>
+                    <a class="{{Request::is('member')? 'nav-link active' : 'nav-link'}}" href="{{route('members.index')}}">{{__('navigation.all')}}</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="#contact">{{__('navigation.stat')}}</a>
