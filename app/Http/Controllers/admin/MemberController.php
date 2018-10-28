@@ -25,15 +25,12 @@ class MemberController extends Controller
 
         return Datatables::of($members)
             ->addColumn('action', function ($id) {
-                return '<a href="members/' . $id->id . '/edit" class="btn btn-primary">Edit</a>
-                        <button class="btn btn-primary btn-delete" data-remote="/admin/members/' . $id->id . '">
-                        Delete
+                return '<a href="members/' . $id->id . '/edit" class="btn btn-info btn-xs"><i class="fa fa-pencil" title="Edit"></i></a>
+                        <button class="btn btn-danger btn-xs btn-delete" data-remote="/admin/members/' . $id->id . '">
+                        <i class="fa fa-trash-o" title="Delete"></i>
                         </button>
                   '; })->make(true);
-
-
     }
-
 
     /**
      * Display a listing of the resource.
