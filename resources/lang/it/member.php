@@ -25,5 +25,9 @@ return [
     'ms'=> 'Signora',
     'id'=> 'id',
     'update'=> 'modifica',
+    'sureToDelete'=> 'Sicuro di voler eliminare questo allievo?',
+    'updated'=> 'Allievo modificato correttamente',
+    'added'=> 'Allievo aggiunto correttamente',
+    'deleted'=> 'Allievo eliminato correttamente',
 
 ];

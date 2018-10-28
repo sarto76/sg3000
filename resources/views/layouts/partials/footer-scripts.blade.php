@@ -141,18 +141,24 @@
             }
         });
         var url = $(this).data('remote');
-        alert(url);
-        $.ajax({
-            url: url,
-            type: 'DELETE',
-            dataType: 'json',
-            data: {method: '_DELETE', submit: true}
-        }).always(function (data) {
-            $('#datatable-member').DataTable().draw(false);
-        });
+
+        //alert(_token);
+        if (confirm('{{__('member.sureToDelete')}}')) {
+            $.ajax({
+                url: url,
+                type: 'DELETE',
+                dataType: 'json',
+                data: {method: '_DELETE', submit: true}
+            }).always(function (data) {
+                $('#datatable-member').DataTable().draw(false);
+            });
+        }
     });
 
 
     //table.on('draw.dt', function (e) {alert('test')});
+    $('div.timerHide').delay(4000).slideUp(300);
+
+
 
 </script>

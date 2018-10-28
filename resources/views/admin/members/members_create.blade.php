@@ -88,6 +88,7 @@
                 <div class="form-group">
                 </div>
 
+                <input type="hidden" name="_token" value="{{ Session::token() }}">
                 <!-- Add Member Button -->
                 <div class="form-group">
 

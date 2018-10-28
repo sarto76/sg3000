@@ -9,9 +9,9 @@
 
         <!-- New member Form -->
 
-            <form method="post" action="{{ route('members.update', ['member' => 1]) }}" data-parsley-validate class="form-horizontal form-label-left">
+            <form method="POST" action="{{ route('members.update', ['member' => $id]) }}" data-parsley-validate class="form-horizontal form-label-left">
             {{ csrf_field() }}
-
+                <input name="_method" type="hidden" value="PUT">
                 <div class="form-group">
                 </div>
                 <div class="col-xs-8">
@@ -88,6 +88,7 @@
                 <div class="form-group">
                 </div>
 
+                <input type="hidden" name="_token" value="{{ Session::token() }}">
                 <!-- Add Member Button -->
                 <div class="form-group">
 

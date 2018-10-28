@@ -29,6 +29,7 @@
                 <th>{{__('member.work')}}</th>
                 <th>{{__('member.birthdate')}}</th>
                 <th></th>
+
                 </thead>
             </table>
 

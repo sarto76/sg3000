@@ -10,7 +10,7 @@
     <body>
 
     @include('layouts.partials.nav')
-
+    @include('layouts.partials.alert')
     @yield('content')
 
     @include('layouts.partials.footer')
