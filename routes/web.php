@@ -21,7 +21,7 @@ Route::view('/', 'contact');
 
 ///////////////////////////////MEMBERS///////////////////////////////
 
-Route::group(['prefix' => 'admin', 'namespace' => 'Admin'], function () {
+Route::group(['prefix' => 'admin', 'namespace' => 'admin'], function () {
     Route::get('members/anydata', 'MemberController@anyData')->name('members.anydata');
     Route::resource('members', 'MemberController');
 
