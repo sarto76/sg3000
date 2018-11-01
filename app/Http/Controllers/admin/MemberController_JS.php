@@ -17,7 +17,20 @@ use Yajra\DataTables\DataTables;
 class MemberController extends Controller
 {
 
+    public function anyData()
+    {
+        $members = DB::table('members')
+            ->select(['id','email','firstname','lastname','address','zip','city','phone','mobile','work', DB::raw('DATE_FORMAT(birthdate, "%d-%m-%Y") as birthdate')])
+             ->whereNull('deleted_at');
 
+        return Datatables::of($members)
+            ->addColumn('action', function ($id) {
+                return '<a href="members/' . $id->id . '/edit" class="btn btn-info btn-xs"><i class="fa fa-pencil" title="Edit"></i></a>
+                        <button class="btn btn-danger btn-xs btn-delete" data-remote="/admin/members/' . $id->id . '">
+                        <i class="fa fa-trash-o" title="Delete"></i>
+                        </button>
+                  '; })->make(true);
+    }
 
     /**
      * Display a listing of the resource.
@@ -27,36 +40,13 @@ class MemberController extends Controller
     public function index()
     {
 
-        //return view('admin.members.members_index');
+        return view('admin.members.members_index');
 
         //return Datatables::of(Member::select('email','firstname','lastname','address','zip','city','phone','mobile','work','birthdate'))->make(true);
-        $members=Member::orderBy('lastname', 'asc')->paginate(10);
+        //$members=\App\Models\Member::orderBy('lastname', 'asc')->get();
         //print_r($members);
 
-        return view('admin.members.members_show',compact('members'));
-    }
-
-
-    /**
-     * Metodo che serve a ricercare un magazzino
-     * @param  request $request parola da cercare
-     * @return view
-     */
-    public function search(Request $request)
-    {
-        $search = $request->get('search');
-        $members = Member::where('email', 'LIKE', $search.'%')
-            ->orWhere('firstname', 'LIKE', $search.'%')
-            ->orWhere('lastname', 'LIKE', $search.'%')
-            ->orWhere('address', 'LIKE', $search.'%')
-            ->orWhere('zip', 'LIKE', $search.'%')
-            ->orWhere('city', 'LIKE', $search.'%')
-            ->orWhere('phone', 'LIKE', $search.'%')
-            ->orWhere('mobile', 'LIKE', $search.'%')
-            ->orWhere('work', 'LIKE', $search.'%')
-            ->orWhere('birthdate', 'LIKE', $search.'%')->paginate(10);
-        $members->appends(['search' => $search]);
-        return view('admin.members.members_show', compact('members'))->with($search);
+        //return view('pages.member.show',compact('members'));
     }
 
     /**
@@ -127,8 +117,7 @@ class MemberController extends Controller
      */
     public function show($id)
     {
-        $member = Member::find($id);
-        return view('admin.members.members_detail',compact('member','id'));
+        //
     }
 
     /**
