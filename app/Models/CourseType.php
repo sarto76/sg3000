@@ -40,4 +40,8 @@ class CourseType extends Model
     {
         $this->hasMany(Course::class);
     }
+
+    public function lessons(){
+        return $this->newHasManyThrough(Lesson::class,Course::class);
+    }
 }

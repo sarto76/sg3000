@@ -21,16 +21,19 @@ class DatabaseSeeder extends Seeder
                 LicenseMemberTableSeeder::class,
                 LicensesTableSeeder::class,
                 LicenseTypeTableSeeder::class,
+                LessonLicenseMemberTableSeeder::class,
+                LessonsTableSeeder::class,
+                CoursesTableSeeder::class,
+                CourseTypeTableSeeder::class,
 
 
                 /*AlbumsSeeder::class,
                 ArticlesSeeder::class,
-                CoursesTableSeeder::class,
+
                 CourseStatusTableSeeder::class,
-                CourseTypeSeeder::class,
+
                 IncludesSeeder::class,
-                LessonLicenseMemberTableSeeder::class,
-                LessonsTableSeeder::class,
+
 
                 SettingsSeeder::class,
                 UsersSeeder::class,*/

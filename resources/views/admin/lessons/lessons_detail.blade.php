@@ -88,6 +88,7 @@
                                             </tr>
                                             @foreach($member->licenses as $license)
                                                 <tr>
+
                                                     <td>{{\App\Models\LicenseType::find($license->license_type_id)->description}}</td>
                                                     <td>{{\App\Models\LicenseType::find($license->license_type_id)->long_description}}</td>
                                                     <td>{{ \Carbon\Carbon::parse($license->pivot->valid_from)->format('d-m-Y') }}</td>
@@ -111,7 +112,10 @@
                                             </tr>
                                             @foreach($member->licenses as $license)
                                                 <tr>
+                                                    @foreach(\App\Models\Lesson::find($license->pivot->id) as $lesson)
+                                                        <td>{{\App\Models\Lesson::find($license->pivot->id)}}</td>
 
+                                                    @endforeach
                                                 </tr>
                                             @endforeach
                                         </table>

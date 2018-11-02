@@ -56,4 +56,7 @@ class Lesson extends Model
     public function status(){
         return $this->belongsTo(CourseStatus::class);
     }
+    public function courseType(){
+
+    }
 }

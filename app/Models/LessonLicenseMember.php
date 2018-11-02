@@ -42,4 +42,6 @@ class LessonLicenseMember extends Model
 		'license_member_id',
 		'valid_from'
 	];
+
+
 }

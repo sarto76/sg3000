@@ -11,6 +11,6 @@ class LicenseMemberTableSeeder extends Seeder
      */
     public function run()
     {
-        factory(App\Models\LicenseMember::class, 100)->create();
+        factory(App\Models\LicenseMember::class, 1000)->create();
     }
 }

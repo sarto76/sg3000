@@ -26,6 +26,9 @@ Route::group(['prefix' => 'admin', 'namespace' => 'admin'], function () {
     Route::get('members/search', 'MemberController@search')->name('members.search');
     Route::resource('members', 'MemberController');
 
+    Route::get('lessons/search', 'LessonController@search')->name('lessons.search');
+    Route::resource('lessons', 'LessonController');
+
 });
 
 /*Route::get('datatable', 'Web\MemberController@getIndex');

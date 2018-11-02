@@ -11,7 +11,7 @@
                     <a class=" {{Request::is('/')? 'nav-link active' : 'nav-link'}}" href="/home">{{__('navigation.home')}}</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#portfolio">{{__('navigation.teo')}}</a>
+                    <a class="{{Request::is('lesson')? 'nav-link active' : 'nav-link'}}" href="{{route('lessons.index')}}">{{__('navigation.courses')}}</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="#about">{{__('navigation.socc')}}</a>
@@ -42,3 +42,5 @@
         <!-- /.navbar-collapse -->
     </div>
 </nav>
+<div class="form-group">
+</div>

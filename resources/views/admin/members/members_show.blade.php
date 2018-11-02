@@ -30,8 +30,8 @@
 
                             <!-- Table Headings -->
                             <thead>
-                            <th>{{__('member.firstname')}}</th>
                             <th>{{__('member.lastname')}}</th>
+                            <th>{{__('member.firstname')}}</th>
                             <th>{{__('member.address')}}</th>
                             <th>{{__('member.zip')}}</th>
                             <th>{{__('member.city')}}</th>
@@ -45,8 +45,8 @@
                             <tbody>
                             @foreach ($members as $member)
                                 <tr>
-                                    <td class="table-text"><div>{{ $member->firstname }}</div></td>
                                     <td class="table-text"><div>{{ $member->lastname }}</div></td>
+                                    <td class="table-text"><div>{{ $member->firstname }}</div></td>
                                     <td class="table-text"><div>{{ $member->address }}</div></td>
                                     <td class="table-text"><div>{{ $member->zip }}</div></td>
                                     <td class="table-text"><div>{{ $member->city }}</div></td>
@@ -80,7 +80,6 @@
                     <div class="pull-right align-bottom">
                         {{ $members->links() }}
                     </div>
-
                 </div>
             </div>
     </div>

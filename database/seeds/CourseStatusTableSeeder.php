@@ -11,6 +11,23 @@ class CourseStatusTableSeeder extends Seeder
      */
     public function run()
     {
-        factory(App\Models\CourseStatus::class, 100)->create();
+
+        if(DB::table('course_status')->get()->count() == 0){
+
+            DB::table('course_status')->insert([
+
+                [
+                    'description' => 'aperto',
+                ],
+                [
+                    'description' => 'chiuso',
+                ],
+                [
+                    'description' => 'nascosto',
+                ],
+
+            ]);
+
+        } else { echo "\e[31mTable is not empty, therefore NOT "; }
     }
 }

@@ -16,7 +16,7 @@ use Faker\Generator as Faker;
 $factory->define(App\Models\LicenseMember::class, function (Faker $faker) {
     return [
         'license_id' => $faker->numberBetween(1, 100),
-        'member_id' =>  $faker->numberBetween(1, 100),
+        'member_id' =>  $faker->numberBetween(1, 1000),
         'valid_from' => $faker->date()
     ];
 });

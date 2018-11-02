@@ -2,17 +2,14 @@
 
 namespace App\Http\Controllers\admin;
 
-use App\Models\Member;
-use Carbon\Carbon;
 
+use App\Models\Lesson;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Validator;
 
-class MemberController extends Controller
+class LessonController extends Controller
 {
-
-
-
     /**
      * Display a listing of the resource.
      *
@@ -20,14 +17,9 @@ class MemberController extends Controller
      */
     public function index()
     {
+        $lessons=Lesson::orderBy('number', 'asc')->paginate(10);
 
-        //return view('admin.members.members_index');
-
-        //return Datatables::of(Member::select('email','firstname','lastname','address','zip','city','phone','mobile','work','birthdate'))->make(true);
-        $members=Member::orderBy('lastname', 'asc')->paginate(10);
-        //print_r($members);
-
-        return view('admin.members.members_show',compact('members'));
+        return view('admin.lessons.lessons_show',compact('lessons'));
     }
 
 

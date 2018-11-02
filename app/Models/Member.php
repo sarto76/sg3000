@@ -79,7 +79,7 @@ class Member extends Model
     }
 
     public function licenses(){
-        return $this->belongsToMany(License::class)->withPivot('valid_from');
+        return $this->belongsToMany(License::class)->withPivot('valid_from','id');
     }
 
 
