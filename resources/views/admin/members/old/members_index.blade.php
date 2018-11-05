@@ -1,8 +1,6 @@
 @extends('layouts.app')
 @section('content')
 
-
-@section('content')
     <div class="container">
         <div class="panel-body">
 

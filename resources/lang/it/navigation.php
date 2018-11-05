@@ -24,6 +24,6 @@ return [
     'ann' => 'Annunci sul sito',
     'setup' => 'Impostazioni',
     'logout' => 'Logout',
-    'courses' => 'corsi',
+    'courses' => 'Corsi',
 
 ];

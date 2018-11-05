@@ -3,14 +3,13 @@
 @section('content')
 
     <div class="page-title">
-        <div class="container">
-            <h4>{{__('member.edit')}}</h4>
+        <div class="container-fluid">
+            <h5>{{__('member.edit')}}</h5>
         </div>
     </div>
-    <br>
     <div class="form-group">
     </div>
-    <div class="container">
+    <div class="container-fluid">
         <div class="panel panel-default p-3 mb-2 bg-light text-dark">
         @include('common.errors')
 
@@ -19,8 +18,6 @@
             <form method="POST" action="{{ route('members.update', ['member' => $id]) }}" data-parsley-validate class="form-horizontal form-label-left">
             {{ csrf_field() }}
                 <input name="_method" type="hidden" value="PUT">
-                <div class="form-group">
-                </div>
                 <div class="col-xs-8">
                     <label for="title">{{__('member.title')}}</label>
                     {!! Form::select('title', array('m' => \Illuminate\Support\Facades\Lang::get('member.mr'), 'f' => \Illuminate\Support\Facades\Lang::get('member.ms')), 'm'); !!}

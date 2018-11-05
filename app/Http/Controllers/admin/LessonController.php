@@ -6,6 +6,7 @@ namespace App\Http\Controllers\admin;
 use App\Models\Lesson;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Validator;
 
 class LessonController extends Controller
@@ -15,11 +16,24 @@ class LessonController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $lessons=Lesson::orderBy('number', 'asc')->paginate(10);
+        $typ = $request->get('typ');
+//dd($typ);
+        //$lessons=Lesson::orderBy('number', 'asc')->paginate(10);
+        //DB::enableQueryLog();
+        $lessons=DB::table('lessons')
+                        ->select('lessons.id as id','courses.id as course','lessons.date_time as date_time','lessons.number as number','course_status.description as status','course_type.description as type')
+                        ->join('courses','lessons.course_id','courses.id')
+                        ->join('course_status','lessons.course_status_id','course_status.id')
+                        ->join('course_type','courses.course_type_id','course_type.id')
+                        ->where('course_type.description',$typ)
+                        ->orderBy('courses.id','desc')
+                        ->orderBy('number')
+                        ->paginate(10);
 
-        return view('admin.lessons.lessons_show',compact('lessons'));
+        //dd(DB::getQueryLog());
+        return view('admin.lessons.lessons_show',compact('lessons','typ'));
     }
 
 

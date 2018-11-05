@@ -42,6 +42,7 @@ return [
     'license_long_description'=> 'Descrizione',
     'license_valid_from'=> 'Data emissione',
     'no_license'=> 'Nessuna licenza',
+    'list' => 'Elenco Allievi',
 
 
 

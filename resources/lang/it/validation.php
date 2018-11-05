@@ -160,6 +160,7 @@ return [
             'instructor_id'=> 'id istruttore',
             'user_status_id'=> 'id stato',
             'session'=> 'sessione',
+            'session'=> 'sessione',
         ],
 
     'title' => 'Errore di inserimento!',

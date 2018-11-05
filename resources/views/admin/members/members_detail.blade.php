@@ -3,14 +3,14 @@
 @section('content')
 
     <div class="page-title">
-        <div class="container">
-            <h4>{{__('member.detail')}}</h4>
+        <div class="container-fluid">
+            <h5>{{__('member.detail')}}</h5>
         </div>
     </div>
     <br>
     <div class="form-group">
     </div>
-    <div class="container" id="main-wrapper">
+    <div class="container-fluid" id="main-wrapper">
         <!-- Start Page Content -->
         <div class="row">
             <div class="col-12">

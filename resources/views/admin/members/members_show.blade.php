@@ -1,8 +1,14 @@
 @extends('layouts.app')
 
 @section('content')
-
-    <div class="container">
+    <div class="page-title">
+        <div class="container-fluid">
+            <h5>{{__('member.list')}}</h5>
+        </div>
+        <div class="form-group">
+        </div>
+    </div>
+    <div class="container-fluid">
         <div class="search p bg-light m-b-sm">
             <form method="GET" action="{{ route('members.search') }}">
                 @csrf

@@ -25,12 +25,12 @@ class DatabaseSeeder extends Seeder
                 LessonsTableSeeder::class,
                 CoursesTableSeeder::class,
                 CourseTypeTableSeeder::class,
-
+                CourseStatusTableSeeder::class,
 
                 /*AlbumsSeeder::class,
                 ArticlesSeeder::class,
 
-                CourseStatusTableSeeder::class,
+
 
                 IncludesSeeder::class,
 

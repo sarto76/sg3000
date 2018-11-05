@@ -1,45 +1,56 @@
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <a class="navbar-brand" href="/">{{__('navigation.title')}}</a>
-    <div class="container">
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-    </button>
+<nav class="navbar navbar-expand-lg navbar-light" style="background-color: #e3f2fd;">
 
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav mr-auto">
-                <li class="nav-item">
-                    <a class=" {{Request::is('/')? 'nav-link active' : 'nav-link'}}" href="/home">{{__('navigation.home')}}</a>
-                </li>
-                <li class="nav-item">
-                    <a class="{{Request::is('lesson')? 'nav-link active' : 'nav-link'}}" href="{{route('lessons.index')}}">{{__('navigation.courses')}}</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#about">{{__('navigation.socc')}}</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#team">{{__('navigation.sens')}}</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#contact">{{__('navigation.moto')}}</a>
-                </li>
-                <li class="nav-item">
-                    <a class="{{Request::is('member')? 'nav-link active' : 'nav-link'}}" href="{{route('members.index')}}">{{__('navigation.all')}}</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#contact">{{__('navigation.stat')}}</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#contact">{{__('navigation.ann')}}</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#contact">{{__('navigation.setup')}}</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/contact">{{__('navigation.logout')}}</a>
-                </li>
-            </ul>
+    <div class="container-fluid ">
+        <div class="navbar-header">
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <a class="navbar-brand" href="/">{{__('navigation.title')}}</a>
         </div>
-        <!-- /.navbar-collapse -->
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="nav navbar-nav">
+                    <li>
+                        <a class=" {{Request::is('/')? 'nav-link active' : 'nav-link'}}" href="/home">{{__('navigation.home')}}</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="dropdown-toggle {{Request::is('admin/lessons')? 'nav-link active' : 'nav-link'}}" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            {{__('navigation.courses')}}
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                         @csrf
+                                @foreach(\App\Models\CourseType::all() as $type)
+                                    <form method="GET" action="{{ route('lessons.index') }}">
+                                    <input name="typ" type="hidden" value="{{ $type->description }}">
+                                    <button class="dropdown-item" type="submit">{{$type->description}}</button>
+
+
+                                    <div class="dropdown-divider"></div>
+                                    </form>
+                                @endforeach
+                        </div>
+                    </li>
+                    <li>
+                        <a class="{{Request::is('admin/members')? 'nav-link active' : 'nav-link'}}" href="{{route('members.index')}}">{{__('navigation.all')}}</a>
+                    </li>
+                    <li>
+                        <a class="nav-link" href="#contact">{{__('navigation.stat')}}</a>
+                    </li>
+                    <li>
+                        <a class="nav-link" href="#contact">{{__('navigation.ann')}}</a>
+                    </li>
+                    <li>
+                        <a class="nav-link" href="#contact">{{__('navigation.setup')}}</a>
+                    </li>
+
+
+                    <li>
+                        <a class="nav-link" href="/contact">{{__('navigation.logout')}}</a>
+                    </li>
+                </ul>
+
+        </div>
+            <!-- /.navbar-collapse -->
     </div>
 </nav>
 <div class="form-group">

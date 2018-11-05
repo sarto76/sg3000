@@ -3,14 +3,14 @@
 @section('content')
 
     <div class="page-title">
-        <div class="container">
-            <h4>{{__('member.add')}}</h4>
+        <div class="container-fluid">
+            <h5>{{__('member.add')}}</h5>
         </div>
     </div>
     <br>
     <div class="form-group">
     </div>
-    <div class="container">
+    <div class="container-fluid">
         <div class="panel panel-default p-3 mb-2 bg-light text-dark">
         @include('common.errors')
 
