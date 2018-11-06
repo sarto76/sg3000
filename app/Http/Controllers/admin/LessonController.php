@@ -6,8 +6,10 @@ namespace App\Http\Controllers\admin;
 use App\Models\Course;
 use App\Models\Lesson;
 use Carbon\Carbon;
+
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+
 use Validator;
 
 class LessonController extends Controller
@@ -23,6 +25,11 @@ class LessonController extends Controller
     public function index(Request $request)
     {
         $typ = $request->get('typ');
+
+        if(empty($typ)){
+            $typ=$request->session()->get('typ');
+        }
+        //print_r($typ);
         $this->type=$typ;
 
         //DB::enableQueryLog();
@@ -213,7 +220,9 @@ class LessonController extends Controller
      */
     public function destroy($id)
     {
+        $this->type=Lesson::findOrFail($id)->course->type->description;
         Lesson::findOrFail($id)->delete();
-        return redirect()->route('lessons.index')->with('success',trans('lesson.deleted'));
+
+        return redirect()->route('lessons.index')->with('success',trans('lesson.deleted'))->with('typ',$this->type);
     }
 }
