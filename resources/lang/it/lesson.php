@@ -4,7 +4,7 @@ return [
     'id'=> 'ID',
     'course'=> 'Corso',
     'date_time'=> 'Data e ora',
-    'number'=> 'Numero',
+    'number'=> 'numero',
     'type'=> 'Tipo',
     'status'=> 'Stato',
     'current' => 'Lezione corrente',
@@ -23,7 +23,10 @@ return [
     'edit'=> 'Modifica lezione',
     'detail'=> 'Dettaglio lezione',
     'courses'=> 'Corsi',
-    'list' => 'Elenco lezioni '
+    'list' => 'Elenco lezioni ',
+    'lesson' => 'Lezione',
+    'remaining_places' => 'Posti occupati',
+    'of' => 'del',
 
 
 

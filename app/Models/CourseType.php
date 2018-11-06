@@ -38,7 +38,7 @@ class CourseType extends Model
 
     public function courses()
     {
-        $this->hasMany(Course::class);
+        $this->hasMany(Course::class,'course_type_id','id');
     }
 
     public function lessons(){

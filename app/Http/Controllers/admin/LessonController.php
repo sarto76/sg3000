@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\admin;
 
 
+use App\Models\Course;
 use App\Models\Lesson;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -16,24 +17,33 @@ class LessonController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    protected $type;
+
+
     public function index(Request $request)
     {
         $typ = $request->get('typ');
-//dd($typ);
-        //$lessons=Lesson::orderBy('number', 'asc')->paginate(10);
+        $this->type=$typ;
+
         //DB::enableQueryLog();
-        $lessons=DB::table('lessons')
-                        ->select('lessons.id as id','courses.id as course','lessons.date_time as date_time','lessons.number as number','course_status.description as status','course_type.description as type')
-                        ->join('courses','lessons.course_id','courses.id')
-                        ->join('course_status','lessons.course_status_id','course_status.id')
-                        ->join('course_type','courses.course_type_id','course_type.id')
-                        ->where('course_type.description',$typ)
-                        ->orderBy('courses.id','desc')
-                        ->orderBy('number')
-                        ->paginate(10);
+
+
+        $courses=Course::orderBy('id')
+            ->with('type')
+            ->whereHas('type',function($q) use ($typ){
+                $q->where('description','=',$typ);
+            })
+            ->paginate(10);
+
+       /*      dd($list);
+
+
+                echo("<pre>");
+                print_r($list);
+                echo("</pre>");*/
 
         //dd(DB::getQueryLog());
-        return view('admin.lessons.lessons_show',compact('lessons','typ'));
+        return view('admin.lessons.lessons_show',compact('lessons','typ','courses'));
     }
 
 
@@ -203,7 +213,7 @@ class LessonController extends Controller
      */
     public function destroy($id)
     {
-        Member::findOrFail($id)->delete();
-        return redirect()->route('members.index')->with('success',trans('member.deleted'));
+        Lesson::findOrFail($id)->delete();
+        return redirect()->route('lessons.index')->with('success',trans('lesson.deleted'));
     }
 }

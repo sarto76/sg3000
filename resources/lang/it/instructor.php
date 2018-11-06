@@ -3,12 +3,11 @@
 return [
 
 
-
-    'current' => 'Allievo corrente',
-    'delete' => 'Cancella allievo',
-    'add' => 'Aggiungi allievo',
+    'instructor'=> 'MC',
+    'current' => 'Istruttore corrente',
+    'delete' => 'Cancella istruttore',
+    'add' => 'Aggiungi istruttore',
     'email'=> 'E-mail',
-    'nip'=> 'NIP',
     'firstname'=> 'Nome',
     'lastname'=> 'Cognome',
     'title'=> 'Titolo',
@@ -28,22 +27,15 @@ return [
     'id'=> 'id',
     'update'=> 'modifica',
     'sureToDelete'=> 'Sicuro di volerlo eliminare?',
-    'updated'=> 'Allievo modificato correttamente',
-    'added'=> 'Allievo aggiunto correttamente',
-    'deleted'=> 'Allievo eliminato correttamente',
+    'updated'=> 'Istruttore modificato correttamente',
+    'added'=> 'Istruttore aggiunto correttamente',
+    'deleted'=> 'Istruttore eliminato correttamente',
     'search'=> 'Cerca...',
     'show'=> 'Dettagli',
-    'edit'=> 'Modifica allievo',
-    'detail'=> 'Dettaglio allievo',
+    'edit'=> 'Modifica istruttore',
+    'detail'=> 'Dettaglio istruttore',
     'details'=> 'Anagrafica',
-    'licenses'=> 'Licenze',
-    'courses'=> 'Corsi',
-    'license_description'=> 'Tipo',
-    'license_long_description'=> 'Descrizione',
-    'license_valid_from'=> 'Data emissione',
-    'no_license'=> 'Nessuna licenza',
-    'list' => 'Elenco Allievi',
-    'members' => 'Allievi',
+
 
 
 

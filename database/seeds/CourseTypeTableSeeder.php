@@ -19,22 +19,26 @@ class CourseTypeTableSeeder extends Seeder
                 [
                     'description' => 'Moto',
                     'long_description' => 'Corso moto',
-                    'number_lessons' => '3'
+                    'number_lessons' => '3',
+                    'max_members' => '5'
                 ],
                 [
                     'description' => 'Sensibilizzazione',
                     'long_description' => 'Corso sensibilizzazione',
-                    'number_lessons' => '4'
+                    'number_lessons' => '4',
+                    'max_members' => '12'
                 ],
                 [
                     'description' => 'Soccorritore',
                     'long_description' => 'Corso Soccorritore',
-                    'number_lessons' => '6'
+                    'number_lessons' => '6',
+                    'max_members' => '15'
                 ],
                 [
                     'description' => 'Teoria',
                     'long_description' => 'Corso teoria',
-                    'number_lessons' => '100'
+                    'number_lessons' => '100',
+                    'max_members' => '100'
                 ],
 
             ]);

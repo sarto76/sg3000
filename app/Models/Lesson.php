@@ -50,7 +50,7 @@ class Lesson extends Model
         return $this->belongsToMany(LicenseMember::class,'lesson_license_member','license_member_id','lesson_id')->withPivot('notes');
     }
     public function course(){
-        return $this->belongsTo(Course::class);
+        return $this->belongsTo(Course::class,'course_id');
     }
 
     public function status(){
@@ -58,5 +58,11 @@ class Lesson extends Model
     }
     public function courseType(){
 
+    }
+    public function instructor(){
+        return $this->belongsTo(Instructor::class,'instructor_id');
+    }
+    public function LessonLicenseMember(){
+        return $this->hasMany(LessonLicenseMember::class);
     }
 }

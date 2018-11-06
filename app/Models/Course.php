@@ -39,19 +39,17 @@ class Course extends Model
 
 
     public function payments(){
-        return $this->hasMany(Payment::class);
+        return $this->hasMany(Payment::class,'course_id','id');
     }
 
     public function lessons(){
-        return $this->hasMany(Lesson::class);
+        return $this->hasMany(Lesson::class,'course_id','id');
     }
 
     public function status(){
-        return $this->belongsTo(CourseStatus::class);
+        return $this->belongsTo(CourseStatus::class,'course_status_id');
     }
     public function type(){
-        return $this->belongsTo(CourseType::class);
+        return $this->belongsTo(CourseType::class,'course_type_id');
     }
-
-
 }

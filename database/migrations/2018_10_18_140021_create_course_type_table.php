@@ -20,6 +20,7 @@ class CreateCourseTypeTable extends Migration
             $table->string('description',50);
             $table->string('long_description',200);
             $table->integer('number_lessons');
+            $table->integer('max_members');
             $table->softDeletes();
 
             $table->timestamps();
