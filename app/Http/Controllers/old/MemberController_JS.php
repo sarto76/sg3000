@@ -14,7 +14,7 @@ use Symfony\Component\Routing\RequestContext;
 use Validator;
 use Yajra\DataTables\DataTables;
 
-class MemberController extends Controller
+class MemberController_JS extends Controller
 {
 
     public function anyData()
