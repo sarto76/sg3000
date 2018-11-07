@@ -162,6 +162,7 @@ return [
         Yajra\Datatables\DatatablesServiceProvider::class,
 
 
+
         /*
          * Package Service Providers...
          */
@@ -178,7 +179,7 @@ return [
         Reliese\Coders\CodersServiceProvider::class,
 
         'Collective\Html\HtmlServiceProvider',
-
+        Barryvdh\Debugbar\ServiceProvider::class,
     ],
 
     /*
@@ -230,7 +231,7 @@ return [
         'Form' => 'Collective\Html\FormFacade',
         'Html' => 'Collective\Html\HtmlFacade',
         'Datatables' => Yajra\Datatables\Facades\Datatables::class,
-
+        'Debugbar' => Barryvdh\Debugbar\Facade::class,
     ],
 
 ];

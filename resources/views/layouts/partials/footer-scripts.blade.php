@@ -37,7 +37,7 @@
 
 <script type="text/javascript">
     $(".form_datetime").datetimepicker({
-        format: 'yyyy-mm-dd hh:ii',
+        format: 'dd-mm-yyyy hh:ii',
         language: "<?php echo Config::get('app.locale'); ?>"
     });
 </script>
@@ -63,4 +63,21 @@
     });
 
 </script>
+
+<script type="text/javascript">
+    $('.coll').click(function(){
+        if($(this).hasClass('fa-caret-square-o-up')){
+            $(this).addClass('fa-caret-square-o-down');
+            $(this).removeClass('fa-caret-square-o-up');
+        }
+        else if($(this).hasClass('fa-caret-square-o-down')){
+            $(this).addClass('fa-caret-square-o-up');
+            $(this).removeClass('fa-caret-square-o-down');
+        }
+
+    });
+
+</script>
+
+
 

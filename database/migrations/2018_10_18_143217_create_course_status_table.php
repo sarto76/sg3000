@@ -16,6 +16,7 @@ class CreateCourseStatusTable extends Migration
         Schema::create('course_status', function (Blueprint $table) {
             $table->increments('id');
             $table->text('description',50);
+            $table->enum('color',['red','green','blue','orange']);
             $table->softDeletes();
             $table->timestamps();
         });

@@ -27,7 +27,8 @@ Route::group(['prefix' => 'admin', 'namespace' => 'admin'], function () {
     Route::resource('members', 'MemberController');
 
     Route::get('lessons/search', 'LessonController@search')->name('lessons.search');
-    Route::resource('lessons', 'LessonController');
+    Route::get('lessons/create/{idCourse}', 'LessonController@create')->name('lessons.create');
+    Route::resource('lessons', 'LessonController')->except('lessons.create');
 
 });
 

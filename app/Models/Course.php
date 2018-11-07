@@ -52,4 +52,18 @@ class Course extends Model
     public function type(){
         return $this->belongsTo(CourseType::class,'course_type_id');
     }
+    public function firstLesson(){
+        return $this->hasOne(Lesson::class,'course_id','id')
+                ->selectRaw('course_id, min(date_time) as first_lesson')
+                ->groupBy('course_id');
+
+    }
+    public function getFirstLesson(){
+        if ( ! array_key_exists('firstLesson', $this->relations)) $this->load('firstLesson');
+
+        $related = $this->getRelation('firstLesson');
+
+        return ($related) ? $related->first_lesson : null;
+
+    }
 }

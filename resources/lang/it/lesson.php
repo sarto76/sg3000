@@ -4,7 +4,6 @@ return [
     'id'=> 'ID',
     'course'=> 'Corso',
     'date_time'=> 'Data e ora',
-    'number'=> 'numero',
     'type'=> 'Tipo',
     'status'=> 'Stato',
     'current' => 'Lezione corrente',
@@ -16,7 +15,7 @@ return [
     'update'=> 'modifica',
     'sureToDelete'=> 'Sicuro di volerlo eliminare?',
     'updated'=> 'Allievo modificato correttamente',
-    'added'=> 'Allievo aggiunto correttamente',
+    'added'=> 'Lezione aggiunta correttamente',
     'deleted'=> 'Allievo eliminato correttamente',
     'search'=> 'Cerca...',
     'show'=> 'Dettagli',
@@ -26,8 +25,10 @@ return [
     'list' => 'Elenco lezioni ',
     'lesson' => 'Lezione',
     'remaining_places' => 'Posti occupati',
-    'of' => 'del',
-
+    'of' => 'con inizio il',
+    'at' => 'alle',
+    'number' => 'Numero lezione',
+    'instructor' => 'Istruttore',
 
 
 ];

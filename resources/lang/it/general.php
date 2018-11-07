@@ -5,6 +5,7 @@ return [
 
 
     'back' => 'Indietro',
+    'expand' => 'Espandi',
 
 
 
