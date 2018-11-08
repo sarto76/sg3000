@@ -11,7 +11,7 @@ use Carbon\Carbon;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-
+use Yajra\DataTables\DataTables;
 use Validator;
 
 class LessonController extends Controller
@@ -24,13 +24,29 @@ class LessonController extends Controller
     protected $type;
 
 
-    public function index(Request $request)
+
+    public function getMembers()
     {
-        $typ = $request->get('typ');
+        $members = DB::table('members')
+            ->select(['id','nip','firstname','lastname', DB::raw('DATE_FORMAT(birthdate, "%d-%m-%Y") as birthdate')])
+            ->whereNull('deleted_at');
+
+        return Datatables::of($members)
+            ->addColumn('action', function ($id) {
+                return '<a href="members/' . $id->id . '/edit" class="btn btn-info btn-xs"><i class="fa fa-pencil" title="Edit"></i></a>
+                        <button class="btn btn-danger btn-xs btn-delete" data-remote="/admin/members/' . $id->id . '">
+                        <i class="fa fa-trash-o" title="Delete"></i>
+                        </button>
+                  '; })->make(true);
+    }
+
+    public function index($typ)
+    {
+     /*   $typ = $request->get('typ');
 
         if(empty($typ)){
             $typ=$request->session()->get('typ');
-        }
+        }*/
         $this->type=$typ;
 
         //DB::enableQueryLog();
@@ -60,9 +76,9 @@ class LessonController extends Controller
      * @param  request $request parola da cercare
      * @return view
      */
-    public function search(Request $request)
+    public function search(Request $request,$typ)
     {
-        $typ = $request->get('typ');
+        //$typ = $request->get('typ');
         $search = $request->get('search');
 
         $courses = Course::select ('courses.id','courses.course_type_id','courses.course_status_id','courses.facebook')
@@ -134,11 +150,12 @@ class LessonController extends Controller
 
         if($validator->fails()){
             return redirect()
-                ->route('lessons.create')
-                ->with('idCourse',$request->course_id)
+                ->route('lessons.create',[$request->course_id])
                 ->withInput()
                 ->withErrors($validator);
         }
+        $typ=Course::find($request->course_id)->type->description;
+
         $lesson=new Lesson();
         $lesson->course_id =$request->course_id;
         $lesson->course_status_id =$request->course_status_id;
@@ -147,8 +164,7 @@ class LessonController extends Controller
         $lesson->date_time=Carbon::parse($request->date_time)->format('Y-m-d H:i:s');
 
         $lesson->save();
-        //return redirect()->route('members.index')->with('success','Member Added');
-        return redirect()->route('lessons.index')->with('success',trans('lesson.added'));
+        return redirect()->route('lessons.index',[$typ])->with('success',trans('lesson.added'));
     }
 
     /**
@@ -239,12 +255,14 @@ class LessonController extends Controller
         $this->type=$lesson->course->type->description;
         $course_id=$lesson->course_id;
         $lesson->delete();
+        $course=Course::find($course_id);
+        $typ=$course->type->description;
 
         if(!Lesson::where('course_id', '=', $course_id)->first()){
-            Course::find($course_id)->delete();
+            $course->delete();
         }
 
 
-        return redirect()->route('lessons.index')->with('success',trans('lesson.deleted'))->with('typ',$this->type);
+        return redirect()->route('lessons.index',[$typ])->with('success',trans('lesson.deleted'))->with('typ',$this->type);
     }
 }

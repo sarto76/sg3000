@@ -13,10 +13,10 @@ return [
     'user_status_id'=> 'id stato',
     'session'=> 'sessione',
     'update'=> 'modifica',
-    'sureToDelete'=> 'Sicuro di volerlo eliminare?',
-    'updated'=> 'Allievo modificato correttamente',
+    'sureToDelete'=> 'Sicuro di eliminare?',
+    'updated'=> 'Lezione modificata correttamente',
     'added'=> 'Lezione aggiunta correttamente',
-    'deleted'=> 'Allievo eliminato correttamente',
+    'deleted'=> 'Lezione eliminata correttamente',
     'search'=> 'Cerca...',
     'show'=> 'Dettagli',
     'edit'=> 'Modifica lezione',
@@ -29,6 +29,8 @@ return [
     'at' => 'alle',
     'number' => 'Numero lezione',
     'instructor' => 'Istruttore',
+    'not_found' => 'Nessun corso trovato',
+
 
 
 ];

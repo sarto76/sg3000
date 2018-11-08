@@ -10,10 +10,9 @@
     </div>
     <div class="container-fluid">
         <div class="search p bg-light m-b-sm">
-            <form method="GET" action="{{ route('lessons.search') }}">
+            <form method="GET" action="{{ route('lessons.search',['type'=>$typ]) }}">
                 @csrf
                 <div class="input-group">
-                    <input type="hidden" name="typ" value="{{$typ}}"/>
                     <input name="search" class="form-control" type="text" placeholder="{{__('lesson.search')}}" value="{{ app('request')->input('search') }}">
                     &nbsp;
                     <span class="input-group-btn">
@@ -22,16 +21,12 @@
                 </div>
             </form>
         </div>
+
         @if (count($courses) > 0)
 
 
                 <div class="form-group">
                 </div>
-                <div >
-                    <a class="btn btn-success" href="{{ route('lessons.create') }}">{{__('lesson.add')}}</a>
-                </div>
-
-
                     <div class="form-group">
                     </div>
 
@@ -92,8 +87,10 @@
                                     </div>
                                 </div>
                             @endforeach
-                                <div class="pull-right" style="display:inline;margin:0px;padding:0px;">
-                                    <a class="btn btn-success" href="/admin/lessons/create/{{ $course->id }}"><i class="fa fa-plus-circle" aria-hidden="true"></i></a>
+
+                                <div class="pull-right" style="display:inline;margin:2px;padding:2px;">
+
+                                    <a class="btn btn-success" href="{{ route('lessons.create',['idCourse'=>$course->id,'type'=>$typ]) }}"><i class="fa fa-plus-circle" aria-hidden="true"></i></a>
                                 </div>
                         </div>
                     </div>
@@ -111,7 +108,18 @@
 
     </div>
 
-
+    @else
+        <div class="form-group">
+        </div>
+        <div class="clearfix"></div>
+        <div class="alert alert-info timerHide" role="alert">
+            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+            {{__('lesson.not_found')}}
+        </div>
+        <div class="form-group">
+        </div>
     @endif
+
+
 
 @endsection

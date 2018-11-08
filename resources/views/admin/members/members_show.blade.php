@@ -32,7 +32,7 @@
 
                     <div class="form-group">
                     </div>
-                        <table class="table table-striped responsive-table" id="datatable-member">
+                        <table class="table table-striped responsive-table" id="dt">
 
                             <!-- Table Headings -->
                             <thead>

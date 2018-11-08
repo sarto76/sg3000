@@ -20,13 +20,8 @@
                         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                          @csrf
                                 @foreach(\App\Models\CourseType::all() as $type)
-                                    <form method="GET" action="{{ route('lessons.index') }}">
-                                    <input name="typ" type="hidden" value="{{ $type->description }}">
-                                    <button class="dropdown-item" type="submit">{{$type->description}}</button>
-
-
+                                    <a class="dropdown-item" href="{{ route('lessons.index',['type'=>$type->description]) }}">{{$type->description}}</a>
                                     <div class="dropdown-divider"></div>
-                                    </form>
                                 @endforeach
                         </div>
                     </li>

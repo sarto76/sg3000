@@ -23,40 +23,35 @@
             <form action="{{ route('lessons.store') }}" method="POST" class="form-horizontal ">
             {{ csrf_field() }}
 
-                <div class="row">
-                    <div class="form-group">
-                    </div>
-                    <div class="col">
-                    <label for="title">{{__('lesson.instructor')}}</label>
-                        {!! Form::select('instructor', $instructors, null) !!}
-                    </div>
-                </div>
+
 
                 <div class="form-group">
                 </div>
 
                 <div class="row">
 
-                    <div class="col">
+                    <div class="col-sm-3">
+                        <label for="instructor">{{__('lesson.instructor')}}</label><p>
+                        {!! Form::select('instructor', $instructors, null) !!}
+                    </div>
+
+                    <div class="col-sm-3">
                         <label for="date_time">{{__('lesson.date_time')}}</label>
-
-
-                        <div class="input-append date form_datetime">
+                        <div class="input-append date form_datetime ">
                             <input size="16" type="text" value="{{ old('date_time') }}" readonly id="date_time" name="date_time">
                             <span class="add-on"><i class="fa fa-calendar"></i></span>
                         </div>
-
-
                     </div>
-                    <div class="form-group">
-                    </div>
-                    <div class="col">
+
+                    <div class="col-sm-2">
                         <label for="number">{{__('lesson.number')}}</label>
-                        <input type="number" max="10" name="number" id="number" class="form-control" value="{{ old('number') }}">
+                        <input type="number" max="10" name="number" id="number" class="form-control-sm" value="{{ old('number') }}">
                     </div>
                 </div>
 
-
+                <div class="row">
+                @include('admin.lessons.lessons_members')
+                </div>
 
                 <div class="form-group">
                 </div>

@@ -19,13 +19,7 @@
 <link rel="stylesheet" href="{{ asset('/plugins/datatables/datatables.css')}}">
 <script src="{{ asset('/plugins/datatables/datatables.min.js')}}"></script>
 
-
-
-
 <script type="text/javascript" src="{{ asset('js/datetimepicker/bootstrap-datetimepicker.js') }}" charset="UTF-8"></script>
-
-
-
 
 <script src="{{ asset('js/jQuery/jquery-ui.min.js') }}" charset="UTF-8"></script>
 <link rel="stylesheet" href="{{ asset('css/jquery-ui.css')}}">

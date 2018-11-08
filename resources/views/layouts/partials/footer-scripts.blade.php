@@ -1,7 +1,5 @@
 
-<!-- Bootstrap core JavaScript
-
-================================================= -->
+<!-- Bootstrap core JavaScript================================================= -->
 <link rel="stylesheet" href="{{ asset('css/font-awesome-4.7.0/css/font-awesome.min.css') }}">
 
 <link rel="stylesheet" href="{{ asset('css/font-awesome-4.7.0/css/font-awesome.min.css') }}">
@@ -16,6 +14,16 @@
 
 <link href={{ asset('css/bootstrap-datetimepicker.css')}} rel="stylesheet" media="screen">
 <script type="text/javascript" src="{{ asset('js/datetimepicker/locales/bootstrap-datetimepicker.it.js') }}" charset="UTF-8"></script>
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -79,5 +87,58 @@
 
 </script>
 
+<script type="text/javascript">
+
+    var table = $('#datatable-member').DataTable({
+        responsive: true,
+        "pageLength": 5,
+        "language": {
+            "url": "{{ asset('/plugins/datatables/lang').'/'.Config::get('app.locale').'.json'}}"
+        },
+        processing: true,
+        serverSide: true,
+        ajax: '{{ route('lessons.getMembers') }}',
+        columns: [
+            {
+                "className": 'details-control',
+                "orderable": false,
+                "searchable": false,
+                "data": null,
+                "defaultContent": ''
+            },
+            { data: 'id', name: 'id',visible : false },
+            { data: 'nip', name: 'nip' },
+            { data: 'firstname', name: 'firstname' },
+            { data: 'lastname', name: 'lastname' },
+            { data: 'birthdate', name: 'birthdate' },
+            {data: 'action', name: 'action', orderable: false, searchable: false}
+        ],
+        order: [[1, 'asc']]
+    });
 
 
+    $('#datatable-member').on('click', '.btn-delete[data-remote]', function (e) {
+        e.preventDefault();
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+        var url = $(this).data('remote');
+
+        //alert(_token);
+        if (confirm('{{__('member.sureToDelete')}}')) {
+            $.ajax({
+                url: url,
+                type: 'DELETE',
+                dataType: 'json',
+                data: {method: '_DELETE', submit: true}
+            }).always(function (data) {
+                $('#datatable-member').DataTable().draw(false);
+            });
+        }
+    });
+
+
+
+</script>

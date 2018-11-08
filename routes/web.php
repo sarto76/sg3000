@@ -26,10 +26,11 @@ Route::group(['prefix' => 'admin', 'namespace' => 'admin'], function () {
     Route::get('members/search', 'MemberController@search')->name('members.search');
     Route::resource('members', 'MemberController');
 
-    Route::get('lessons/search', 'LessonController@search')->name('lessons.search');
+    Route::get('lessons/search/{type}', 'LessonController@search')->name('lessons.search');
     Route::get('lessons/create/{idCourse}', 'LessonController@create')->name('lessons.create');
-    Route::resource('lessons', 'LessonController')->except('lessons.create');
-
+    Route::get('lessons/index/{type}', 'LessonController@index')->name('lessons.index');
+    Route::get('lessons/getMembers', 'LessonController@getMembers')->name('lessons.getMembers');
+    Route::resource('lessons', 'LessonController', array('except' => array('create', 'index')));
 });
 
 /*Route::get('datatable', 'Web\MemberController@getIndex');
