@@ -44,6 +44,8 @@ return [
     'no_license'=> 'Nessuna licenza',
     'list' => 'Elenco Allievi',
     'members' => 'Allievi',
+    'addToLesson' => 'Aggiungi',
+
 
 
 

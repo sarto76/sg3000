@@ -90,8 +90,11 @@
 <script type="text/javascript">
 
     var table = $('#datatable-member').DataTable({
-        responsive: true,
+        responsive:true,
         "pageLength": 5,
+        "lengthChange": false,
+        "pagingType": "first_last_numbers",
+        "info":     false,
         "language": {
             "url": "{{ asset('/plugins/datatables/lang').'/'.Config::get('app.locale').'.json'}}"
         },
@@ -99,19 +102,13 @@
         serverSide: true,
         ajax: '{{ route('lessons.getMembers') }}',
         columns: [
-            {
-                "className": 'details-control',
-                "orderable": false,
-                "searchable": false,
-                "data": null,
-                "defaultContent": ''
-            },
-            { data: 'id', name: 'id',visible : false },
+            { data: 'id', name: 'id',visible : true },
             { data: 'nip', name: 'nip' },
             { data: 'firstname', name: 'firstname' },
             { data: 'lastname', name: 'lastname' },
             { data: 'birthdate', name: 'birthdate' },
             {data: 'action', name: 'action', orderable: false, searchable: false}
+
         ],
         order: [[1, 'asc']]
     });

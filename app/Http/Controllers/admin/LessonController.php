@@ -33,11 +33,7 @@ class LessonController extends Controller
 
         return Datatables::of($members)
             ->addColumn('action', function ($id) {
-                return '<a href="members/' . $id->id . '/edit" class="btn btn-info btn-xs"><i class="fa fa-pencil" title="Edit"></i></a>
-                        <button class="btn btn-danger btn-xs btn-delete" data-remote="/admin/members/' . $id->id . '">
-                        <i class="fa fa-trash-o" title="Delete"></i>
-                        </button>
-                  '; })->make(true);
+                return '<a href="admin/lessons/' . $id->id . '/addMember" class="btn btn-info btn-xs"><i class="fa fa-arrow-up" title="Add to lesson"></i></a>'; })->make(true);
     }
 
     public function index($typ)
@@ -131,7 +127,16 @@ class LessonController extends Controller
         $instructors = Instructor::select(DB::raw("CONCAT(firstname,' ',lastname)as name"),'id')
         ->pluck('name', 'id');
         $course=Course::find($courseId);
-        return view('admin.lessons.lessons_create',compact('instructors','course'));
+        $availablesLessons=[];
+        for($i=1;$i<$course->type->number_lessons+1;$i++){
+            foreach($course->lessons as $lesson){
+                if($lesson->number!=$i){
+                    $availablesLessons[]=$i;
+                }
+            }
+        }
+
+        return view('admin.lessons.lessons_create',compact('instructors','course','availablesLessons'));
     }
 
     /**

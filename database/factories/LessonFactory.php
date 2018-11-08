@@ -4,11 +4,24 @@ use Faker\Generator as Faker;
 
 
 $factory->define(App\Models\Lesson::class, function (Faker $faker) {
+
+    $courseId=\App\Models\Course::all()->pluck('id');
+    $randId=$faker->randomElement($courseId);
+    $instructorId=\App\Models\Instructor::all()->pluck('id');
+    $availablesLessons=[];
+    $numless=\App\Models\Course::find($randId)->type->number_lessons;
+
+    for($i=1;$i<$numless+1;$i++){
+        $availablesLessons[]=$i;
+    }
+
+
+
     return [
-        'course_id' => $faker->numberBetween(1, 100),
+        'course_id' => $randId,
         'date_time' => $faker->dateTime(),
-        'number' => $faker->numberBetween(1, 4),
-        'instructor_id' => $faker->numberBetween(1, 100),
+        'number' => $faker->randomElement($availablesLessons),
+        'instructor_id' => $faker->randomElement($instructorId),
         'course_status_id' => $faker->numberBetween(1, 5)
 
     ];

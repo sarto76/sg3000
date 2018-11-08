@@ -49,9 +49,19 @@
                     </div>
                 </div>
 
-                <div class="row">
-                @include('admin.lessons.lessons_members')
+                <div class="col-sm-3">
+                    <label for="number">{{__('lesson.instructor')}}</label><p>
+                    {!! Form::select('number', $availablesLessons, null) !!}
                 </div>
+
+
+                <div class="row">
+
+                            @include('admin.lessons.lessons_members')
+
+
+                </div>
+
 
                 <div class="form-group">
                 </div>

@@ -16,6 +16,8 @@ class DatabaseSeeder extends Seeder
                 MembersTableSeeder::class,
                 UserStatusTableSeeder::class,
                 MessagesTableSeeder::class,
+                CourseTypeTableSeeder::class,
+                CoursesTableSeeder::class,
                 InstructorsTableSeeder::class,
                 PaymentsTableSeeder::class,
                 LicenseMemberTableSeeder::class,
@@ -23,8 +25,8 @@ class DatabaseSeeder extends Seeder
                 LicenseTypeTableSeeder::class,
                 LessonLicenseMemberTableSeeder::class,
                 LessonsTableSeeder::class,
-                CoursesTableSeeder::class,
-                CourseTypeTableSeeder::class,
+
+
                 CourseStatusTableSeeder::class,
 
                 /*AlbumsSeeder::class,
