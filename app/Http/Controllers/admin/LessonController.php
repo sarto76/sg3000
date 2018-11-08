@@ -127,14 +127,20 @@ class LessonController extends Controller
         $instructors = Instructor::select(DB::raw("CONCAT(firstname,' ',lastname)as name"),'id')
         ->pluck('name', 'id');
         $course=Course::find($courseId);
-        $availablesLessons=[];
+        $occupedLessons=[];
+        $allLessons=[];
+
         for($i=1;$i<$course->type->number_lessons+1;$i++){
-            foreach($course->lessons as $lesson){
-                if($lesson->number!=$i){
-                    $availablesLessons[]=$i;
-                }
-            }
+            $allLessons[]=$i;
         }
+
+        foreach($course->lessons as $lesson) {
+            $occupedLessons[] = $lesson->number;
+        }
+        $uniqueOccupedLessons=array_unique($occupedLessons);
+        $availablesLessons = array_diff($allLessons, $uniqueOccupedLessons);
+
+
 
         return view('admin.lessons.lessons_create',compact('instructors','course','availablesLessons'));
     }

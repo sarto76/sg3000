@@ -42,17 +42,13 @@
                             <span class="add-on"><i class="fa fa-calendar"></i></span>
                         </div>
                     </div>
-
                     <div class="col-sm-2">
-                        <label for="number">{{__('lesson.number')}}</label>
-                        <input type="number" max="10" name="number" id="number" class="form-control-sm" value="{{ old('number') }}">
+                        <label for="number">{{__('lesson.number')}}</label><p>
+                        {!! Form::select('number', $availablesLessons, null) !!}
                     </div>
+
                 </div>
 
-                <div class="col-sm-3">
-                    <label for="number">{{__('lesson.instructor')}}</label><p>
-                    {!! Form::select('number', $availablesLessons, null) !!}
-                </div>
 
 
                 <div class="row">
