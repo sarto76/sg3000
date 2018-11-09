@@ -30,7 +30,8 @@ return [
     'number' => 'Numero lezione',
     'instructor' => 'Istruttore',
     'not_found' => 'Nessun corso trovato',
-
+    'cannotAddMoreMembers' => 'Numero massimo di allievi per la lezione raggiunto',
+    'memberPresent' => 'Allievo già presente nella lezione',
 
 
 ];

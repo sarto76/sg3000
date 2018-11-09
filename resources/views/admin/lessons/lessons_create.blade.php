@@ -11,6 +11,7 @@
                 {{__('lesson.at')}}
                 {{\Carbon\Carbon::parse($course->firstLesson->first_lesson)->format('H:i')}}
             </h5>
+            <p hidden id="maxMembers">{{$course->type->max_members}}</p>
         </div>
     </div>
     <br>
@@ -20,7 +21,7 @@
         @include('common.errors')
 
         <!-- New lesson Form -->
-            <form action="{{ route('lessons.store') }}" method="POST" class="form-horizontal ">
+            <form action="{{ route('lessons.store') }}" method="POST" class="form-horizontal " id="formInsertLesson">
             {{ csrf_field() }}
 
 
@@ -46,7 +47,6 @@
                         <label for="number">{{__('lesson.number')}}</label><p>
                         {!! Form::select('number', $availablesLessons, null) !!}
                     </div>
-
                 </div>
 
 

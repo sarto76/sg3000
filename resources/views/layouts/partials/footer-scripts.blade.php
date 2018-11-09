@@ -127,28 +127,53 @@
 
     function addMemberToLesson(id,np,first,last,birth)
     {
-        console.log(first);
+        //console.log(first);
 
         var actualMembers = document.getElementById("actual-members"),
-            allMembers = document.getElementById("datatable-member");
+            allMembers = document.getElementById("datatable-member"),
+            maxMembers = document.getElementById("maxMembers").innerHTML,
+            rowCount = document.getElementById('actual-members').rows.length,
+            present='member'+id;
 
 
-        var newRow = actualMembers.insertRow(actualMembers.length),
-            uid = newRow.insertCell(0),
-            nip = newRow.insertCell(1),
-            firstname = newRow.insertCell(2),
-            lastname = newRow.insertCell(3),
-            birthdate = newRow.insertCell(4),
-            remove = newRow.insertCell(5);
+        console.log($('#'+present).length);
+
+        if(!$('#'+present).length) {
+            if (rowCount <= maxMembers) {
+
+                var newRow = actualMembers.insertRow(actualMembers.length),
+                    uid = newRow.insertCell(0),
+                    nip = newRow.insertCell(1),
+                    firstname = newRow.insertCell(2),
+                    lastname = newRow.insertCell(3),
+                    birthdate = newRow.insertCell(4),
+                    remove = newRow.insertCell(5);
 
 
-        uid.innerHTML = id;
-        nip.innerHTML = np;
-        firstname.innerHTML = first;
-        lastname.innerHTML = last;
-        birthdate.innerHTML = birth;
-        //remove.innerHTML = "<input type='button' class='btn fa-input' value='&#xf043;'/>";
-        remove.innerHTML = "<a class='btn btn-primary'><i class='fa fa-trash-o' title='{{__('member.detach')}}'></i></a>";
+                uid.innerHTML = id;
+                nip.innerHTML = np;
+                firstname.innerHTML = first;
+                lastname.innerHTML = last;
+                birthdate.innerHTML = birth;
+                //remove.innerHTML = "<input type='button' class='btn fa-input' value='&#xf043;'/>";
+                remove.innerHTML = "<a class='btn btn-primary'><i class='fa fa-trash-o' title='{{__('member.detach')}}'></i></a>";
+
+                var mem = document.createElement("input");
+                mem.setAttribute("type", "hidden");
+                mem.setAttribute("name", "member" + id);
+                mem.setAttribute("id", "member" + id);
+                mem.setAttribute("value", id);
+                document.getElementById("formInsertLesson").appendChild(mem);
+
+
+            }
+            else {
+                return alert('{{__('lesson.cannotAddMoreMembers')}}');
+            }
+        }
+        else {
+            return alert('{{__('lesson.memberPresent')}}');
+        }
     }
 
     $('#actual-members').on('click', 'a', function(e){
