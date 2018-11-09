@@ -50,12 +50,14 @@
                 </div>
 
 
-
+                <div class="row">
+                    @include('admin.lessons.lesson_actual_members')
+                </div>
+                <div class="form-group">
+                </div>
                 <div class="row">
 
                             @include('admin.lessons.lessons_members')
-
-
                 </div>
 
 

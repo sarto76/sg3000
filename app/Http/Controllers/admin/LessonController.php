@@ -32,8 +32,25 @@ class LessonController extends Controller
             ->whereNull('deleted_at');
 
         return Datatables::of($members)
-            ->addColumn('action', function ($id) {
-                return '<a href="admin/lessons/' . $id->id . '/addMember" class="btn btn-info btn-xs"><i class="fa fa-arrow-up" title="Add to lesson"></i></a>'; })->make(true);
+            ->addIndexColumn()
+            ->addColumn('action', function ($member) {
+                //return '<a href="admin/lessons/' . $id->id . '/addMember" class="btn btn-info btn-xs"><i class="fa fa-arrow-up" title="Add to lesson"></i></a>'; })->make(true);
+
+
+                /*$clic='addMemberToLesson('.$member->id.','.$member->nip.',"'.$member->firstname.'","'.$member->lastname.'","'.$member->birthdate.'")';
+                $link='<a onclick="'.$clic.'" class="btn btn-info btn-xs"><i class="fa fa-arrow-up" title="Add to lesson"></i></a>';
+                return $link;})->make(true);*/
+
+                $clic="addMemberToLesson($member->id,$member->nip,'$member->firstname','$member->lastname','$member->birthdate')";
+                $link='<a onclick="'.$clic.'" class="btn btn-info btn-xs"><i class="fa fa-arrow-up" title="Add to lesson"></i></a>';
+                return $link;})->make(true);
+
+
+                /*return '<a onclick="addMemberToLesson(' . $member->id . ',' . $member->nip . ',' . $member->firstname . ',' . $member->lastname . ',' . $member->birthdate . ')"
+         class="btn btn-info btn-xs"><i class="fa fa-arrow-up" title="Add to lesson"></i></a>'; })->make(true);*/
+
+        /*return '<a onclick="addMemberToLesson(' . $member->id . ',' . $member->nip . ',' . $member->firstname . ',' . $member->lastname . ',' . $member->birthdate . ')"
+         class="btn btn-info btn-xs"><i class="fa fa-arrow-up" title="Add to lesson"></i></a>'; })->make(true);*/
     }
 
     public function index($typ)
@@ -128,11 +145,10 @@ class LessonController extends Controller
         ->pluck('name', 'id');
         $course=Course::find($courseId);
         $occupedLessons=[];
-        $allLessons=[];
 
-        for($i=1;$i<$course->type->number_lessons+1;$i++){
-            $allLessons[]=$i;
-        }
+
+        $allLessons=range(1,$course->type->number_lessons);
+
 
         foreach($course->lessons as $lesson) {
             $occupedLessons[] = $lesson->number;

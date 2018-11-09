@@ -45,6 +45,8 @@ return [
     'list' => 'Elenco Allievi',
     'members' => 'Allievi',
     'addToLesson' => 'Aggiungi',
+    'actualMembers' => 'Allievi iscritti alla lezione',
+    'detach' => 'Togli dalla lezione',
 
 
 

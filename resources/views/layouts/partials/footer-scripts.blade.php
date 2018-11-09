@@ -91,6 +91,7 @@
 
     var table = $('#datatable-member').DataTable({
         responsive:true,
+        "aoColumnDefs" : [{'bSortable': true, 'aTargets': [5]},{'bSearchable': false, 'aTargets': [5]}],
         "pageLength": 5,
         "lengthChange": false,
         "pagingType": "first_last_numbers",
@@ -114,27 +115,47 @@
     });
 
 
-    $('#datatable-member').on('click', '.btn-delete[data-remote]', function (e) {
-        e.preventDefault();
-        $.ajaxSetup({
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            }
-        });
-        var url = $(this).data('remote');
+/*
+    $('#datatable-member').click(function(){
+        var row_index = $(this).DT_Row_Index;
+        var col_index = $(this).index();
+        console.log('aaaa');
+        console.log(row_index);
+        alert( 'Row index: '+table.row( this ).index() );
+    });*/
 
-        //alert(_token);
-        if (confirm('{{__('member.sureToDelete')}}')) {
-            $.ajax({
-                url: url,
-                type: 'DELETE',
-                dataType: 'json',
-                data: {method: '_DELETE', submit: true}
-            }).always(function (data) {
-                $('#datatable-member').DataTable().draw(false);
-            });
-        }
-    });
+
+    function addMemberToLesson(id,np,first,last,birth)
+    {
+        console.log(first);
+
+        var actualMembers = document.getElementById("actual-members"),
+            allMembers = document.getElementById("datatable-member");
+
+
+        var newRow = actualMembers.insertRow(actualMembers.length),
+            uid = newRow.insertCell(0),
+            nip = newRow.insertCell(1),
+            firstname = newRow.insertCell(2),
+            lastname = newRow.insertCell(3),
+            birthdate = newRow.insertCell(4),
+            remove = newRow.insertCell(5);
+
+
+        uid.innerHTML = id;
+        nip.innerHTML = np;
+        firstname.innerHTML = first;
+        lastname.innerHTML = last;
+        birthdate.innerHTML = birth;
+        //remove.innerHTML = "<input type='button' class='btn fa-input' value='&#xf043;'/>";
+        remove.innerHTML = "<a class='btn btn-primary'><i class='fa fa-trash-o' title='{{__('member.detach')}}'></i></a>";
+    }
+
+    $('#actual-members').on('click', 'a', function(e){
+        $(this).closest('tr').remove()
+    })
+
+
 
 
 
