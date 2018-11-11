@@ -169,11 +169,12 @@ class LessonController extends Controller
      */
     public function store(Request $request)
     {
+
         $validator=Validator::make($request->all(),[
             'number'=> 'bail|required|max:10',
             'date_time'=> 'bail|required',
         ]);
-
+//dd($request->all());
 
         if($validator->fails()){
             return redirect()
@@ -181,7 +182,15 @@ class LessonController extends Controller
                 ->withInput()
                 ->withErrors($validator);
         }
-        $typ=Course::find($request->course_id)->type->description;
+
+        foreach($request->all() as $key => $value) {
+            if (strpos($key, 'member') === 0) {
+                echo($value);
+            }
+        }
+
+
+       /* $typ=Course::find($request->course_id)->type->description;
 
         $lesson=new Lesson();
         $lesson->course_id =$request->course_id;
@@ -191,7 +200,7 @@ class LessonController extends Controller
         $lesson->date_time=Carbon::parse($request->date_time)->format('Y-m-d H:i:s');
 
         $lesson->save();
-        return redirect()->route('lessons.index',[$typ])->with('success',trans('lesson.added'));
+        return redirect()->route('lessons.index',[$typ])->with('success',trans('lesson.added'));*/
     }
 
     /**

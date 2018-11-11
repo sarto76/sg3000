@@ -122,6 +122,7 @@ class MemberController extends Controller
     public function show($id)
     {
         $member = Member::find($id);
+        //dd($member);
         return view('admin.members.members_detail',compact('member','id'));
     }
 

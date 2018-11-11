@@ -150,7 +150,7 @@
                     remove = newRow.insertCell(5);
 
 
-                uid.innerHTML = id;
+                uid.innerHTML = "<input type=hidden value="+id+" id=member"+id+" name=member"+id+">"+id+"</input>";
                 nip.innerHTML = np;
                 firstname.innerHTML = first;
                 lastname.innerHTML = last;
@@ -158,12 +158,12 @@
                 //remove.innerHTML = "<input type='button' class='btn fa-input' value='&#xf043;'/>";
                 remove.innerHTML = "<a class='btn btn-primary'><i class='fa fa-trash-o' title='{{__('member.detach')}}'></i></a>";
 
-                var mem = document.createElement("input");
+               /* var mem = document.createElement("input");
                 mem.setAttribute("type", "hidden");
                 mem.setAttribute("name", "member" + id);
                 mem.setAttribute("id", "member" + id);
                 mem.setAttribute("value", id);
-                document.getElementById("formInsertLesson").appendChild(mem);
+                document.getElementById("formInsertLesson").appendChild(mem);*/
 
 
             }

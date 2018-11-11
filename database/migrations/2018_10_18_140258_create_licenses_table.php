@@ -15,9 +15,9 @@ class CreateLicensesTable extends Migration
     {
         Schema::create('licenses', function (Blueprint $table) {
             $table->increments('id');
-
-            $table->integer('license_type_id');
-            $table->string('text',50);
+            $table->string('description',50);
+            $table->string('long_description',200);
+            $table->integer('month_duration');
             $table->softDeletes();
 
             $table->timestamps();

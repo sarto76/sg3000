@@ -41,8 +41,4 @@ class License extends Model
         return $this->belongsToMany(Member::class)->withPivot('valid_from');
     }
 
-    public function type(){
-        return $this->belongsTo(LicenseType::class);
-    }
-
 }

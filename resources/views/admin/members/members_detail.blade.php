@@ -88,8 +88,8 @@
                                             </tr>
                                             @foreach($member->licenses as $license)
                                                 <tr>
-                                                    <td>{{\App\Models\LicenseType::find($license->license_type_id)->description}}</td>
-                                                    <td>{{\App\Models\LicenseType::find($license->license_type_id)->long_description}}</td>
+                                                    <td>{{$license->description}}</td>
+                                                    <td>{{$license->long_description}}</td>
                                                     <td>{{ \Carbon\Carbon::parse($license->pivot->valid_from)->format('d-m-Y') }}</td>
                                                 </tr>
                                             @endforeach

@@ -22,7 +22,6 @@ class DatabaseSeeder extends Seeder
                 PaymentsTableSeeder::class,
                 LicenseMemberTableSeeder::class,
                 LicensesTableSeeder::class,
-                LicenseTypeTableSeeder::class,
                 LessonLicenseMemberTableSeeder::class,
                 LessonsTableSeeder::class,
 
