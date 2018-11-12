@@ -58,6 +58,12 @@
         autoclose: true,
         language: "<?php echo Config::get('app.locale'); ?>"
     });
+
+
+    $('#dateTimePic').on('click', function(e){
+        var datetimeErrorDiv= document.getElementById('errorDateTime');
+        datetimeErrorDiv.style.display = "none";
+    })
 </script>
 
 
@@ -135,18 +141,21 @@
 
                 var newRow = actualMembers.insertRow(actualMembers.length),
                     uid = newRow.insertCell(0),
-                    nip = newRow.insertCell(1),
-                    firstname = newRow.insertCell(2),
-                    lastname = newRow.insertCell(3),
-                    birthdate = newRow.insertCell(4),
-                    remove = newRow.insertCell(5);
+                    firstname = newRow.insertCell(1),
+                    lastname = newRow.insertCell(2),
+                    allCourses= newRow.insertCell(3),
+                    remove = newRow.insertCell(4);
 
 
+
+                uid.style.width = '1%';
+                firstname.style.width = '1%';
+                lastname.style.width = '1%';
+                remove.style.width = '1%';
+                allCourses.innerHTML = "<input type=checkbox value="+id+" id=memberAllLesson"+id+" name=memberAllLesson[]> {{__('lesson.addMemberInEveryCourse')}}</input>";
                 uid.innerHTML = "<input type=hidden value="+id+" id=member"+id+" name=member"+id+">"+id+"</input>";
-                nip.innerHTML = np;
                 firstname.innerHTML = first;
                 lastname.innerHTML = last;
-                birthdate.innerHTML = birth;
                 //remove.innerHTML = "<input type='button' class='btn fa-input' value='&#xf043;'/>";
                 remove.innerHTML = "<a class='btn btn-primary'><i class='fa fa-trash-o' title='{{__('member.detach')}}'></i></a>";
             }
@@ -173,10 +182,27 @@
             datetimeErrorDiv.style.display = "block";
             datetimeErrorDiv.innerHTML= '{{__('lesson.datetimeNotPresent')}}';
 
-            //alert("Name must be filled out");
+            $('html, body').animate({
+                scrollTop: ($('#errorDateTime').offset().top - 300)
+            }, 2000);
             return false;
         }
     }
+
+
+    // Listen for click on toggle checkbox
+    $('#select-all').click(function(event) {
+        if(this.checked) {
+            // Iterate each checkbox
+            $(':checkbox').each(function() {
+                this.checked = true;
+            });
+        } else {
+            $(':checkbox').each(function() {
+                this.checked = false;
+            });
+        }
+    });
 
 
 

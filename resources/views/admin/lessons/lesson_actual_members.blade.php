@@ -22,11 +22,9 @@
                             <!-- Table Headings -->
                             <thead>
                             <th>{{__('member.id')}}</th>
-                            <th>{{__('member.nip')}}</th>
                             <th>{{__('member.firstname')}}</th>
                             <th>{{__('member.lastname')}}</th>
-                            <th>{{__('member.birthdate')}}</th>
-
+                            <th><input type="checkbox" name="select-all" id="select-all" /> {{__('member.selectAll')}}</th>
                             <th></th>
                             </thead>
 

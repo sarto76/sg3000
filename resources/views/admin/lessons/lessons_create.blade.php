@@ -40,7 +40,7 @@
                         <label for="date_time">{{__('lesson.date_time')}}</label>
                         <div class="input-append date form_datetime ">
                             <input size="16" type="text" value="{{ old('date_time') }}" readonly id="date_time" name="date_time">
-                            <span class="add-on"><i class="fa fa-calendar"></i></span>
+                            <span class="add-on" id="dateTimePic"><i class="fa fa-calendar"></i></span>
                             <div class="alert alert-danger" id="errorDateTime" style="display:none;"></div>
                         </div>
                     </div>

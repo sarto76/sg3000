@@ -186,7 +186,7 @@ class LessonController extends Controller
         ]);
 
 
-        //dd($request->all());
+       // dd($request->all());
 
         if($validator->fails()){
             return redirect()
@@ -195,7 +195,8 @@ class LessonController extends Controller
                 ->withErrors($validator);
         }
 
-        $typ=Course::find($request->course_id)->type->description;
+        $course=Course::find($request->course_id);
+        $typ=$course->type->description;
 
         $lesson=new Lesson();
         $lesson->course_id =$request->course_id;
@@ -203,21 +204,60 @@ class LessonController extends Controller
         $lesson->instructor_id =$request->instructor;
         $lesson->number=$request->number;
         $lesson->date_time=Carbon::parse($request->date_time)->format('Y-m-d H:i:s');
+        $redirectWithWarning=false;
 
         $lesson->save();
 
         foreach($request->all() as $key => $value) {
             if (strpos($key, 'member') === 0) {
-                $lessonLicenseMember=new LessonLicenseMember();
-                $lessonLicenseMember->lesson_id=$lesson->id;
-                $lessonLicenseMember->license_member_id=$value;
-                $lessonLicenseMember->save();
+                //if ckecked insert member in every lesson in the same course
+                if (isset($request->memberAllLesson)) {
+                    if (in_array($value, $request->memberAllLesson)) {
+                        foreach ($course->lessons as $less) {
+                            $lessonLicenseMember = new LessonLicenseMember();
+                            $lessonLicenseMember->lesson_id = $less->id;
+                            $lessonLicenseMember->license_member_id = $value;
+                            $lessonLicenseMember->save();
+                            //dd(count($less->LessonLicenseMember) . " ".$course->type->max_members);
+                            if(count($less->LessonLicenseMember)>$course->type->max_members){
+                                $redirectWithWarning=true;
+                            }
+                        }
+                    }
+                }
+                //if not checked insert only in this lesson
+                else{
+                    $lessonLicenseMember=new LessonLicenseMember();
+                    $lessonLicenseMember->lesson_id=$lesson->id;
+                    $lessonLicenseMember->license_member_id=$value;
+                    $lessonLicenseMember->save();
+                }
+
+
+            }
+        }
+
+        //TODO NOT WORKING
+        foreach ($course->lessons as $less) {
+
+            $inscriptions=$less->LessonLicenseMember;
+            //dd($inscriptions);
+            if(count($inscriptions)>$course->type->max_members){
+                print_r(count($less->LessonLicenseMember));
+                $redirectWithWarning=true;
+                //break;
             }
         }
 
 
 
-        return redirect()->route('lessons.index',[$typ])->with('success',trans('lesson.added'));
+        if($redirectWithWarning===true){
+            return redirect()->route('lessons.index',[$typ])->with('warning',trans('lesson.addedButToManyMembers'));
+        }
+        else
+        {
+            return redirect()->route('lessons.index',[$typ])->with('success',trans('lesson.added'));
+        }
     }
 
     /**

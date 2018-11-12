@@ -67,7 +67,7 @@
                                                 <span class="badge badge-pill badge-success">{{count($lesson->LessonLicenseMember) }}/{{$course->type->max_members }}</span>
                                                     @elseif(count($lesson->LessonLicenseMember)<($course->type->max_members))
                                                     <span class="badge badge-pill badge-warning">{{count($lesson->LessonLicenseMember) }}/{{$course->type->max_members }}</span>
-                                                @elseif(count($lesson->LessonLicenseMember)==($course->type->max_members))
+                                                @elseif(count($lesson->LessonLicenseMember)>=($course->type->max_members))
                                                     <span class="badge badge-pill badge-danger">{{count($lesson->LessonLicenseMember) }}/{{$course->type->max_members }}</span>
                                             @endif
                                             </p>
@@ -88,10 +88,11 @@
                                 </div>
                             @endforeach
 
+                                @if((count($course->lessons)<($course->type->number_lessons)))
                                 <div class="pull-right" style="display:inline;margin:2px;padding:2px;">
-
                                     <a class="btn btn-success" href="{{ route('lessons.create',['idCourse'=>$course->id,'type'=>$typ]) }}"><i class="fa fa-plus-circle" aria-hidden="true"></i></a>
                                 </div>
+                                @endif
                         </div>
                     </div>
                     <div class="form-group">

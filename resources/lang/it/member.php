@@ -47,6 +47,8 @@ return [
     'addToLesson' => 'Aggiungi',
     'actualMembers' => 'Allievi iscritti alla lezione',
     'detach' => 'Togli dalla lezione',
+    'selectAll' => 'Seleziona tutti',
+
 
 
 

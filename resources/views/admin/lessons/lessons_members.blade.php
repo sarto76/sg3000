@@ -8,7 +8,7 @@
         <div class="form-group">
         </div>
         <h6><b>{{__('member.list')}}</b></h6>
-        <table id="datatable-member" class="table table-hover table-bordered table-striped" name ="datatable">
+        <table id="datatable-member" class="table table-hover table-bordered table-striped" name ="datatable" style="width:100%">
             <thead>
             <th>{{__('member.nip')}}</th>
             <th>{{__('member.firstname')}}</th>
