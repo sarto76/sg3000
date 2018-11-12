@@ -46,6 +46,7 @@
 <script type="text/javascript">
     $(".form_datetime").datetimepicker({
         format: 'dd-mm-yyyy hh:ii',
+        autoclose: true,
         language: "<?php echo Config::get('app.locale'); ?>"
     });
 </script>

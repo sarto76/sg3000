@@ -240,8 +240,28 @@ class LessonController extends Controller
      */
     public function edit($id)
     {
-        $member = Member::find($id);
-        return view('admin.members.members_edit',compact('member','id'));
+        $lesson= Lesson::find($id);
+
+        $instructors = Instructor::select(DB::raw("CONCAT(firstname,' ',lastname)as name"),'id')
+            ->pluck('name', 'id');
+        $course=Course::find();
+        $occupedLessons=[];
+
+
+        $allLessons=range(1,$course->type->number_lessons);
+
+
+        foreach($course->lessons as $lesson) {
+            $occupedLessons[] = $lesson->number;
+        }
+        $uniqueOccupedLessons=array_unique($occupedLessons);
+        $availablesLessons = array_diff($allLessons, $uniqueOccupedLessons);
+        $availablesLessons=array_combine($availablesLessons,$availablesLessons);
+
+
+
+
+        return view('admin.lessons.members_edit',compact('lesson','id'));
     }
 
     /**
