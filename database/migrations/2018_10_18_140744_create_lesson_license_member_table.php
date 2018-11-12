@@ -17,7 +17,7 @@ class CreateLessonLicenseMemberTable extends Migration
             $table->increments('id');
 
             $table->integer('lesson_id');
-            $table->text('notes');
+            $table->text('notes')->nullable(true);
             $table->integer('license_member_id');
             $table->softDeletes();
 

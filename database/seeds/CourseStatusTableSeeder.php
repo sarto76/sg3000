@@ -18,12 +18,16 @@ class CourseStatusTableSeeder extends Seeder
 
                 [
                     'description' => 'aperto',
+                    'color' => 'green',
                 ],
                 [
                     'description' => 'chiuso',
+                    'color' => 'red',
+
                 ],
                 [
                     'description' => 'nascosto',
+                    'color' => 'orange',
                 ],
 
             ]);

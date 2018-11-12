@@ -32,6 +32,7 @@ return [
     'not_found' => 'Nessun corso trovato',
     'cannotAddMoreMembers' => 'Numero massimo di allievi per la lezione raggiunto',
     'memberPresent' => 'Allievo già presente nella lezione',
+    'datetimeNotPresent' => 'Data della lezione obbligatoria',
 
 
 ];

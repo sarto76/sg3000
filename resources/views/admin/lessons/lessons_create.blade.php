@@ -21,7 +21,7 @@
         @include('common.errors')
 
         <!-- New lesson Form -->
-            <form action="{{ route('lessons.store') }}" method="POST" class="form-horizontal " id="formInsertLesson">
+            <form action="{{ route('lessons.store') }}" method="POST" class="form-horizontal " id="formInsertLesson" name="formInsertLesson" onsubmit="return validateLessonsCreateForm()">
             {{ csrf_field() }}
 
 
@@ -41,6 +41,7 @@
                         <div class="input-append date form_datetime ">
                             <input size="16" type="text" value="{{ old('date_time') }}" readonly id="date_time" name="date_time">
                             <span class="add-on"><i class="fa fa-calendar"></i></span>
+                            <div class="alert alert-danger" id="errorDateTime" style="display:none;"></div>
                         </div>
                     </div>
                     <div class="col-sm-2">

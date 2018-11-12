@@ -103,26 +103,17 @@
         serverSide: true,
         ajax: '{{ route('lessons.getMembers') }}',
         columns: [
-            { data: 'id', name: 'id',visible : true },
             { data: 'nip', name: 'nip' },
             { data: 'firstname', name: 'firstname' },
             { data: 'lastname', name: 'lastname' },
             { data: 'birthdate', name: 'birthdate' },
+            { data: 'description', name: 'description',visible : true },
             {data: 'action', name: 'action', orderable: false, searchable: false}
 
         ],
         order: [[1, 'asc']]
     });
 
-
-/*
-    $('#datatable-member').click(function(){
-        var row_index = $(this).DT_Row_Index;
-        var col_index = $(this).index();
-        console.log('aaaa');
-        console.log(row_index);
-        alert( 'Row index: '+table.row( this ).index() );
-    });*/
 
 
     function addMemberToLesson(id,np,first,last,birth)
@@ -136,7 +127,7 @@
             present='member'+id;
 
 
-        console.log($('#'+present).length);
+        //console.log($('#'+present).length);
 
         if(!$('#'+present).length) {
             if (rowCount <= maxMembers) {
@@ -157,15 +148,6 @@
                 birthdate.innerHTML = birth;
                 //remove.innerHTML = "<input type='button' class='btn fa-input' value='&#xf043;'/>";
                 remove.innerHTML = "<a class='btn btn-primary'><i class='fa fa-trash-o' title='{{__('member.detach')}}'></i></a>";
-
-               /* var mem = document.createElement("input");
-                mem.setAttribute("type", "hidden");
-                mem.setAttribute("name", "member" + id);
-                mem.setAttribute("id", "member" + id);
-                mem.setAttribute("value", id);
-                document.getElementById("formInsertLesson").appendChild(mem);*/
-
-
             }
             else {
                 return alert('{{__('lesson.cannotAddMoreMembers')}}');
@@ -181,6 +163,19 @@
     })
 
 
+
+
+    function validateLessonsCreateForm() {
+        var dateValue = document.forms["formInsertLesson"]["date_time"].value;
+        if (dateValue == "") {
+            var datetimeErrorDiv= document.getElementById('errorDateTime');
+            datetimeErrorDiv.style.display = "block";
+            datetimeErrorDiv.innerHTML= '{{__('lesson.datetimeNotPresent')}}';
+
+            //alert("Name must be filled out");
+            return false;
+        }
+    }
 
 
 

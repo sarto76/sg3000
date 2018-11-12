@@ -27,9 +27,18 @@ class LessonController extends Controller
 
     public function getMembers()
     {
-        $members = DB::table('members')
+      /*  $members = DB::table('members')
             ->select(['id','nip','firstname','lastname', DB::raw('DATE_FORMAT(birthdate, "%d-%m-%Y") as birthdate')])
-            ->whereNull('deleted_at');
+            ->whereNull('deleted_at');*/
+
+        $members = DB::table('members')
+            ->select(['license_member.id as id','nip','firstname','lastname', DB::raw('DATE_FORMAT(birthdate, "%d-%m-%Y") as birthdate'),'description'])
+            ->join('license_member','members.id','license_member.member_id')
+            ->join ('licenses','licenses.id','license_member.license_id')
+
+            ->whereNull('members.deleted_at')
+            ->orderBy('members.lastname','asc');
+
 
         return Datatables::of($members)
             ->addIndexColumn()
@@ -95,6 +104,7 @@ class LessonController extends Controller
         $search = $request->get('search');
 
         $courses = Course::select ('courses.id','courses.course_type_id','courses.course_status_id','courses.facebook')
+            ->distinct()
             ->orderBy('courses.id','desc')
             ->join('lessons','lessons.course_id','courses.id')
             ->join('instructors','lessons.instructor_id','instructors.id')
@@ -155,7 +165,7 @@ class LessonController extends Controller
         }
         $uniqueOccupedLessons=array_unique($occupedLessons);
         $availablesLessons = array_diff($allLessons, $uniqueOccupedLessons);
-
+        $availablesLessons=array_combine($availablesLessons,$availablesLessons);
 
 
         return view('admin.lessons.lessons_create',compact('instructors','course','availablesLessons'));
@@ -174,7 +184,9 @@ class LessonController extends Controller
             'number'=> 'bail|required|max:10',
             'date_time'=> 'bail|required',
         ]);
-//dd($request->all());
+
+
+        //dd($request->all());
 
         if($validator->fails()){
             return redirect()
@@ -183,14 +195,7 @@ class LessonController extends Controller
                 ->withErrors($validator);
         }
 
-        foreach($request->all() as $key => $value) {
-            if (strpos($key, 'member') === 0) {
-                echo($value);
-            }
-        }
-
-
-       /* $typ=Course::find($request->course_id)->type->description;
+        $typ=Course::find($request->course_id)->type->description;
 
         $lesson=new Lesson();
         $lesson->course_id =$request->course_id;
@@ -200,7 +205,19 @@ class LessonController extends Controller
         $lesson->date_time=Carbon::parse($request->date_time)->format('Y-m-d H:i:s');
 
         $lesson->save();
-        return redirect()->route('lessons.index',[$typ])->with('success',trans('lesson.added'));*/
+
+        foreach($request->all() as $key => $value) {
+            if (strpos($key, 'member') === 0) {
+                $lessonLicenseMember=new LessonLicenseMember();
+                $lessonLicenseMember->lesson_id=$lesson->id;
+                $lessonLicenseMember->license_member_id=$value;
+                $lessonLicenseMember->save();
+            }
+        }
+
+
+
+        return redirect()->route('lessons.index',[$typ])->with('success',trans('lesson.added'));
     }
 
     /**
@@ -296,6 +313,12 @@ class LessonController extends Controller
 
         if(!Lesson::where('course_id', '=', $course_id)->first()){
             $course->delete();
+        }
+
+        if($actualMembers=LessonLicenseMember::where('lesson_id','=',$id)->get()){
+            foreach ($actualMembers as $actualMember) {
+                $actualMember->delete();
+            }
         }
 
 
