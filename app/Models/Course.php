@@ -21,6 +21,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property \Carbon\Carbon $updated_at
  *
  * @package App\Models
+ * @method static find($course_id)
  */
 class Course extends Model
 {

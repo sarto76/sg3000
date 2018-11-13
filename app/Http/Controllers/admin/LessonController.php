@@ -208,6 +208,11 @@ class LessonController extends Controller
 
         $lesson->save();
 
+       /* echo '<pre>';
+        print_r($request->all());
+        echo '</pre>';*/
+
+
         foreach($request->all() as $key => $value) {
             if (strpos($key, 'member') === 0) {
                 //if ckecked insert member in every lesson in the same course
@@ -218,10 +223,6 @@ class LessonController extends Controller
                             $lessonLicenseMember->lesson_id = $less->id;
                             $lessonLicenseMember->license_member_id = $value;
                             $lessonLicenseMember->save();
-                            //dd(count($less->LessonLicenseMember) . " ".$course->type->max_members);
-                            if(count($less->LessonLicenseMember)>$course->type->max_members){
-                                $redirectWithWarning=true;
-                            }
                         }
                     }
                 }
@@ -237,15 +238,14 @@ class LessonController extends Controller
             }
         }
 
-        //TODO NOT WORKING
+        $course->fresh();
+
         foreach ($course->lessons as $less) {
 
             $inscriptions=$less->LessonLicenseMember;
-            //dd($inscriptions);
             if(count($inscriptions)>$course->type->max_members){
-                print_r(count($less->LessonLicenseMember));
                 $redirectWithWarning=true;
-                //break;
+                break;
             }
         }
 
