@@ -207,6 +207,9 @@ class LessonController extends Controller
         $redirectWithWarning=false;
 
         $lesson->save();
+        $idActualLesson = $lesson->id;
+
+        //dd($request->all());
 
        /* echo '<pre>';
         print_r($request->all());
@@ -214,24 +217,45 @@ class LessonController extends Controller
 
 
         foreach($request->all() as $key => $value) {
+
+        /*    echo '<pre>';
+        print_r($key);
+            echo '<br>';
+            print_r($value);
+            echo '<br>';
+            print_r($request->all()[$key]);
+
+        echo '</pre>';
+            echo '<hr>';*/
+
             if (strpos($key, 'member') === 0) {
                 //if ckecked insert member in every lesson in the same course
                 if (isset($request->memberAllLesson)) {
                     if (in_array($value, $request->memberAllLesson)) {
                         foreach ($course->lessons as $less) {
+
                             $lessonLicenseMember = new LessonLicenseMember();
                             $lessonLicenseMember->lesson_id = $less->id;
                             $lessonLicenseMember->license_member_id = $value;
+
+                            //if I'm trying to insert the actual lesson I put the notes
+                            if($idActualLesson==$less->id && isset($request->all()[$key])){
+                                $lessonLicenseMember->notes=$request->all()[$value];
+                            }
                             $lessonLicenseMember->save();
                         }
                     }
                 }
                 //if not checked insert only in this lesson
                 else{
-                    $lessonLicenseMember=new LessonLicenseMember();
-                    $lessonLicenseMember->lesson_id=$lesson->id;
-                    $lessonLicenseMember->license_member_id=$value;
-                    $lessonLicenseMember->save();
+                    $lessonLicenseMember2=new LessonLicenseMember();
+                    $lessonLicenseMember2->lesson_id=$lesson->id;
+                    $lessonLicenseMember2->license_member_id=$value;
+
+                    if(isset($request->all()[$key])){
+                        $lessonLicenseMember2->notes=$request->all()[$value];
+                    }
+                    $lessonLicenseMember2->save();
                 }
 
 

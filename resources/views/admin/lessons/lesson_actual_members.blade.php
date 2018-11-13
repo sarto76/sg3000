@@ -17,13 +17,15 @@
 
                     <div class="form-group">
                     </div>
-                        <table class="table table-striped " id="actual-members">
+                        <table class="table table-striped" id="actual-members">
+
 
                             <!-- Table Headings -->
                             <thead>
                             <th>{{__('member.id')}}</th>
                             <th>{{__('member.firstname')}}</th>
                             <th>{{__('member.lastname')}}</th>
+                            <th>{{__('lesson.notes')}}</th>
                             <th><input type="checkbox" name="select-all" id="select-all" /> {{__('member.selectAll')}}</th>
                             <th></th>
                             </thead>

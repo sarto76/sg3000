@@ -96,6 +96,18 @@
 
 <script type="text/javascript">
 
+    var table1 = $('.datatable').DataTable({
+        responsive:true,
+        "lengthChange": false,
+        "pagingType": "numbers",
+        "info":     false,
+        "language": {
+            "url": "{{ asset('/plugins/datatables/lang').'/'.Config::get('app.locale').'.json'}}"
+        },
+    });
+
+
+
     var table = $('#datatable-member').DataTable({
         responsive:true,
         "aoColumnDefs" : [{'bSortable': true, 'aTargets': [5]},{'bSearchable': false, 'aTargets': [5]}],
@@ -143,8 +155,9 @@
                     uid = newRow.insertCell(0),
                     firstname = newRow.insertCell(1),
                     lastname = newRow.insertCell(2),
-                    allCourses= newRow.insertCell(3),
-                    remove = newRow.insertCell(4);
+                    notes= newRow.insertCell(3),
+                    allCourses= newRow.insertCell(4),
+                    remove = newRow.insertCell(5);
 
 
 
@@ -154,6 +167,7 @@
                 remove.style.width = '1%';
                 allCourses.innerHTML = "<input type=checkbox value="+id+" id=memberAllLesson"+id+" name=memberAllLesson[]> {{__('lesson.addMemberInEveryCourse')}}</input>";
                 uid.innerHTML = "<input type=hidden value="+id+" id=member"+id+" name=member"+id+">"+id+"</input>";
+                notes.innerHTML = "<textarea value="+id+" id=notes name="+id+" rows=2 cols=30></textarea>";
                 firstname.innerHTML = first;
                 lastname.innerHTML = last;
                 //remove.innerHTML = "<input type='button' class='btn fa-input' value='&#xf043;'/>";

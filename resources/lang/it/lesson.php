@@ -35,6 +35,7 @@ return [
     'datetimeNotPresent' => 'Data della lezione obbligatoria',
     'addMemberInEveryCourse' => 'Aggiungi in tutti i corsi',
     'addedButToManyMembers' => 'Allievo/i aggiunto/i a tutte le lezioni del corso ma ora una o più lezioni del corso ha troppi allievi ',
+    'notes' => 'Osservazioni',
 
 
 ];
