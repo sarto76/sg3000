@@ -44,4 +44,7 @@ class LicenseMember extends Model
     public function lessons(){
         return $this->belongsToMany(Lesson::class,'lesson_license_member','license_member_id','lesson_id')->withPivot('notes');
     }
+    public function member(){
+        return $this->belongsTo(Member::class,'member_id');
+    }
 }

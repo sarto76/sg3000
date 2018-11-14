@@ -54,7 +54,7 @@ class Lesson extends Model
     }
 
     public function status(){
-        return $this->belongsTo(CourseStatus::class);
+        return $this->belongsTo(CourseStatus::class,'course_status_id');
     }
     public function courseType(){
 

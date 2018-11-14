@@ -44,4 +44,7 @@ class LessonLicenseMember extends Model
 	];
 
 
+    public function licenseMember(){
+        return $this->belongsTo(LicenseMember::class,'license_member_id');
+    }
 }

@@ -64,19 +64,24 @@
                                             <p>{{__('instructor.instructor')}}: {{$lesson->instructor->firstname }} {{$lesson->instructor->lastname }}</p>
                                             <p style="font-size: smaller">{{__('lesson.remaining_places')}}
                                             @if(count($lesson->LessonLicenseMember)<($course->type->max_members/2))
-                                                <span class="badge badge-pill badge-success">{{count($lesson->LessonLicenseMember) }}/{{$course->type->max_members }}</span>
+                                                <span class="badge badge-pill badge-success">{{count($lesson->LessonLicenseMember) }}/{{$course->type->max_members }}
+                                                </span>
                                                     @elseif(count($lesson->LessonLicenseMember)<($course->type->max_members))
-                                                    <span class="badge badge-pill badge-warning">{{count($lesson->LessonLicenseMember) }}/{{$course->type->max_members }}</span>
+                                                    <span class="badge badge-pill badge-warning">{{count($lesson->LessonLicenseMember) }}/{{$course->type->max_members }}
+                                                    </span>
                                                 @elseif(count($lesson->LessonLicenseMember)>=($course->type->max_members))
-                                                    <span class="badge badge-pill badge-danger">{{count($lesson->LessonLicenseMember) }}/{{$course->type->max_members }}</span>
+                                                    <span class="badge badge-pill badge-danger">{{count($lesson->LessonLicenseMember) }}/{{$course->type->max_members }}
+                                                    </span>
                                             @endif
                                             </p>
-                                                <a href="/admin/lessons/{{ $lesson->id }}" class="btn btn-info btn-xs"><i class="fa fa-eye" title="{{__('lesson.show')}}"></i></a>
+                                                <a href="{{ route('lessons.show',['lesson'=>$lesson->id]) }}" class="btn btn-info btn-xs">
+                                                    <i class="fa fa-eye" title="{{__('lesson.show')}}"></i>
+                                                </a>
                                                 <a href="/admin/lessons/{{ $lesson->id }}/edit" class="btn btn-info btn-xs"><i class="fa fa-pencil" title="{{__('lesson.edit')}}"></i></a>
 
                                                 <form action="/admin/lessons/{{ $lesson->id }}" method="POST" style="display:inline;margin:0px;padding:0px;">
-                                                    {{ csrf_field() }}
-                                                    {{ method_field('DELETE') }}
+                                                    {!! method_field('DELETE') !!}
+                                                    {!! csrf_field() !!}
                                                     <button class="btn btn-danger btn-xs btn-delete" >
                                                         <i class="fa fa-trash-o" title="{{__('lesson.delete')}}"></i>
                                                     </button>
