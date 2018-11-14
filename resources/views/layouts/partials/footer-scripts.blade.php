@@ -126,7 +126,7 @@
             { data: 'firstname', name: 'firstname' },
             { data: 'lastname', name: 'lastname' },
             { data: 'birthdate', name: 'birthdate' },
-            { data: 'description', name: 'description',visible : true },
+            { data: 'description', name: 'description',visible : true , searchable: false},
             {data: 'action', name: 'action', orderable: false, searchable: false}
 
         ],
@@ -166,8 +166,8 @@
                 lastname.style.width = '1%';
                 remove.style.width = '1%';
                 allCourses.innerHTML = "<input type=checkbox value="+id+" id=memberAllLesson"+id+" name=memberAllLesson[]> {{__('lesson.addMemberInEveryCourse')}}</input>";
-                uid.innerHTML = "<input type=hidden value="+id+" id=member"+id+" name=member"+id+">"+id+"</input>";
-                notes.innerHTML = "<textarea value="+id+" id=notes name="+id+" rows=2 cols=30></textarea>";
+                uid.innerHTML = "<input type=hidden value="+id+" id=member"+id+" name=member[]>"+id+"</input>";
+                notes.innerHTML = "<textarea id=notes name=notes"+id+" rows=2 cols=30></textarea>";
                 firstname.innerHTML = first;
                 lastname.innerHTML = last;
                 //remove.innerHTML = "<input type='button' class='btn fa-input' value='&#xf043;'/>";
@@ -185,8 +185,6 @@
     $('#actual-members').on('click', 'a', function(e){
         $(this).closest('tr').remove()
     })
-
-
 
 
     function validateLessonsCreateForm() {
@@ -220,4 +218,6 @@
 
 
 
+
 </script>
+

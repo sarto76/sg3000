@@ -197,6 +197,7 @@ class LessonController extends Controller
 
         $course=Course::find($request->course_id);
         $typ=$course->type->description;
+        $previousLessonsInCourse=$course->lessons;
 
         $lesson=new Lesson();
         $lesson->course_id =$request->course_id;
@@ -208,56 +209,48 @@ class LessonController extends Controller
 
         $lesson->save();
         $idActualLesson = $lesson->id;
-
-        //dd($request->all());
-
-       /* echo '<pre>';
-        print_r($request->all());
-        echo '</pre>';*/
+        $allRequests=$request->all();
 
 
-        foreach($request->all() as $key => $value) {
+        foreach($request->member as $licenseMemberId) {
 
-        /*    echo '<pre>';
-        print_r($key);
+            $lessonLicenseMember = new LessonLicenseMember();
+            $lessonLicenseMember->lesson_id = $idActualLesson;
+            $lessonLicenseMember->license_member_id = $licenseMemberId;
+
+            //if this member has notes
+
+          /*  echo '<pre>';
+            print_r($allRequests);
             echo '<br>';
-            print_r($value);
-            echo '<br>';
-            print_r($request->all()[$key]);
-
-        echo '</pre>';
+            print_r('notes' . $licenseMemberId);
+            echo '</pre>';
             echo '<hr>';*/
+            if (array_key_exists('notes' . $licenseMemberId, $allRequests)) {
+                $lessonLicenseMember->notes = $allRequests['notes' . $licenseMemberId];
+            }
+            $lessonLicenseMember->save();
 
-            if (strpos($key, 'member') === 0) {
-                //if ckecked insert member in every lesson in the same course
-                if (isset($request->memberAllLesson)) {
-                    if (in_array($value, $request->memberAllLesson)) {
-                        foreach ($course->lessons as $less) {
+            //if one of the members should go in the others lesson of the course
+            if (isset($request->memberAllLesson)) {
+                //if this member should go in the others lesson of the course
+                if (in_array($licenseMemberId, $request->memberAllLesson)) {
+                    foreach ($previousLessonsInCourse as $less) {
 
+                        //control if there is allready the same member
+                        $llm=LessonLicenseMember::where('license_member_id',$licenseMemberId)
+                            ->where('lesson_id',$less->id)
+                            ->get();
+
+                        if($llm->isEmpty()){
                             $lessonLicenseMember = new LessonLicenseMember();
                             $lessonLicenseMember->lesson_id = $less->id;
-                            $lessonLicenseMember->license_member_id = $value;
-
-                            //if I'm trying to insert the actual lesson I put the notes
-                            if($idActualLesson==$less->id && isset($request->all()[$key])){
-                                $lessonLicenseMember->notes=$request->all()[$value];
-                            }
+                            $lessonLicenseMember->license_member_id = $licenseMemberId;
                             $lessonLicenseMember->save();
                         }
                     }
-                }
-                //if not checked insert only in this lesson
-                else{
-                    $lessonLicenseMember2=new LessonLicenseMember();
-                    $lessonLicenseMember2->lesson_id=$lesson->id;
-                    $lessonLicenseMember2->license_member_id=$value;
 
-                    if(isset($request->all()[$key])){
-                        $lessonLicenseMember2->notes=$request->all()[$value];
-                    }
-                    $lessonLicenseMember2->save();
                 }
-
 
             }
         }
@@ -272,8 +265,6 @@ class LessonController extends Controller
                 break;
             }
         }
-
-
 
         if($redirectWithWarning===true){
             return redirect()->route('lessons.index',[$typ])->with('warning',trans('lesson.addedButToManyMembers'));
