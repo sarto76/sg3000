@@ -38,9 +38,10 @@
                                                 <tr>
                                                     <th scope="row">{{__('lesson.date_time')}}</th>
                                                     <td>
-                                                        <div class="input-append date form_date">
-                                                            <input size="16" type="text" value="{{ \Carbon\Carbon::parse($lesson->date_time)->format('d-m-Y H:i') }}" readonly id="date_time" name="date_time">
-                                                            <span class="add-on"><i class="fa fa-calendar"></i></span>
+                                                        <div class="input-append date form_datetime ">
+                                                            <input size="16" type="text" value="{{ \Carbon\Carbon::parse($lesson->date_time)->format('d-m-Y h:i') }}" readonly id="date_time" name="date_time">
+                                                            <span class="add-on" id="dateTimePic"><i class="fa fa-calendar"></i></span>
+                                                            <div class="alert alert-danger" id="errorDateTime" style="display:none;"></div>
                                                         </div>
 
 
