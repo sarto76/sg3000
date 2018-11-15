@@ -88,6 +88,7 @@
                                                             <th scope="row" >{{__('member.birthdate')}}</th>
                                                             <th scope="row" >{{__('member.phone')}}</th>
                                                             <th scope="row" >{{__('lesson.notes')}}</th>
+                                                            <th scope="row" ></th>
                                                         </tr>
                                                         @foreach($lesson->LessonLicenseMember as $llm)
                                                             <tr>
@@ -100,9 +101,17 @@
                                                                     <td class="table-text"><div><a href="tel:{{ $llm->licenseMember->member->mobile }}">{{ $llm->licenseMember->member->mobile }}</a></div></td>
                                                                 @else
                                                                     <td class="table-text"><div><a href="tel:{{ $llm->licenseMember->member->phone }}">{{ $llm->licenseMember->member->phone }}</a></div></td>
-                                                            @endif
+                                                                @endif
                                                                 <td scope="row" >{{$llm->notes}}</td>
-
+                                                                <td>
+                                                                    <form class="delete" action="/admin/lessons/removeMember/{{ $llm->id }}" method="POST">
+                                                                        {{ csrf_field() }}
+                                                                        {{ method_field('DELETE') }}
+                                                                        <button class="btn btn-danger btn-xs btn-delete" >
+                                                                            <i class="fa fa-trash-o" title="{{__('lesson.delete_member_from_lesson')}}"></i>
+                                                                        </button>
+                                                                    </form>
+                                                                </td>
                                                         @endforeach
                                                     </table>
                                                 </div>

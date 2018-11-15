@@ -30,6 +30,7 @@ Route::group(['prefix' => 'admin', 'namespace' => 'admin'], function () {
     Route::get('lessons/create/{idCourse}', 'LessonController@create')->name('lessons.create');
     Route::get('lessons/index/{type}', 'LessonController@index')->name('lessons.index');
     Route::get('lessons/getMembers', 'LessonController@getMembers')->name('lessons.getMembers');
+    Route::delete('lessons/removeMember/{licenseMemberId}', 'LessonController@removeMember')->name('lessons.removeMember');
     Route::resource('lessons', 'LessonController', array('except' => array('create', 'index')));
 });
 
