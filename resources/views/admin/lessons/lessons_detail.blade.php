@@ -20,7 +20,6 @@
                         <ul class="nav nav-tabs" role="tablist">
                             <li class="nav-item"><a class="nav-link active" href="#tab1" data-toggle="tab">{{__('lesson.detail')}}</a></li>
                             <li class="nav-item"><a class="nav-link" href="#tab2" data-toggle="tab">{{__('lesson.members')}}</a></li>
-                            <li class="nav-item"><a class="nav-link" href="#tab3" data-toggle="tab">{{__('member.courses')}}</a></li>
                         </ul>
                         <div class="tab-content">
                             <div class="tab-pane active" id="tab1" role="tabpanel">
@@ -73,7 +72,8 @@
                                                     <th scope="row" >{{__('member.firstname')}}</th>
                                                     <th scope="row" >{{__('member.lastname')}}</th>
                                                     <th scope="row" >{{__('member.birthdate')}}</th>
-                                                    <th>{{__('member.phone')}}</th>
+                                                    <th scope="row" >{{__('member.phone')}}</th>
+                                                    <th scope="row" >{{__('lesson.notes')}}</th>
                                                 </tr>
                                                 @foreach($lesson->LessonLicenseMember as $llm)
                                                     <tr>
@@ -87,6 +87,7 @@
                                                         @else
                                                             <td class="table-text"><div><a href="tel:{{ $llm->licenseMember->member->phone }}">{{ $llm->licenseMember->member->phone }}</a></div></td>
                                                     @endif
+                                                        <td scope="row" >{{$llm->notes}}</td>
 
                                                 @endforeach
                                             </table>
@@ -97,21 +98,6 @@
                                     <div class="alert alert-warning">{{__('lesson.no_members')}}</div>
                                 @endif
 
-                            </div>
-                            <div class="tab-pane" id="tab3" role="tabpanel">
-                                <div class="table-responsive">
-                                    <table class="table">
-                                        <table class="table">
-                                            <tr>
-                                                <th scope="row" >{{__('member.license_description')}}</th>
-                                                <th scope="row" >{{__('member.license_long_description')}}</th>
-                                                <th scope="row" >{{__('member.license_valid_from')}}</th>
-                                            </tr>
-
-                                        </table>
-
-                                    </table>
-                                </div>
                             </div>
                             <div class="tab-pane" id="tab4" role="tabpanel">
                                 <div class="table-responsive">
@@ -126,7 +112,7 @@
             </div>
 
 
-            <a href="{{ url()->previous() }}"class="btn btn-primary"><i class="fa fa-angle-double-left"></i>{{__('general.back')}}</a>
+            <a href="{{ url()->previous()}}#{{$lesson->course->id}}"class="btn btn-primary"><i class="fa fa-angle-double-left"></i>{{__('general.back')}}</a>
         </div>
     </div>
 

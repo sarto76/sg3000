@@ -22,7 +22,7 @@ $factory->define(App\Models\Lesson::class, function (Faker $faker) {
         'date_time' => $faker->dateTime(),
         'number' => $faker->randomElement($availablesLessons),
         'instructor_id' => $faker->randomElement($instructorId),
-        'course_status_id' => $faker->numberBetween(1, 5)
+        'course_status_id' => $faker->numberBetween(1, 3)
 
     ];
 });

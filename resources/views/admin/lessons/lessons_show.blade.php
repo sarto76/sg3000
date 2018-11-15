@@ -33,7 +33,7 @@
                 @foreach ($courses as $course)
                 @if (count($course->lessons) > 0)
 
-                    <button class="btn btn-lg" type="button" data-toggle="collapse" data-target="#{{$course->id}}" aria-expanded="false" aria-controls="multiCollapseExample2"
+                    <button class="btn btn-lg" type="button" data-toggle="collapse" data-target="#{{$course->id}}"
                             style="display:inline;margin:0px;padding:0px;" title="{{__('general.expand')}}">
                     <i class="fa fa-caret-square-o-down coll"></i>
                     </button>
@@ -52,7 +52,7 @@
                     </h6>
                     <div class="form-group">
                     </div>
-                    <div class="collapse multi-collapse" id="{{$course->id}}">
+                    <div class="collapse show" id="{{$course->id}}">
                         <div class="row">
                             @foreach ($course->lessons->sortBy('number') as $lesson)
                                 <div class="col-sm-3">
