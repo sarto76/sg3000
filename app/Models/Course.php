@@ -14,7 +14,6 @@ use Illuminate\Database\Eloquent\Model;
  * 
  * @property int $id
  * @property int $course_type_id
- * @property int $course_status_id
  * @property string $facebook
  * @property string $deleted_at
  * @property \Carbon\Carbon $created_at
@@ -29,12 +28,10 @@ class Course extends Model
 
 	protected $casts = [
 		'course_type_id' => 'int',
-		'course_status_id' => 'int'
 	];
 
 	protected $fillable = [
 		'course_type_id',
-		'course_status_id',
 		'facebook'
 	];
 
@@ -47,9 +44,6 @@ class Course extends Model
         return $this->hasMany(Lesson::class,'course_id','id');
     }
 
-    public function status(){
-        return $this->belongsTo(CourseStatus::class,'course_status_id');
-    }
     public function type(){
         return $this->belongsTo(CourseType::class,'course_type_id');
     }

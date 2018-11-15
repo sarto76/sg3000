@@ -20,7 +20,7 @@ class CreateLessonsTable extends Migration
             $table->dateTime('date_time');
             $table->integer('number');
             $table->integer('instructor_id');
-            $table->integer('course_status_id');
+            $table->integer('status_id');
             $table->softDeletes();
 
             $table->timestamps();

@@ -1,8 +1,9 @@
 <?php
 
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
 
-class CourseStatusTableSeeder extends Seeder
+class StatusTableSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -12,9 +13,9 @@ class CourseStatusTableSeeder extends Seeder
     public function run()
     {
 
-        if(DB::table('course_status')->get()->count() == 0){
+        if(DB::table('status')->get()->count() == 0){
 
-            DB::table('course_status')->insert([
+            DB::table('status')->insert([
 
                 [
                     'description' => 'aperto',

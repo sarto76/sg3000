@@ -4,6 +4,8 @@ namespace App\Http\Controllers\admin;
 
 
 use App\Models\Course;
+use App\Models\Status;
+use App\Models\CourseType;
 use App\Models\Instructor;
 use App\Models\Lesson;
 use App\Models\LessonLicenseMember;
@@ -103,7 +105,7 @@ class LessonController extends Controller
         //$typ = $request->get('typ');
         $search = $request->get('search');
 
-        $courses = Course::select ('courses.id','courses.course_type_id','courses.course_status_id','courses.facebook')
+        $courses = Course::select ('courses.id','courses.course_type_id','courses.facebook')
             ->distinct()
             ->orderBy('courses.id','desc')
             ->join('lessons','lessons.course_id','courses.id')
@@ -156,6 +158,8 @@ class LessonController extends Controller
         $course=Course::find($courseId);
         $occupedLessons=[];
 
+        $status = Status::pluck('description', 'id');
+
 
         $allLessons=range(1,$course->type->number_lessons);
 
@@ -168,14 +172,14 @@ class LessonController extends Controller
         $availablesLessons=array_combine($availablesLessons,$availablesLessons);
 
 
-        return view('admin.lessons.lessons_create',compact('instructors','course','availablesLessons'));
+        return view('admin.lessons.lessons_create',compact('instructors','course','availablesLessons','status'));
     }
 
     /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function store(Request $request)
     {
@@ -197,23 +201,25 @@ class LessonController extends Controller
 
         $idActualLesson = $this->createLesson($request);
 
-        foreach($request->member as $licenseMemberId) {
+        if(isset($request->member)) {
+            foreach ($request->member as $licenseMemberId) {
 
-            $this->createLessonLicenseMember($request, $idActualLesson, $licenseMemberId);
+                $this->createLessonLicenseMember($request, $idActualLesson, $licenseMemberId);
 
-            //if one of the members should go in the others lesson of the course
-            if (isset($request->memberAllLesson)) {
-                //if this member should go in the others lesson of the course
-                if (in_array($licenseMemberId, $request->memberAllLesson)) {
-                    foreach ($previousLessonsInCourse as $less) {
+                //if one of the members should go in the others lesson of the course
+                if (isset($request->memberAllLesson)) {
+                    //if this member should go in the others lesson of the course
+                    if (in_array($licenseMemberId, $request->memberAllLesson)) {
+                        foreach ($previousLessonsInCourse as $less) {
 
-                        //control if there is allready the same member
-                        $llm=LessonLicenseMember::where('license_member_id',$licenseMemberId)
-                            ->where('lesson_id',$less->id)
-                            ->get();
+                            //control if there is allready the same member
+                            $llm = LessonLicenseMember::where('license_member_id', $licenseMemberId)
+                                ->where('lesson_id', $less->id)
+                                ->get();
 
-                        if($llm->isEmpty()){
-                            $this->createLessonLicenseMemberWithoutNotes($less, $licenseMemberId);
+                            if ($llm->isEmpty()) {
+                                $this->createLessonLicenseMemberWithoutNotes($less, $licenseMemberId);
+                            }
                         }
                     }
                 }
@@ -242,9 +248,9 @@ class LessonController extends Controller
         }
 
         if ($redirectWithWarning === true) {
-            return redirect()->route('lessons.index', [$typ])->with('warning', trans('lesson.addedButToManyMembers'));
+            return redirect()->route('lessons.index', [$typ.'#'.$course->id])->with('warning', trans('lesson.addedButToManyMembers'));
         } else {
-            return redirect()->route('lessons.index', [$typ])->with('success', trans('lesson.added'));
+            return redirect()->route('lessons.index', [$typ.'#'.$course->id])->with('success', trans('lesson.added'));
         }
     }
 
@@ -260,7 +266,7 @@ class LessonController extends Controller
     {
         $lesson = new Lesson();
         $lesson->course_id = $request->course_id;
-        $lesson->course_status_id = $request->course_status_id;
+        $lesson->status_id = $request->status;
         $lesson->instructor_id = $request->instructor;
         $lesson->number = $request->number;
         $lesson->date_time = Carbon::parse($request->date_time)->format('Y-m-d H:i:s');
@@ -318,28 +324,36 @@ class LessonController extends Controller
      */
     public function edit($id)
     {
+
+
+//dd($lessonSelectBox);
         $lesson= Lesson::find($id);
 
         $instructors = Instructor::select(DB::raw("CONCAT(firstname,' ',lastname)as name"),'id')
             ->pluck('name', 'id');
-        $course=Course::find();
+        $course=Course::find($lesson->course->id);
+        $status=Status::pluck('description','id');
         $occupedLessons=[];
 
 
         $allLessons=range(1,$course->type->number_lessons);
-
-
-        foreach($course->lessons as $lesson) {
-            $occupedLessons[] = $lesson->number;
+        foreach($course->lessons as $less) {
+            //dd($less->id);
+            if($less->id != $lesson->id) {
+                $occupedLessons[$less->id] = $less->number;
+            }
         }
+
         $uniqueOccupedLessons=array_unique($occupedLessons);
         $availablesLessons = array_diff($allLessons, $uniqueOccupedLessons);
         $availablesLessons=array_combine($availablesLessons,$availablesLessons);
 
 
 
+//dd($availablesLessons);
 
-        return view('admin.lessons.members_edit',compact('lesson','id'));
+
+        return view('admin.lessons.lessons_edit',compact('lesson','id','instructors', 'status','availablesLessons'));
     }
 
     /**
@@ -352,42 +366,28 @@ class LessonController extends Controller
     public function update(Request $request, $id)
     {
         $validator=Validator::make($request->all(),[
-            'title'=> 'bail|required|max:50',
-            'firstname' => 'bail|required|max:100',
-            'lastname'  => 'bail|required|max:100',
-            'email'     => 'bail|required|email',
-            'address'=> 'bail|required|max:100',
-            'zip'=> 'bail|required|numeric|min:1000|max:9999',
-            'city'=> 'required|max:100',
-            'phone'=> 'max:100',
-            'mobile'=> 'bail|required|max:100',
-            'work'=> 'max:100',
-            'birthdate'=> 'bail|required|date',
-
+            'number'=> 'bail|required|max:10',
+            'date_time'=> 'bail|required',
         ]);
 
-
         if($validator->fails()){
-            return redirect("members/' . $id->id . '/edit")
+            return redirect("lessons/' . $id->id . '/edit")
                 ->withInput()
                 ->withErrors($validator);
         }
         else{
-            $member = Member::find($id);
-            $member->title =$request->title;
-            $member->firstname=$request->firstname;
-            $member->lastname=$request->lastname;
-            $member->email=$request->email;
-            $member->address=$request->address;
-            $member->zip=$request->zip;
-            $member->city=$request->city;
-            $member->phone=$request->phone;
-            $member->mobile=$request->mobile;
-            $member->work=$request->work;
-            $member->birthdate=Carbon::parse($request->birthdate)->format('Y-m-d');
+            $lesson = Lesson::find($id);
+            $lesson->date_time=Carbon::parse($request->date_time)->format('Y-m-d');
+            $lesson->number =$request->number;
+            $lesson->instructor_id=$request->instructor;
+            $lesson->status_id=$request->status;
 
-            $member->save();
-            return redirect()->route('members.index')->with('success',trans('member.updated'));
+
+            $lesson->save();
+            //dd($lesson);
+            return redirect()->route('lessons.index', [$lesson->course->type->description.'#'.$lesson->course->id])->with('success',trans('lesson.updated'));
+
+
         }
 
 
@@ -420,7 +420,7 @@ class LessonController extends Controller
         }
 
 
-        return redirect()->route('lessons.index',[$typ])->with('success',trans('lesson.deleted'))->with('typ',$this->type);
+        return redirect()->route('lessons.index',[$typ.'#'.$course->id])->with('success',trans('lesson.deleted'))->with('typ',$this->type);
     }
 
 

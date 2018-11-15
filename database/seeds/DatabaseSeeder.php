@@ -22,11 +22,10 @@ class DatabaseSeeder extends Seeder
                 PaymentsTableSeeder::class,
                 LicenseMemberTableSeeder::class,
                 LicensesTableSeeder::class,
+                StatusTableSeeder::class,
                 LessonLicenseMemberTableSeeder::class,
                 LessonsTableSeeder::class,
 
-
-                CourseStatusTableSeeder::class,
 
                 /*AlbumsSeeder::class,
                 ArticlesSeeder::class,

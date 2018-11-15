@@ -16,7 +16,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property \Carbon\Carbon $date_time
  * @property int $number
  * @property int $instructor_id
- * @property int $course_status_id
+ * @property int $status_id
  * @property string $deleted_at
  * @property \Carbon\Carbon $created_at
  * @property \Carbon\Carbon $updated_at
@@ -31,7 +31,7 @@ class Lesson extends Model
 		'course_id' => 'int',
 		'number' => 'int',
 		'instructor_id' => 'int',
-		'course_status_id' => 'int'
+		'status_id' => 'int'
 	];
 
 	protected $dates = [
@@ -43,7 +43,7 @@ class Lesson extends Model
 		'date_time',
 		'number',
 		'instructor_id',
-		'course_status_id'
+		'status_id'
 	];
 
     public function LicenseMember(){
@@ -54,7 +54,7 @@ class Lesson extends Model
     }
 
     public function status(){
-        return $this->belongsTo(CourseStatus::class,'course_status_id');
+        return $this->belongsTo(Status::class,'status_id');
     }
     public function courseType(){
 

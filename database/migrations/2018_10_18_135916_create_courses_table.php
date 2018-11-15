@@ -17,7 +17,6 @@ class CreateCoursesTable extends Migration
             $table->increments('id');
 
             $table->integer('course_type_id');
-            $table->integer('course_status_id');
             $table->string('facebook',50);
             $table->softDeletes();
 

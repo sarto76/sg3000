@@ -9,7 +9,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 
 /**
- * Class CourseStatus
+ * Class Status
  * 
  * @property int $id
  * @property string $description
@@ -19,10 +19,10 @@ use Illuminate\Database\Eloquent\Model;
  *
  * @package App\Models
  */
-class CourseStatus extends Model
+class Status extends Model
 {
 	use \Illuminate\Database\Eloquent\SoftDeletes;
-	protected $table = 'course_status';
+	protected $table = 'status';
 
 	protected $fillable = [
 		'description'
@@ -32,7 +32,5 @@ class CourseStatus extends Model
         return $this->hasMany(Lesson::class);
     }
 
-    public function courses(){
-        return $this->hasMany(Course::class);
-    }
+
 }

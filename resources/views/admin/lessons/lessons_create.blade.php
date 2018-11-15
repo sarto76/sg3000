@@ -48,6 +48,10 @@
                         <label for="number">{{__('lesson.number')}}</label><p>
                         {!! Form::select('number', $availablesLessons, null) !!}
                     </div>
+                    <div class="col-sm-3">
+                        <label for="status">{{__('lesson.status')}}</label><p>
+                        {!! Form::select('status', $status, null) !!}
+                    </div>
                 </div>
 
 
@@ -64,7 +68,6 @@
 
                 <div class="form-group">
                 </div>
-                <input type="hidden" name="course_status_id" value="{{ $course->course_status_id }}">
                 <input type="hidden" name="course_id" value="{{ $course->id }}">
                 <input type="hidden" name="_token" value="{{ Session::token() }}">
                 <!-- Add lesson Button -->

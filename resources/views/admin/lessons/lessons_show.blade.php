@@ -38,10 +38,6 @@
                     <i class="fa fa-caret-square-o-down coll"></i>
                     </button>
                     <h6 style="display:inline;margin:0px;padding:0px;"><b>&nbsp;
-
-                            <div class="pull-right">
-                            <i class="fa fa-circle" aria-hidden="true" style="color:{{$course->status->color}};" title="{{$course->status->description}}"></i>
-                            </div>
                             #{{$course->id}}
                             {{__('lesson.course').' '.$course->type->description}}
                             {{__('lesson.of')}}
@@ -58,8 +54,11 @@
                                 <div class="col-sm-3">
                                     <div class="card">
                                         <div class="card-body">
+                                            <div class="pull-right">
+                                                <i class="fa fa-circle" aria-hidden="true" style="color:{{$lesson->status->color}};" title="{{$lesson->status->description}}"></i>
+                                            </div>
                                             <h6 class="card-title">#{{$lesson->id}}</h6>
-                                            <h6 class="card-title">{{__('lesson.lesson')}} {{__('lesson.number')}} {{$lesson->number}}</h6>
+                                            <h6 class="card-title">{{__('lesson.number')}}: {{$lesson->number}}</h6>
                                             <h7 class="card-subtitle mb-2 text-muted">{{\Carbon\Carbon::parse($lesson->date_time)->format('d-m-Y H:i') }}</h7>
                                             <p>{{__('instructor.instructor')}}: {{$lesson->instructor->firstname }} {{$lesson->instructor->lastname }}</p>
                                             <p style="font-size: smaller">{{__('lesson.remaining_places')}}
@@ -77,7 +76,7 @@
                                                 <a href="{{ route('lessons.show',['lesson'=>$lesson->id]) }}" class="btn btn-info btn-xs">
                                                     <i class="fa fa-eye" title="{{__('lesson.show')}}"></i>
                                                 </a>
-                                                <a href="/admin/lessons/{{ $lesson->id }}/edit" class="btn btn-info btn-xs"><i class="fa fa-pencil" title="{{__('lesson.edit')}}"></i></a>
+                                                <a href="{{ route('lessons.edit',['lesson'=>$lesson->id]) }}" class="btn btn-info btn-xs"><i class="fa fa-pencil" title="{{__('lesson.edit')}}"></i></a>
 
                                                 <form action="/admin/lessons/{{ $lesson->id }}" method="POST" style="display:inline;margin:0px;padding:0px;">
                                                     {!! method_field('DELETE') !!}
