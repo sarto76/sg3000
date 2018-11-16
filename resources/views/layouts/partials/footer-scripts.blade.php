@@ -38,6 +38,7 @@
                 "url": "{{ asset('/plugins/datatables/lang').'/'.Config::get('app.locale').'.json'}}"
             }
         });
+        $('#tabMenu a[href="#{{ old('tab') }}"]').tab('show');
     });
 
 </script>

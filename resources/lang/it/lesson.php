@@ -39,7 +39,7 @@ return [
     'num_members' => 'Numero allievi iscritti',
     'members' => 'Allievi iscritti',
     'no_members' => 'Nessun allievo iscritto',
-    'delete_member_from_lesson' => 'Togli dalla lezione',
+    'remove_member_from_lesson' => 'Togli dalla lezione',
     'memberRemoved' => 'Allievo eliminato dalla lezione',
 
 

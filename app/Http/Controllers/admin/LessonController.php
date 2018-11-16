@@ -385,8 +385,10 @@ class LessonController extends Controller
 
             $lesson->save();
             //dd($lesson);
-            return redirect()->route('lessons.index', [$lesson->course->type->description.'#'.$lesson->course->id])->with('success',trans('lesson.updated'));
 
+            //return redirect()->route('lessons.index', [$lesson->course->type->description.'#'.$lesson->course->id])->with('success',trans('lesson.updated'));
+
+            return redirect()->route('lessons.edit',['lesson'=>$lesson->id])->with('id',trans('lesson.updated'));
 
         }
 
@@ -419,18 +421,21 @@ class LessonController extends Controller
             }
         }
 
-
         return redirect()->route('lessons.index',[$typ.'#'.$course->id])->with('success',trans('lesson.deleted'))->with('typ',$this->type);
     }
 
     public function removeMember($licenseMemberId)
     {
         $lessonLicenseMember=LessonLicenseMember::findOrFail($licenseMemberId);
-        $type=$lessonLicenseMember->lesson->course->type->description;
-        $courseId=$lessonLicenseMember->lesson->course->id;
+        //dd($lessonLicenseMember);
+        $lesson=$lessonLicenseMember->lesson;
+        //$type=$lesson->course->type->description;
+        //$courseId=$lessonLicenseMember->lesson->course->id;
         $lessonLicenseMember->delete();
 
-        return redirect()->route('lessons.index',[$type.'#'.$courseId])->with('success',trans('lesson.memberRemoved'))->with('typ',$type);
+        //return redirect()->route('lessons.index',[$type.'#'.$courseId])->with('success',trans('lesson.memberRemoved'))->with('typ',$type);
+        return redirect()->route('lessons.edit',['lesson'=>$lesson->id])->with('id',trans('lesson.memberRemoved'))->withInput(['tab'=>'tab2']);
+        //return view('admin.lessons.lessons_edit',compact('lesson'))->with('success',trans('lesson.memberRemoved'))->with('typ',$type);
     }
 
 
