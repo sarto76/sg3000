@@ -41,6 +41,7 @@ return [
     'no_members' => 'Nessun allievo iscritto',
     'remove_member_from_lesson' => 'Togli dalla lezione',
     'memberRemoved' => 'Allievo eliminato dalla lezione',
+    'addMember' => 'Aggiungi allievo',
 
 
 
