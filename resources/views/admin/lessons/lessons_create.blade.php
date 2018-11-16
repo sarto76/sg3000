@@ -61,8 +61,19 @@
                 <div class="form-group">
                 </div>
                 <div class="row">
+                    <div class="container" style="background-color: #f2f4f7;">
+                        <div class="panel-body">
 
+                            <div class="form-group">
+                            </div>
+
+                            <hr>
+                            <div class="form-group">
+                            </div>
+                            <h6><b>{{__('member.list')}}</b></h6>
                             @include('admin.lessons.lessons_members')
+                        </div>
+                    </div>
                 </div>
 
 
