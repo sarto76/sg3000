@@ -227,10 +227,11 @@
 
         $.ajax({
             method: 'POST', // Type of response and matches what we said in the route
-            url: '/admin/lessons/addMember/{licenseMemberId}', // This is the url we gave in the route
+            url: '/admin/lessons/addMember/licenseMemberId', // This is the url we gave in the route
             data: {'licenseMemberId' : id},
             success: function(response){ // What to do if we succeed
                 console.log(response);
+                location.reload();
             },
             error: function(jqXHR, textStatus, errorThrown) { // What to do if we fail
                 console.log(JSON.stringify(jqXHR));
@@ -239,10 +240,6 @@
         });
 
     }
-
-
-
-
 
 
 

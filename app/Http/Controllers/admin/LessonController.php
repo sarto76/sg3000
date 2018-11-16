@@ -88,10 +88,18 @@ class LessonController extends Controller
     public function addMember(Request $request)
     {
 
-        $licenseMember=LicenseMember::find($request->licenseMemberId);
+        //$licenseMember=LicenseMember::find($request->licenseMemberId);
         $lessonLicenseMember=new LessonLicenseMember();
 
 
+        $lessonId = $request->session()->get('lessonId',1);
+
+        //echo($lessonId);
+        $lessonLicenseMember->lesson_id=$lessonId;
+        $lessonLicenseMember->license_member_id=$request->licenseMemberId;
+        $lessonLicenseMember->save();
+        return response()->json([ 'user_saved' => $lessonLicenseMember ]);
+        //return redirect()->route('lessons.edit',['lesson'=>$lessonId])->with('id',trans('lesson.memberAdded'))->withInput(['tab'=>'tab2']);
     }
 
 
@@ -357,8 +365,10 @@ class LessonController extends Controller
     {
 
 
+        session(['lessonId' => $id]);
 //dd($lessonSelectBox);
         $lesson= Lesson::find($id);
+
 
         $instructors = Instructor::select(DB::raw("CONCAT(firstname,' ',lastname)as name"),'id')
             ->pluck('name', 'id');
