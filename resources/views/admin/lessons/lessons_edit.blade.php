@@ -25,6 +25,7 @@
                                 <div class="tab-content">
                                         <div class="tab-pane active" id="tab1" role="tabpanel">
                                             <form method="POST" action="{{ route('lessons.update', ['lesson' => $id]) }}" data-parsley-validate class="form-horizontal form-label-left">
+                                                <p hidden id="maxMembers">{{$lesson->course->type->max_members}}</p>
                                                 {{ csrf_field() }}
                                                 <input name="_method" type="hidden" value="PUT">
                                                 <div class="table-responsive">
@@ -86,7 +87,7 @@
                                         @if(count($lesson->LessonLicenseMember)>0)
 
                                                 <div class="table-responsive">
-                                                    <table class="table">
+                                                    <table class="table" id="actual-members">
                                                         <tr>
                                                             <th scope="row" ># {{__('member.id')}}</th>
                                                             <th scope="row" >{{__('member.nip')}}</th>
@@ -123,11 +124,31 @@
                                                     </table>
                                                 </div>
 
+
+
                                         @else
                                             <div class="form-group"></div>
                                             <div class="alert alert-warning">{{__('lesson.no_members')}}</div>
                                         @endif
                                             <a href="{{ route('lessons.index',['type'=>$lesson->course->type->description]) }}#{{$lesson->course->id}}"class="btn btn-primary"><i class="fa fa-angle-double-left"></i>{{__('general.back')}}</a>&nbsp;
+                                            <a href="#" class="btn btn-primary" id="showMembers"><i class="fa"></i>{{__('lesson.addMember')}}</a>&nbsp;
+
+                                            <div class="panel-body" id="allMembers" style="display: none;">
+
+                                                <div class="form-group">
+                                                </div>
+
+                                                <hr>
+                                                <div class="form-group">
+                                                </div>
+                                                <h6><b>{{__('member.list')}}</b></h6>
+                                                @include('admin.lessons.lessons_members_direct')
+                                            </div>
+
+
+
+
+
 
                                     </div>
                                 </div>
@@ -137,6 +158,8 @@
 
             </div>
     </div>
+
+
 
 
 @endsection

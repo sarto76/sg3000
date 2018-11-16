@@ -113,6 +113,7 @@
         responsive:true,
         "aoColumnDefs" : [{'bSortable': true, 'aTargets': [5]},{'bSearchable': false, 'aTargets': [5]}],
         "pageLength": 5,
+        "autoWidth": true,
         "lengthChange": false,
         "pagingType": "first_last_numbers",
         "info":     false,
@@ -136,6 +137,7 @@
 
 
 
+
     function addMemberToLesson(id,np,first,last,birth)
     {
         //console.log(first);
@@ -147,7 +149,7 @@
             present='member'+id;
 
 
-        //console.log($('#'+present).length);
+        //console.log(actualMembers);
 
         if(!$('#'+present).length) {
             if (rowCount <= maxMembers) {
@@ -182,6 +184,67 @@
             return alert('{{__('lesson.memberPresent')}}');
         }
     }
+
+
+    var table = $('#datatable-member-direct').DataTable({
+        responsive:true,
+        "aoColumnDefs" : [{'bSortable': true, 'aTargets': [5]},{'bSearchable': false, 'aTargets': [5]}],
+        "pageLength": 5,
+        "autoWidth": true,
+        "lengthChange": false,
+        "pagingType": "first_last_numbers",
+        "info":     false,
+        "language": {
+            "url": "{{ asset('/plugins/datatables/lang').'/'.Config::get('app.locale').'.json'}}"
+        },
+        processing: true,
+        serverSide: true,
+        ajax: '{{ route('lessons.getMembersDirect') }}',
+        columns: [
+            { data: 'nip', name: 'nip' },
+            { data: 'firstname', name: 'firstname' },
+            { data: 'lastname', name: 'lastname' },
+            { data: 'birthdate', name: 'birthdate' },
+            { data: 'description', name: 'description',visible : true , searchable: false},
+            {data: 'action', name: 'action', orderable: false, searchable: false}
+
+        ],
+        order: [[1, 'asc']]
+    });
+
+
+
+
+    function addMemberToLessonDirect(id)
+    {
+        console.log(id);
+
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+
+        $.ajax({
+            method: 'POST', // Type of response and matches what we said in the route
+            url: '/admin/lessons/addMember/{licenseMemberId}', // This is the url we gave in the route
+            data: {'licenseMemberId' : id},
+            success: function(response){ // What to do if we succeed
+                console.log(response);
+            },
+            error: function(jqXHR, textStatus, errorThrown) { // What to do if we fail
+                console.log(JSON.stringify(jqXHR));
+                console.log("AJAX error: " + textStatus + ' : ' + errorThrown);
+            }
+        });
+
+    }
+
+
+
+
+
+
 
     $('#actual-members').on('click', 'a', function(e){
         $(this).closest('tr').remove()
@@ -218,5 +281,11 @@
     });
 
 
+    $('#showMembers').click(function() {
+        $("#allMembers").toggle( "slow" );
+        $('html, body').animate({
+            scrollTop: ($('#allMembers').offset().top - 300)
+        }, 2000);
+    });
 
 </script>

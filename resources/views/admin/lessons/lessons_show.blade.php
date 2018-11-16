@@ -31,8 +31,7 @@
                     </div>
 
                 @foreach ($courses as $course)
-                @if (count($course->lessons) > 0)
-
+            @if (count($course->lessons) > 0)
                     <button class="btn btn-lg" type="button" data-toggle="collapse" data-target="#{{$course->id}}"
                             style="display:inline;margin:0px;padding:0px;" title="{{__('general.expand')}}">
                     <i class="fa fa-caret-square-o-down coll"></i>

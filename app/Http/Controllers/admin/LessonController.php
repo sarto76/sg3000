@@ -4,6 +4,7 @@ namespace App\Http\Controllers\admin;
 
 
 use App\Models\Course;
+use App\Models\LicenseMember;
 use App\Models\Status;
 use App\Models\CourseType;
 use App\Models\Instructor;
@@ -23,8 +24,6 @@ class LessonController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    protected $type;
-
 
 
     public function getMembers()
@@ -64,23 +63,55 @@ class LessonController extends Controller
          class="btn btn-info btn-xs"><i class="fa fa-arrow-up" title="Add to lesson"></i></a>'; })->make(true);*/
     }
 
+    public function getMembersDirect()
+    {
+        $members = DB::table('members')
+            ->select(['license_member.id as id','nip','firstname','lastname', DB::raw('DATE_FORMAT(birthdate, "%d-%m-%Y") as birthdate'),'description'])
+            ->join('license_member','members.id','license_member.member_id')
+            ->join ('licenses','licenses.id','license_member.license_id')
+
+            ->whereNull('members.deleted_at')
+            ->orderBy('members.lastname','asc');
+
+
+        return Datatables::of($members)
+            ->addIndexColumn()
+            ->addColumn('action', function ($member) {
+
+
+                $clic="addMemberToLessonDirect($member->id)";
+                $link='<a onclick="'.$clic.'" class="btn btn-info btn-xs"><i class="fa fa-arrow-up" title="Add to lesson"></i></a>';
+                return $link;})->make(true);
+
+    }
+
+    public function addMember(Request $request)
+    {
+
+        $licenseMember=LicenseMember::find($request->licenseMemberId);
+        $lessonLicenseMember=new LessonLicenseMember();
+
+
+    }
+
+
     public function index($typ)
     {
-     /*   $typ = $request->get('typ');
 
-        if(empty($typ)){
-            $typ=$request->session()->get('typ');
-        }*/
-        $this->type=$typ;
-
-        //DB::enableQueryLog();
-
-
-        $courses=Course::orderBy('id','desc')
+        /*$courses=Course::orderBy('id','desc')
             ->with('type')
             ->whereHas('type',function($q) use ($typ){
                 $q->where('description','=',$typ);
             })
+            ->paginate(10);*/
+
+
+
+        $courses = Course::select ('courses.id','courses.course_type_id','courses.facebook')
+            ->orderBy('courses.id','desc')
+            ->join('lessons','lessons.course_id','courses.id')
+            ->join('course_type','courses.course_type_id','course_type.id')
+            ->where('course_type.description','=', $typ)
             ->paginate(10);
 
        /*      dd($list);
@@ -405,11 +436,9 @@ class LessonController extends Controller
     public function destroy($id)
     {
         $lesson=Lesson::findOrFail($id);
-        $this->type=$lesson->course->type->description;
         $course_id=$lesson->course_id;
         $lesson->delete();
         $course=Course::find($course_id);
-        $typ=$course->type->description;
 
         if(!Lesson::where('course_id', '=', $course_id)->first()){
             $course->delete();
@@ -421,7 +450,7 @@ class LessonController extends Controller
             }
         }
 
-        return redirect()->route('lessons.index',[$typ.'#'.$course->id])->with('success',trans('lesson.deleted'))->with('typ',$this->type);
+        return redirect()->route('lessons.index',[$course->type->description.'#'.$course->id])->with('success',trans('lesson.deleted'))->with('typ',$lesson->course->type->description);
     }
 
     public function removeMember($licenseMemberId)
