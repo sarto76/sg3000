@@ -131,7 +131,15 @@
                                             <div class="alert alert-warning">{{__('lesson.no_members')}}</div>
                                         @endif
                                             <a href="{{ route('lessons.index',['type'=>$lesson->course->type->description]) }}#{{$lesson->course->id}}"class="btn btn-primary"><i class="fa fa-angle-double-left"></i>{{__('general.back')}}</a>&nbsp;
-                                            <a href="#" class="btn btn-primary" id="showMembers"><i class="fa"></i>{{__('lesson.addMember')}}</a>&nbsp;
+
+
+                                            <button
+                                                    type="button"
+                                                    class="btn btn-primary"
+                                                    data-toggle="modal"
+                                                    data-target="#membersModal">
+                                                {{__('lesson.addMember')}}
+                                            </button>
 
                                             <div class="panel-body" id="allMembers" style="display: none;">
 
@@ -142,7 +150,7 @@
                                                 <div class="form-group">
                                                 </div>
                                                 <h6><b>{{__('member.list')}}</b></h6>
-                                                @include('admin.lessons.lessons_members_direct')
+                                         {{-- @include('admin.lessons.lessons_members_direct') --}}
                                             </div>
 
 
@@ -160,6 +168,6 @@
     </div>
 
 
-
+    @include('admin.lessons.lessons_members_direct')
 
 @endsection

@@ -187,7 +187,11 @@
 
 
     var table = $('#datatable-member-direct').DataTable({
-        responsive:true,
+        responsive: {
+            details: {
+                renderer: $.fn.dataTable.Responsive.renderer.tableAll()
+            }
+        },
         "aoColumnDefs" : [{'bSortable': true, 'aTargets': [5]},{'bSearchable': false, 'aTargets': [5]}],
         "pageLength": 5,
         "autoWidth": true,
@@ -204,14 +208,18 @@
             { data: 'nip', name: 'nip' },
             { data: 'firstname', name: 'firstname' },
             { data: 'lastname', name: 'lastname' },
-            { data: 'birthdate', name: 'birthdate' },
-            { data: 'description', name: 'description',visible : true , searchable: false},
+            { data: 'birthdate', name: 'birthdate' ,visible : false},
+            { data: 'description', name: 'description',visible : false , searchable: false},
             {data: 'action', name: 'action', orderable: false, searchable: false}
 
         ],
         order: [[1, 'asc']]
     });
 
+    $('#membersModal').on('shown.bs.modal', function (e) {
+        table.columns.adjust()
+        table.responsive.recalc();
+    });
 
 
 
@@ -231,7 +239,9 @@
             data: {'licenseMemberId' : id},
             success: function(response){ // What to do if we succeed
                 console.log(response);
+                location.hash = '#tab2';
                 location.reload();
+
             },
             error: function(jqXHR, textStatus, errorThrown) { // What to do if we fail
                 console.log(JSON.stringify(jqXHR));
