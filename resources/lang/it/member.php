@@ -48,7 +48,7 @@ return [
     'actualMembers' => 'Allievi iscritti alla lezione',
     'detach' => 'Togli dalla lezione',
     'selectAll' => 'Seleziona tutti',
-
+    'no_inscriptions' => 'Nessuna iscrizione con questa licenza',
 
 
 

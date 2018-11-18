@@ -82,6 +82,11 @@ class Member extends Model
         return $this->belongsToMany(License::class)->withPivot('valid_from','id');
     }
 
+    public function licenseMember(){
+        return $this->hasMany(LicenseMember::class,'member_id','id');
+    }
+
+
 
 
 }

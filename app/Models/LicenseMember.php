@@ -47,4 +47,10 @@ class LicenseMember extends Model
     public function member(){
         return $this->belongsTo(Member::class,'member_id');
     }
+    public function lessonLicenseMember(){
+        return $this->hasMany(LessonLicenseMember::class,'license_member_id','id');
+    }
+    public function license(){
+        return $this->belongsTo(License::class,'license_id');
+    }
 }

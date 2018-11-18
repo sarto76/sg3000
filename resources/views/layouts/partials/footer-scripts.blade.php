@@ -240,7 +240,16 @@
             success: function(response){ // What to do if we succeed
                 console.log(response);
                 location.hash = '#tab2';
-                location.reload();
+
+                //$('a[href="#tab1"]').trigger('click');
+                $('a[href="#tab2"]').trigger('click');
+                //location.reload();
+                $('a[href="#tab2"]').trigger('click');
+                //$("#tab1").removeClass("active");
+               // $("#tab2").addClass("active");
+               // classi=$("#tab2").attr("class");
+               // console.log(classi);
+
 
             },
             error: function(jqXHR, textStatus, errorThrown) { // What to do if we fail

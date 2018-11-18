@@ -122,8 +122,11 @@ class MemberController extends Controller
     public function show($id)
     {
         $member = Member::find($id);
+        $licenseMember=$member->licenseMember;
+       // dd($licenseMember[1]->lessonLicenseMember);
+
         //dd($member);
-        return view('admin.members.members_detail',compact('member','id'));
+        return view('admin.members.members_detail',compact('member','id','licenseMember'));
     }
 
     /**

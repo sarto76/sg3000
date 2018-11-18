@@ -2,7 +2,9 @@
 
 return [
     'id'=> 'ID',
-    'description' => 'Licenza'
+    'description' => 'Licenza',
+    'category' => 'Categoria licenza',
+    'issued' => 'emessa il'
 
 
 ];

@@ -101,31 +101,44 @@
                                 </div>
                             </div>
                             <div class="tab-pane" id="tab3" role="tabpanel">
-                                <div class="table-responsive">
-                                    <table class="table">
-                                        <table class="table">
-                                            <tr>
-                                                <th scope="row" >{{__('member.license_description')}}</th>
-                                                <th scope="row" >{{__('member.license_long_description')}}</th>
-                                                <th scope="row" >{{__('member.license_valid_from')}}</th>
-                                            </tr>
-                                            @foreach($member->licenses as $license)
-                                                <tr>
+                                @if (count($licenseMember) > 0)
+                                    @foreach($licenseMember as $license)
+                                        @if (count($license->lessonLicenseMember) > 0)
+                                            <div class="form-group"></div>
+                                            <h5>{{__('license.description')}}: {{$license->license->description}}
+                                                {{__('license.issued')}}
+                                                {{ \Carbon\Carbon::parse($license->valid_from)->format('d-m-Y H:i') }}
+                                            </h5>
+                                            <div class="form-group"></div>
+                                            <div class="table-responsive">
+                                                <table class="table">
+                                                    <tr>
+                                                        <th scope="row">{{__('lesson.type')}}</th>
+                                                        <th scope="row">{{__('lesson.number')}}</th>
+                                                        <th scope="row">{{__('lesson.notes')}}</th>
+                                                        <th scope="row">{{__('member.license_valid_from')}}</th>
+                                                    </tr>
 
-                                                </tr>
-                                            @endforeach
-                                        </table>
+                                                    @foreach($license->lessonLicenseMember as $inscription )
 
-                                    </table>
-                                </div>
+                                                        <tr>
+                                                            <td>{{$inscription->lesson->course->type->description}}</td>
+                                                            <td>{{$inscription->lesson->number}}</td>
+                                                            <td>{{$inscription->notes}}</td>
+                                                            <td>{{ \Carbon\Carbon::parse($inscription->valid_from)->format('d-m-Y H:i') }}</td>
+                                                        </tr>
+                                                    @endforeach
+
+                                                </table>
+                                            </div>
+                                        @endif
+                                    @endforeach
+                                @else
+                                    <div class="form-group"></div>
+                                    <div class="alert alert-warning">{{__('member.no_license')}}</div>
+                                @endif
                             </div>
-                            <div class="tab-pane" id="tab4" role="tabpanel">
-                                <div class="table-responsive">
-                                    <table class="table">
 
-                                    </table>
-                                </div>
-                            </div>
                         </div>
                     </div>
                 </div>

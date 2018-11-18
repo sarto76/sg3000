@@ -98,8 +98,8 @@ class LessonController extends Controller
         $lessonLicenseMember->lesson_id=$lessonId;
         $lessonLicenseMember->license_member_id=$request->licenseMemberId;
         $lessonLicenseMember->save();
-        return response()->json([ 'user_saved' => $lessonLicenseMember ]);
-        //return redirect()->route('lessons.edit',['lesson'=>$lessonId])->with('id',trans('lesson.memberAdded'))->withInput(['tab'=>'tab2']);
+       // return response()->json([ 'user_saved' => $lessonLicenseMember ]);
+        return redirect()->route('lessons.edit',['lesson'=>$lessonId])->with('id',trans('lesson.memberAdded'))->withInput(['tab'=>'tab2']);
     }
 
 
