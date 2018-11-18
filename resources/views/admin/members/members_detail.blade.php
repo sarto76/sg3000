@@ -105,31 +105,55 @@
                                     @foreach($licenseMember as $license)
                                         @if (count($license->lessonLicenseMember) > 0)
                                             <div class="form-group"></div>
-                                            <h5>{{__('license.description')}}: {{$license->license->description}}
+                                            <h6 style="display:inline;margin:0px;padding:0px;"><b>&nbsp;
+                                                {{__('license.description')}}: {{$license->license->description}}
                                                 {{__('license.issued')}}
                                                 {{ \Carbon\Carbon::parse($license->valid_from)->format('d-m-Y H:i') }}
-                                            </h5>
+                                                </b>
+                                            </h6>
                                             <div class="form-group"></div>
                                             <div class="table-responsive">
-                                                <table class="table">
-                                                    <tr>
-                                                        <th scope="row">{{__('lesson.type')}}</th>
-                                                        <th scope="row">{{__('lesson.number')}}</th>
-                                                        <th scope="row">{{__('lesson.notes')}}</th>
-                                                        <th scope="row">{{__('member.license_valid_from')}}</th>
-                                                    </tr>
 
-                                                    @foreach($license->lessonLicenseMember as $inscription )
+                                                    @foreach($license->lessonLicenseMember->sortBy('lesson_id') as $inscription )
 
-                                                        <tr>
-                                                            <td>{{$inscription->lesson->course->type->description}}</td>
-                                                            <td>{{$inscription->lesson->number}}</td>
-                                                            <td>{{$inscription->notes}}</td>
-                                                            <td>{{ \Carbon\Carbon::parse($inscription->valid_from)->format('d-m-Y H:i') }}</td>
-                                                        </tr>
+
+
+
+                                                        <div class="col-sm-3">
+                                                            <div class="card">
+                                                                <div class="card-body">
+                                                                    <div class="pull-right">
+                                                                        <i class="fa fa-circle" aria-hidden="true" style="color:{{$inscription->lesson->status->color}};" title="{{$inscription->lesson->status->description}}"></i>
+                                                                    </div>
+                                                                    <h6 class="card-title">{{$inscription->lesson->course->type->description}}</h6>
+                                                                    <h6 class="card-title">{{__('lesson.number')}}: {{$inscription->lesson->number}}</h6>
+                                                                    <h7 class="card-subtitle mb-2 text-muted">{{__('lesson.notes')}}: {{$inscription->notes }}</h7>
+                                                                    <p>
+                                                                    </p>
+                                                                    <a href="{{ route('lessons.show',['lesson'=>$inscription->lesson->id]) }}" class="btn btn-info btn-xs">
+                                                                        <i class="fa fa-eye" title="{{__('lesson.show')}}"></i>
+                                                                    </a>
+                                                                    <a href="{{ route('lessons.edit',['lesson'=>$inscription->lesson->id]) }}" class="btn btn-info btn-xs"><i class="fa fa-pencil" title="{{__('lesson.edit')}}"></i></a>
+
+                                                                    <form action="/admin/lessons/{{ $inscription->lesson->id }}" method="POST" style="display:inline;margin:0px;padding:0px;">
+                                                                        {!! method_field('DELETE') !!}
+                                                                        {!! csrf_field() !!}
+                                                                        <button class="btn btn-danger btn-xs btn-delete" >
+                                                                            <i class="fa fa-trash-o" title="{{__('lesson.delete')}}"></i>
+                                                                        </button>
+                                                                    </form>
+
+
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    <div class="form-group"></div>
+
+
+
                                                     @endforeach
 
-                                                </table>
+
                                             </div>
                                         @endif
                                     @endforeach
