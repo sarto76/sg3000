@@ -133,14 +133,18 @@ class MemberController extends Controller
 
         //dd($licenseMemberId);
 
-        $courses = Course::select ('courses.id','courses.course_type_id','courses.facebook')
+        $courses = Course::select ('courses.id','courses.course_type_id','courses.facebook','licenses.description')
             ->distinct('courses.id')
             ->orderBy('courses.id','desc')
             ->join('lessons','lessons.course_id','courses.id')
             ->join('course_type','courses.course_type_id','course_type.id')
             ->join('lesson_license_member','lessons.id','lesson_license_member.lesson_id')
+            ->join('license_member','license_member.id','lesson_license_member.license_member_id')
+            ->join('licenses','licenses.id','license_member.license_id')
             ->whereIn('lesson_license_member.license_member_id',$licenseMemberId)
             ->paginate(10);
+
+        //dd($courses);
 
        /* $lessonsId=LessonLicenseMember::select('lesson_id')
             ->distinct('lesson_id')

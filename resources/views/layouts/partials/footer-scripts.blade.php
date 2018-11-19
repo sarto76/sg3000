@@ -239,17 +239,43 @@
             data: {'licenseMemberId' : id},
             success: function(response){ // What to do if we succeed
                 console.log(response);
-                location.hash = '#tab2';
 
-                //$('a[href="#tab1"]').trigger('click');
-                $('a[href="#tab2"]').trigger('click');
-                //location.reload();
-                $('a[href="#tab2"]').trigger('click');
-                //$("#tab1").removeClass("active");
-               // $("#tab2").addClass("active");
-               // classi=$("#tab2").attr("class");
-               // console.log(classi);
+                if ($.trim(response)) {
+                    var actualMembers = document.getElementById("actual-members");
 
+                    if (!$.trim(actualMembers)) {
+
+                        $('#no_members').hide();
+                        var div1 = document.createElement('div');
+                        div1.setAttribute('class','table-responsive');
+                        $('#space').append(div1);
+                        var actualMembers = document.createElement('table');
+                        actualMembers.setAttribute('class','table');
+                        div1.append(actualMembers);
+                    }
+
+                    var newRow = actualMembers.insertRow(actualMembers.length);
+                    id = newRow.insertCell(0);
+                    id.innerHTML = response['user_saved']['id'];
+                    nip = newRow.insertCell(1);
+                    nip.innerHTML = response['user_saved']['nip'];
+                    firstname = newRow.insertCell(2);
+                    firstname.innerHTML = response['user_saved']['firstname'];
+                    lastname = newRow.insertCell(3);
+                    lastname.innerHTML = response['user_saved']['lastname'];
+                    birthdate = newRow.insertCell(4);
+                    birthdate.innerHTML = response['user_saved']['birthdate'];
+                    mobile = newRow.insertCell(5);
+                    mobile.innerHTML = response['user_saved']['mobile'];
+                    notes = newRow.insertCell(6);
+                    //notes.innerHTML = response['llm']['notes'];
+                    id = newRow.insertCell(7);
+                    var llmId=response['llm']['id'];
+                    id.innerHTML = "<form class=delete action='{{ route('lessons.removeMember', ['licenseMemberId' => '" + llmId + "']) }}' method='POST'><input type='hidden' name='_token' value='<?php echo csrf_token(); ?>'><input type='hidden' name='method' value='DELETE'><button class='btn btn-danger btn-xs btn-delete' > <i class='fa fa-trash-o' title='{{__('lesson.remove_member_from_lesson')}}'></i> </button> </form>";
+
+
+                }
+                $('#membersModal').modal('hide');
 
             },
             error: function(jqXHR, textStatus, errorThrown) { // What to do if we fail

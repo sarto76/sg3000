@@ -6,7 +6,6 @@ namespace App\Http\Controllers\admin;
 use App\Models\Course;
 use App\Models\LicenseMember;
 use App\Models\Status;
-use App\Models\CourseType;
 use App\Models\Instructor;
 use App\Models\Lesson;
 use App\Models\LessonLicenseMember;
@@ -93,13 +92,33 @@ class LessonController extends Controller
 
 
         $lessonId = $request->session()->get('lessonId',1);
+        $maxMembers=Lesson::find($lessonId)->course->type->max_members;
 
-        //echo($lessonId);
-        $lessonLicenseMember->lesson_id=$lessonId;
-        $lessonLicenseMember->license_member_id=$request->licenseMemberId;
-        $lessonLicenseMember->save();
-       // return response()->json([ 'user_saved' => $lessonLicenseMember ]);
-        return redirect()->route('lessons.edit',['lesson'=>$lessonId])->with('id',trans('lesson.memberAdded'))->withInput(['tab'=>'tab2']);
+        $actualMembers=$lessonLicenseMember::where('lesson_id','=',$lessonId)->count();
+
+
+        if((!($lessonLicenseMember::where('lesson_id','=',$lessonId)
+            ->where('license_member_id','=',$request->licenseMemberId)
+            ->exists())) && $actualMembers<$maxMembers) {
+
+
+
+
+            //echo($lessonId);
+            $lessonLicenseMember->lesson_id = $lessonId;
+            $lessonLicenseMember->license_member_id = $request->licenseMemberId;
+            $lessonLicenseMember->save();
+
+            $member=LicenseMember::find($request->licenseMemberId)->member;
+
+
+             return response()->json([ 'user_saved' => $member ,'llm'=>$lessonLicenseMember,'actualMembers'=>$actualMembers]);
+            //return redirect()->route('lessons.edit', ['lesson' => $lessonId])->with('id', trans('lesson.memberAdded'))->withInput(['tab' => 'tab2']);
+        }
+        else{
+            return null;
+        }
+
     }
 
 

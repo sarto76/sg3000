@@ -143,6 +143,7 @@
                                                                            style="color:{{$lesson->status->color}};"
                                                                            title="{{$lesson->status->description}}"></i>
                                                                     </div>
+                                                                    <h6 class="card-title">{{__('license.category')}}: {{$course->description}}</h6>
                                                                     <h6 class="card-title">#{{$lesson->id}}</h6>
                                                                     <h6 class="card-title">{{__('lesson.number')}}
                                                                         : {{$lesson->number}}</h6>

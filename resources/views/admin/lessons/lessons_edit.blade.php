@@ -127,8 +127,8 @@
 
 
                                         @else
-                                            <div class="form-group"></div>
-                                            <div class="alert alert-warning">{{__('lesson.no_members')}}</div>
+                                            <div class="form-group" id="space"></div>
+                                            <div id="no_members" class="alert alert-warning">{{__('lesson.no_members')}}</div>
                                         @endif
                                             <a href="{{ route('lessons.index',['type'=>$lesson->course->type->description]) }}#{{$lesson->course->id}}"class="btn btn-primary"><i class="fa fa-angle-double-left"></i>{{__('general.back')}}</a>&nbsp;
 
