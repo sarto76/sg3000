@@ -30,11 +30,11 @@
                     <div class="form-group">
                     </div>
 
-                @foreach ($courses as $course)
-            @if (count($course->lessons) > 0)
+            @foreach ($courses as $course)
+                @if (count($course->lessons) > 0)
                     <button class="btn btn-lg" type="button" data-toggle="collapse" data-target="#{{$course->id}}"
                             style="display:inline;margin:0px;padding:0px;" title="{{__('general.expand')}}">
-                    <i class="fa fa-caret-square-o-down coll"></i>
+                        <i class="fa fa-caret-square-o-down coll"></i>
                     </button>
                     <h6 style="display:inline;margin:0px;padding:0px;"><b>&nbsp;
                             #{{$course->id}}
@@ -61,29 +61,29 @@
                                             <h7 class="card-subtitle mb-2 text-muted">{{\Carbon\Carbon::parse($lesson->date_time)->format('d-m-Y H:i') }}</h7>
                                             <p>{{__('instructor.instructor')}}: {{$lesson->instructor->firstname }} {{$lesson->instructor->lastname }}</p>
                                             <p style="font-size: smaller">{{__('lesson.remaining_places')}}
-                                            @if(count($lesson->LessonLicenseMember)<($course->type->max_members/2))
-                                                <span class="badge badge-pill badge-success">{{count($lesson->LessonLicenseMember) }}/{{$course->type->max_members }}
+                                                @if(count($lesson->LessonLicenseMember)<($course->type->max_members/2))
+                                                    <span class="badge badge-pill badge-success">{{count($lesson->LessonLicenseMember) }}/{{$course->type->max_members }}
                                                 </span>
-                                                    @elseif(count($lesson->LessonLicenseMember)<($course->type->max_members))
+                                                @elseif(count($lesson->LessonLicenseMember)<($course->type->max_members))
                                                     <span class="badge badge-pill badge-warning">{{count($lesson->LessonLicenseMember) }}/{{$course->type->max_members }}
                                                     </span>
                                                 @elseif(count($lesson->LessonLicenseMember)>=($course->type->max_members))
                                                     <span class="badge badge-pill badge-danger">{{count($lesson->LessonLicenseMember) }}/{{$course->type->max_members }}
                                                     </span>
-                                            @endif
+                                                @endif
                                             </p>
-                                                <a href="{{ route('lessons.show',['lesson'=>$lesson->id]) }}" class="btn btn-info btn-xs">
-                                                    <i class="fa fa-eye" title="{{__('lesson.show')}}"></i>
-                                                </a>
-                                                <a href="{{ route('lessons.edit',['lesson'=>$lesson->id]) }}" class="btn btn-info btn-xs"><i class="fa fa-pencil" title="{{__('lesson.edit')}}"></i></a>
+                                            <a href="{{ route('lessons.show',['lesson'=>$lesson->id]) }}" class="btn btn-info btn-xs">
+                                                <i class="fa fa-eye" title="{{__('lesson.show')}}"></i>
+                                            </a>
+                                            <a href="{{ route('lessons.edit',['lesson'=>$lesson->id]) }}" class="btn btn-info btn-xs"><i class="fa fa-pencil" title="{{__('lesson.edit')}}"></i></a>
 
-                                                <form action="/admin/lessons/{{ $lesson->id }}" method="POST" style="display:inline;margin:0px;padding:0px;">
-                                                    {!! method_field('DELETE') !!}
-                                                    {!! csrf_field() !!}
-                                                    <button class="btn btn-danger btn-xs btn-delete" >
-                                                        <i class="fa fa-trash-o" title="{{__('lesson.delete')}}"></i>
-                                                    </button>
-                                                </form>
+                                            <form action="/admin/lessons/{{ $lesson->id }}" method="POST" style="display:inline;margin:0px;padding:0px;">
+                                                {!! method_field('DELETE') !!}
+                                                {!! csrf_field() !!}
+                                                <button class="btn btn-danger btn-xs btn-delete" >
+                                                    <i class="fa fa-trash-o" title="{{__('lesson.delete')}}"></i>
+                                                </button>
+                                            </form>
 
 
                                         </div>
@@ -91,18 +91,18 @@
                                 </div>
                             @endforeach
 
-                                @if((count($course->lessons)<($course->type->number_lessons)))
+                            @if((count($course->lessons)<($course->type->number_lessons)))
                                 <div class="pull-right" style="display:inline;margin:2px;padding:2px;">
                                     <a class="btn btn-success" href="{{ route('lessons.create',['idCourse'=>$course->id,'type'=>$typ]) }}"><i class="fa fa-plus-circle" aria-hidden="true"></i></a>
                                 </div>
-                                @endif
+                            @endif
                         </div>
                     </div>
                     <div class="form-group">
                     </div>
                     <hr>
                 @endif
-                @endforeach
+            @endforeach
 
 
 

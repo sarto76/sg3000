@@ -4,6 +4,8 @@ return [
     'id'=> 'ID',
     'course'=> 'Corso',
     'date_time'=> 'Data e ora',
+    'date'=> 'Data',
+    'time'=> 'Orario',
     'type'=> 'Tipo',
     'status'=> 'Stato',
     'current' => 'Lezione corrente',

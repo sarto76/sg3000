@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers\admin;
 
+use App\Models\Course;
+use App\Models\LessonLicenseMember;
 use App\Models\Member;
 use Carbon\Carbon;
 
@@ -123,10 +125,40 @@ class MemberController extends Controller
     {
         $member = Member::find($id);
         $licenseMember=$member->licenseMember;
+//dd($licenseMember);
+        $licenseMemberId=[];
+        foreach ($licenseMember as $license){
+            $licenseMemberId[]=$license->id;
+        }
+
+        //dd($licenseMemberId);
+
+        $courses = Course::select ('courses.id','courses.course_type_id','courses.facebook')
+            ->distinct('courses.id')
+            ->orderBy('courses.id','desc')
+            ->join('lessons','lessons.course_id','courses.id')
+            ->join('course_type','courses.course_type_id','course_type.id')
+            ->join('lesson_license_member','lessons.id','lesson_license_member.lesson_id')
+            ->whereIn('lesson_license_member.license_member_id',$licenseMemberId)
+            ->paginate(10);
+
+       /* $lessonsId=LessonLicenseMember::select('lesson_id')
+            ->distinct('lesson_id')
+            ->whereIn('license_member_id',$licenseMemberId)
+            ->get();*/
+
+
+        $lessonsId=LessonLicenseMember::all('lesson_id','license_member_id')
+            ->whereIn('license_member_id',$licenseMemberId)
+            ->pluck('lesson_id')
+            ->toArray();
+
+        //dd($lessonsId);
+
        // dd($licenseMember[1]->lessonLicenseMember);
 
         //dd($member);
-        return view('admin.members.members_detail',compact('member','id','licenseMember'));
+        return view('admin.members.members_detail',compact('member','id','licenseMember','courses','lessonsId'));
     }
 
     /**
