@@ -26,6 +26,7 @@ use Illuminate\Database\Eloquent\Model;
 class Lesson extends Model
 {
 	use \Illuminate\Database\Eloquent\SoftDeletes;
+    use \Askedio\SoftCascade\Traits\SoftCascadeTrait;
 
 	protected $casts = [
 		'course_id' => 'int',
@@ -45,6 +46,8 @@ class Lesson extends Model
 		'instructor_id',
 		'status_id'
 	];
+
+    protected $softCascade = ['lessonLicenseMember'];
 
     public function LicenseMember(){
         return $this->belongsToMany(LicenseMember::class,'lesson_license_member','license_member_id','lesson_id')->withPivot('notes');

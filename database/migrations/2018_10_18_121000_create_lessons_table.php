@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateLicenseMemberTable extends Migration
+class CreateLessonsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,15 +13,18 @@ class CreateLicenseMemberTable extends Migration
      */
     public function up()
     {
-        Schema::create('license_member', function (Blueprint $table) {
+        Schema::create('lessons', function (Blueprint $table) {
             $table->increments('id');
 
-            $table->integer('license_id');
-            $table->integer('member_id');
-            $table->date('valid_from');
+            $table->integer('course_id')->unsigned();
+            $table->dateTime('date_time');
+            $table->integer('number');
+            $table->integer('instructor_id');
+            $table->integer('status_id');
             $table->softDeletes();
 
             $table->timestamps();
+            $table->foreign('course_id')->references('id')->on('courses')->onDelete('cascade');
         });
     }
 
@@ -32,6 +35,6 @@ class CreateLicenseMemberTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('license_member');
+        Schema::dropIfExists('lessons');
     }
 }

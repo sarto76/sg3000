@@ -25,6 +25,7 @@ use Illuminate\Database\Eloquent\Model;
 class Course extends Model
 {
 	use \Illuminate\Database\Eloquent\SoftDeletes;
+    use \Askedio\SoftCascade\Traits\SoftCascadeTrait;
 
 	protected $casts = [
 		'course_type_id' => 'int',
@@ -35,6 +36,7 @@ class Course extends Model
 		'facebook'
 	];
 
+    protected $softCascade = ['lessons'];
 
     public function payments(){
         return $this->hasMany(Payment::class,'course_id','id');

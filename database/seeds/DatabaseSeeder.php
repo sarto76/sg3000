@@ -13,18 +13,19 @@ class DatabaseSeeder extends Seeder
     {
         $this->call(
             [
-                MembersTableSeeder::class,
+                StatusTableSeeder::class,
                 UserStatusTableSeeder::class,
+                LicensesTableSeeder::class,
+                MembersTableSeeder::class,
                 MessagesTableSeeder::class,
                 CourseTypeTableSeeder::class,
-                CoursesTableSeeder::class,
                 InstructorsTableSeeder::class,
+                CoursesTableSeeder::class,
                 PaymentsTableSeeder::class,
-                LicenseMemberTableSeeder::class,
-                LicensesTableSeeder::class,
-                StatusTableSeeder::class,
-                LessonLicenseMemberTableSeeder::class,
                 LessonsTableSeeder::class,
+                LicenseMemberTableSeeder::class,
+                LessonLicenseMemberTableSeeder::class,
+
 
 
                 /*AlbumsSeeder::class,

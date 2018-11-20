@@ -16,12 +16,15 @@ class CreateLessonLicenseMemberTable extends Migration
         Schema::create('lesson_license_member', function (Blueprint $table) {
             $table->increments('id');
 
-            $table->integer('lesson_id');
+            $table->integer('lesson_id')->unsigned();
             $table->text('notes')->nullable(true);
-            $table->integer('license_member_id');
+            $table->integer('license_member_id')->unsigned();
             $table->softDeletes();
-
             $table->timestamps();
+            $table->foreign('license_member_id')->references('id')->on('license_member')->onDelete('cascade');
+            $table->foreign('lesson_id')->references('id')->on('lessons')->onDelete('cascade');
+
+
         });
     }
 

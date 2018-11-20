@@ -27,9 +27,6 @@ class LessonController extends Controller
 
     public function getMembers()
     {
-      /*  $members = DB::table('members')
-            ->select(['id','nip','firstname','lastname', DB::raw('DATE_FORMAT(birthdate, "%d-%m-%Y") as birthdate')])
-            ->whereNull('deleted_at');*/
 
         $members = DB::table('members')
             ->select(['license_member.id as id','nip','firstname','lastname', DB::raw('DATE_FORMAT(birthdate, "%d-%m-%Y") as birthdate'),'description'])
@@ -473,11 +470,11 @@ class LessonController extends Controller
             $course->delete();
         }
 
-        if($actualMembers=LessonLicenseMember::where('lesson_id','=',$id)->get()){
+ /*       if($actualMembers=LessonLicenseMember::where('lesson_id','=',$id)->get()){
             foreach ($actualMembers as $actualMember) {
                 $actualMember->delete();
             }
-        }
+        }*/
 
         return redirect()->route('lessons.index',[$course->type->description.'#'.$course->id])->with('success',trans('lesson.deleted'))->with('typ',$lesson->course->type->description);
     }

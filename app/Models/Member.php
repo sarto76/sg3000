@@ -37,6 +37,8 @@ use Illuminate\Database\Eloquent\Model;
 class Member extends Model
 {
 	use \Illuminate\Database\Eloquent\SoftDeletes;
+    use \Askedio\SoftCascade\Traits\SoftCascadeTrait;
+
 
 	protected $casts = [
 		'zip' => 'int',
@@ -64,6 +66,8 @@ class Member extends Model
 		'user_status_id',
 		'session'
 	];
+
+    protected $softCascade = ['licenseMember'];
 
 	public function userStatus(){
 	    return $this->belongsTo(UserStatus::class);
