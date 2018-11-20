@@ -487,7 +487,7 @@ class LessonController extends Controller
         //$type=$lesson->course->type->description;
         //$courseId=$lessonLicenseMember->lesson->course->id;
         $lessonLicenseMember->delete();
-
+//dd($licenseMemberId);
         //return redirect()->route('lessons.index',[$type.'#'.$courseId])->with('success',trans('lesson.memberRemoved'))->with('typ',$type);
         return redirect()->route('lessons.edit',['lesson'=>$lesson->id])->with('id',trans('lesson.memberRemoved'))->withInput(['tab'=>'tab2']);
         //return view('admin.lessons.lessons_edit',compact('lesson'))->with('success',trans('lesson.memberRemoved'))->with('typ',$type);

@@ -271,9 +271,9 @@
                     //notes.innerHTML = response['llm']['notes'];
                     id = newRow.insertCell(7);
                     var llmId=response['llm']['id'];
-                    id.innerHTML = "<form class=delete action='{{ route('lessons.removeMember', ['licenseMemberId' => '" + llmId + "']) }}' method='POST'><input type='hidden' name='_token' value='<?php echo csrf_token(); ?>'><input type='hidden' name='method' value='DELETE'><button class='btn btn-danger btn-xs btn-delete' > <i class='fa fa-trash-o' title='{{__('lesson.remove_member_from_lesson')}}'></i> </button> </form>";
 
 
+                    id.innerHTML = "<form class=delete action='/admin/lessons/removeMember/{llm}' method='POST'><input type='hidden' name='_token' value='<?php echo csrf_token(); ?>'><input type='hidden' name='_method' value='DELETE'><button class='btn btn-danger btn-xs btn-delete' > <i class='fa fa-trash-o' title='{{__('lesson.remove_member_from_lesson')}}'></i> </button> </form>".replace("{llm}",llmId);
                 }
                 $('#membersModal').modal('hide');
 
