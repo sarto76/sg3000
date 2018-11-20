@@ -493,6 +493,15 @@ class LessonController extends Controller
         //return view('admin.lessons.lessons_edit',compact('lesson'))->with('success',trans('lesson.memberRemoved'))->with('typ',$type);
     }
 
+    public function removeCourse($courseId)
+    {
+        $course=Course::findOrFail($courseId);
+        $course->delete();
+
+
+        return redirect()->route('lessons.index',[$course->type->description])->with('success',trans('course.deleted'))->with('typ',$course->type->description);
+    }
+
 
 }
 

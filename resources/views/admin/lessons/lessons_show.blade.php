@@ -45,6 +45,16 @@
                             {{\Carbon\Carbon::parse($course->firstLesson->first_lesson)->format('H:i')}}
                         </b>
                     </h6>
+                    <div class="pull-right">
+                        <form action="/admin/lessons/removeCourse/{{ $course->id }}" method="POST" style="display:inline;margin:0px;padding:0px;">
+                            {!! method_field('DELETE') !!}
+                            {!! csrf_field() !!}
+                            <button class="btn btn-danger btn-xs btn-delete" >
+                                <i class="fa fa-trash-o" title="{{__('course.delete')}}"></i>
+                            </button>
+                        </form>
+                    </div>
+                    <hr>
                     <div class="form-group">
                     </div>
                     <div class="collapse show" id="{{$course->id}}">
