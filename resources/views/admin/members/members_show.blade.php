@@ -67,7 +67,7 @@
                                         <a href="/admin/members/{{ $member->id }}" class="btn btn-info btn-xs"><i class="fa fa-eye" title="{{__('member.show')}}"></i></a>
                                     </td>
                                     <td>
-                                        <a href="/admin/members/{{ $member->id }}/edit" class="btn btn-info btn-xs"><i class="fa fa-pencil" title="{{__('member.edit')}}"></i></a>
+                                        <a href="/admin/members/{{ $member->id }}/edit" class="btn btn-info btn-xs edit"><i class="fa fa-pencil" title="{{__('member.edit')}}"></i></a>
                                     </td>
                                     <td>
                                         <form class="delete" action="/admin/members/{{ $member->id }}" method="POST">

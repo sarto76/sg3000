@@ -15,9 +15,9 @@
 <link href={{ asset('css/bootstrap-datetimepicker.css')}} rel="stylesheet" media="screen">
 <script type="text/javascript" src="{{ asset('js/datetimepicker/locales/bootstrap-datetimepicker.it.js') }}" charset="UTF-8"></script>
 
+<script src="{{ asset('plugins/table-edits/table-edits.min.js') }}" charset="UTF-8"></script>
 
-
-
+<link rel="stylesheet" href="{{ asset('css/sg3000.css') }}">
 
 
 
@@ -241,7 +241,7 @@
                 console.log(response);
 
                 if ($.trim(response)) {
-                    var actualMembers = document.getElementById("actual-members");
+                    var actualMembers = document.getElementById("actual-member");
 
                     if (!$.trim(actualMembers)) {
 
@@ -255,6 +255,7 @@
                     }
 
                     var newRow = actualMembers.insertRow(actualMembers.length);
+                    newRow.setAttribute( "data-id",response['llm']['id']);
                     id = newRow.insertCell(0);
                     id.innerHTML = response['user_saved']['id'];
                     nip = newRow.insertCell(1);
@@ -268,8 +269,11 @@
                     mobile = newRow.insertCell(5);
                     mobile.innerHTML = response['user_saved']['mobile'];
                     notes = newRow.insertCell(6);
-                    //notes.innerHTML = response['llm']['notes'];
-                    id = newRow.insertCell(7);
+                    update = newRow.insertCell(7);
+                    update.innerHTML ="<a class='btn btn-info btn-xs edit' title='{{__('member.edit')}}'> <i class='fa fa-pencil'></i> </a>";
+
+
+                    id = newRow.insertCell(8);
                     var llmId=response['llm']['id'];
 
 
@@ -330,4 +334,42 @@
         }, 2000);
     });
 
+
+    $("#actual-member tr").editable({
+
+        keyboard: true,
+        dblclick: true,
+        button: true,
+        buttonSelector: ".edit",
+        dropdowns: {},
+        maintainWidth: true,
+
+        edit: function (values) {
+            $(".edit i", this)
+                .removeClass('fa-pencil')
+                .addClass('fa-save')
+                .attr('title', '{{__('member.save')}}');
+        },
+        save: function (values) {
+
+            var lessonLicenseMemberId = $(this).data('id');
+
+            var token="<input type='hidden' name='_token' value='<?php echo csrf_token(); ?>'";
+            //$.post('/api/object/' + id, values);
+            $.post('/admin/lessons/editLessonLicenseMember/' + lessonLicenseMemberId, values,token);
+           // /admin/lessons/removeMember/{llm}
+        },
+        cancel: function(values) {
+            $(".edit i", this)
+                .removeClass('fa-save')
+                .addClass('fa-pencil')
+                .attr('title', '{{__('member.edit')}}');
+        }
+
+    });
+
 </script>
+
+
+
+

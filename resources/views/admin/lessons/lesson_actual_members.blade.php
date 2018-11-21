@@ -28,6 +28,7 @@
                             <th>{{__('lesson.notes')}}</th>
                             <th><input type="checkbox" name="select-all" id="select-all" /> {{__('member.selectAll')}}</th>
                             <th></th>
+                            <th></th>
                             </thead>
 
                             <!-- Table Body -->
