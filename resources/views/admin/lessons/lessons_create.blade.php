@@ -5,11 +5,15 @@
     <div class="page-title">
         <div class="container-fluid">
             <h5>{{__('lesson.add')}}:
-                {{__('lesson.course')}}
-                {{__('lesson.of')}}
-                {{\Carbon\Carbon::parse($course->firstLesson->first_lesson)->format('d-m-Y')}}
-                {{__('lesson.at')}}
-                {{\Carbon\Carbon::parse($course->firstLesson->first_lesson)->format('H:i')}}
+                @if(!is_null($course->firstLesson))
+                    {{__('lesson.course')}}
+                    {{__('lesson.of')}}
+                    {{\Carbon\Carbon::parse($course->firstLesson->first_lesson)->format('d-m-Y')}}
+                    {{__('lesson.at')}}
+                    {{\Carbon\Carbon::parse($course->firstLesson->first_lesson)->format('H:i')}}
+                @else
+                          ( {{__('course.noLesson')}} )
+                @endif
             </h5>
             <p hidden id="maxMembers">{{$course->type->max_members}}</p>
         </div>
@@ -21,9 +25,9 @@
         @include('common.errors')
 
         <!-- New lesson Form -->
-            <form action="{{ route('lessons.store') }}" method="POST" class="form-horizontal " id="formInsertLesson" name="formInsertLesson" onsubmit="return validateLessonsCreateForm()">
-            {{ csrf_field() }}
-
+            <form action="{{ route('lessons.store') }}" method="POST" class="form-horizontal " id="formInsertLesson"
+                  name="formInsertLesson" onsubmit="return validateLessonsCreateForm()">
+                {{ csrf_field() }}
 
 
                 <div class="form-group">
@@ -32,24 +36,28 @@
                 <div class="row">
 
                     <div class="col-sm-3">
-                        <label for="instructor">{{__('lesson.instructor')}}</label><p>
+                        <label for="instructor">{{__('lesson.instructor')}}</label>
+                        <p>
                         {!! Form::select('instructor', $instructors, null) !!}
                     </div>
 
                     <div class="col-sm-3">
                         <label for="date_time">{{__('lesson.date_time')}}</label>
                         <div class="input-append date form_datetime ">
-                            <input size="16" type="text" value="{{ old('date_time') }}" readonly id="date_time" name="date_time">
+                            <input size="16" type="text" value="{{ old('date_time') }}" readonly id="date_time"
+                                   name="date_time">
                             <span class="add-on" id="dateTimePic"><i class="fa fa-calendar"></i></span>
                             <div class="alert alert-danger" id="errorDateTime" style="display:none;"></div>
                         </div>
                     </div>
                     <div class="col-sm-2">
-                        <label for="number">{{__('lesson.number')}}</label><p>
+                        <label for="number">{{__('lesson.number')}}</label>
+                        <p>
                         {!! Form::select('number', $availablesLessons, null) !!}
                     </div>
                     <div class="col-sm-3">
-                        <label for="status">{{__('lesson.status')}}</label><p>
+                        <label for="status">{{__('lesson.status')}}</label>
+                        <p>
                         {!! Form::select('status', $status, null) !!}
                     </div>
                 </div>
@@ -83,10 +91,11 @@
                 <input type="hidden" name="_token" value="{{ Session::token() }}">
                 <!-- Add lesson Button -->
                 <div class="form-group">
-                    <a href="{{ url()->previous() }}"class="btn btn-primary"><i class="fa fa-angle-double-left"></i>{{__('general.back')}}</a>
-                        <button type="submit" class="btn btn-primary">
-                            <i class="fa fa-plus"></i> {{__('lesson.add')}}
-                        </button>
+                    <a href="{{ url()->previous() }}" class="btn btn-primary"><i
+                                class="fa fa-angle-double-left"></i>{{__('general.back')}}</a>
+                    <button type="submit" class="btn btn-primary">
+                        <i class="fa fa-plus"></i> {{__('lesson.add')}}
+                    </button>
 
                 </div>
             </form>

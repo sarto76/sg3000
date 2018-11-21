@@ -10,7 +10,7 @@ use Illuminate\Database\Eloquent\Model;
 
 /**
  * Class License
- * 
+ *
  * @property int $id
  * @property int $license_type_id
  * @property string $text
@@ -18,6 +18,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property string $deleted_at
  * @property \Carbon\Carbon $created_at
  * @property \Carbon\Carbon $updated_at
+ * @property string description
  *
  * @package App\Models
  */
@@ -38,7 +39,7 @@ class License extends Model
 
 
     public function members(){
-        return $this->belongsToMany(Member::class)->withPivot('valid_from');
+        return $this->belongsToMany(Member::class,'license_member','license_id','member_id')->withPivot('valid_from');
     }
 
 }

@@ -21,6 +21,7 @@ use Illuminate\Database\Eloquent\Model;
  *
  * @package App\Models
  * @method static find($course_id)
+ * @method static findOrFail(int $id)
  */
 class Course extends Model
 {

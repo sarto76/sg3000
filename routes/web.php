@@ -35,6 +35,7 @@ Route::group(['prefix' => 'admin', 'namespace' => 'admin'], function () {
     Route::delete('lessons/removeMember/{licenseMemberId}', 'LessonController@removeMember')->name('lessons.removeMember');
     Route::delete('lessons/removeCourse/{courseId}', 'LessonController@removeCourse')->name('lessons.removeCourse');
     Route::resource('lessons', 'LessonController', array('except' => array('create', 'index')));
+    Route::resource('courses', 'CourseController', array('except' => array('index','show')));
 });
 
 /*Route::get('datatable', 'Web\MemberController@getIndex');

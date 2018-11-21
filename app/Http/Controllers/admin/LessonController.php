@@ -40,23 +40,10 @@ class LessonController extends Controller
         return Datatables::of($members)
             ->addIndexColumn()
             ->addColumn('action', function ($member) {
-                //return '<a href="admin/lessons/' . $id->id . '/addMember" class="btn btn-info btn-xs"><i class="fa fa-arrow-up" title="Add to lesson"></i></a>'; })->make(true);
-
-
-                /*$clic='addMemberToLesson('.$member->id.','.$member->nip.',"'.$member->firstname.'","'.$member->lastname.'","'.$member->birthdate.'")';
-                $link='<a onclick="'.$clic.'" class="btn btn-info btn-xs"><i class="fa fa-arrow-up" title="Add to lesson"></i></a>';
-                return $link;})->make(true);*/
 
                 $clic="addMemberToLesson($member->id,$member->nip,'$member->firstname','$member->lastname','$member->birthdate')";
                 $link='<a onclick="'.$clic.'" class="btn btn-info btn-xs"><i class="fa fa-arrow-up" title="Add to lesson"></i></a>';
                 return $link;})->make(true);
-
-
-                /*return '<a onclick="addMemberToLesson(' . $member->id . ',' . $member->nip . ',' . $member->firstname . ',' . $member->lastname . ',' . $member->birthdate . ')"
-         class="btn btn-info btn-xs"><i class="fa fa-arrow-up" title="Add to lesson"></i></a>'; })->make(true);*/
-
-        /*return '<a onclick="addMemberToLesson(' . $member->id . ',' . $member->nip . ',' . $member->firstname . ',' . $member->lastname . ',' . $member->birthdate . ')"
-         class="btn btn-info btn-xs"><i class="fa fa-arrow-up" title="Add to lesson"></i></a>'; })->make(true);*/
     }
 
     public function getMembersDirect()
@@ -83,8 +70,6 @@ class LessonController extends Controller
 
     public function addMember(Request $request)
     {
-
-        //$licenseMember=LicenseMember::find($request->licenseMemberId);
         $lessonLicenseMember=new LessonLicenseMember();
 
 
@@ -98,19 +83,13 @@ class LessonController extends Controller
             ->where('license_member_id','=',$request->licenseMemberId)
             ->exists())) && $actualMembers<$maxMembers) {
 
-
-
-
-            //echo($lessonId);
             $lessonLicenseMember->lesson_id = $lessonId;
             $lessonLicenseMember->license_member_id = $request->licenseMemberId;
             $lessonLicenseMember->save();
 
             $member=LicenseMember::find($request->licenseMemberId)->member;
+            return response()->json([ 'user_saved' => $member ,'llm'=>$lessonLicenseMember,'actualMembers'=>$actualMembers]);
 
-
-             return response()->json([ 'user_saved' => $member ,'llm'=>$lessonLicenseMember,'actualMembers'=>$actualMembers]);
-            //return redirect()->route('lessons.edit', ['lesson' => $lessonId])->with('id', trans('lesson.memberAdded'))->withInput(['tab' => 'tab2']);
         }
         else{
             return null;
@@ -121,31 +100,13 @@ class LessonController extends Controller
 
     public function index($typ)
     {
-
-        /*$courses=Course::orderBy('id','desc')
-            ->with('type')
-            ->whereHas('type',function($q) use ($typ){
-                $q->where('description','=',$typ);
-            })
-            ->paginate(10);*/
-
-
-
         $courses = Course::select ('courses.id','courses.course_type_id','courses.facebook')
             ->orderBy('courses.id','desc')
-            ->join('lessons','lessons.course_id','courses.id')
-            ->join('course_type','courses.course_type_id','course_type.id')
+            ->leftJoin('lessons','lessons.course_id','courses.id')
+            ->leftJoin('course_type','courses.course_type_id','course_type.id')
             ->where('course_type.description','=', $typ)
             ->paginate(10);
 
-       /*      dd($list);
-
-
-                echo("<pre>");
-                print_r($list);
-                echo("</pre>");*/
-
-        //dd(DB::getQueryLog());
         return view('admin.lessons.lessons_show',compact('lessons','typ','courses'));
     }
 
@@ -157,7 +118,6 @@ class LessonController extends Controller
      */
     public function search(Request $request,$typ)
     {
-        //$typ = $request->get('typ');
         $search = $request->get('search');
 
         $courses = Course::select ('courses.id','courses.course_type_id','courses.facebook')
@@ -175,27 +135,6 @@ class LessonController extends Controller
             })
             ->paginate(10);
 
-       /* $courses = Course::orderBy('id','desc')
-            ->with('type')
-            ->whereHas('type',function($q) use ($typ){
-                $q->where('description','=',$typ);
-            })
-            ->with('lessons')
-            ->whereHas('lessons',function($r) use ($search){
-                $r->where('number', 'LIKE', $search.'%');
-            })
-            ->with('lessons.instructor')
-            ->orWhereHas('lessons.instructor',function($r) use ($search){
-                $r->where('lastname', 'LIKE', $search.'%')
-                    ->orWhere('firstname', 'LIKE', $search.'%');
-            })
-            ->toSql();*/
-
-
-
-
-
-        //dd($courses);
         $courses->appends(['search' => $search]);
         return view('admin.lessons.lessons_show', compact('courses','typ','lessons'))->with($search);
     }
@@ -309,10 +248,6 @@ class LessonController extends Controller
         }
     }
 
-
-
-
-
     /**
      * @param Request $request
      * @return int
@@ -379,10 +314,7 @@ class LessonController extends Controller
      */
     public function edit($id)
     {
-
-
         session(['lessonId' => $id]);
-//dd($lessonSelectBox);
         $lesson= Lesson::find($id);
 
 
@@ -404,11 +336,6 @@ class LessonController extends Controller
         $uniqueOccupedLessons=array_unique($occupedLessons);
         $availablesLessons = array_diff($allLessons, $uniqueOccupedLessons);
         $availablesLessons=array_combine($availablesLessons,$availablesLessons);
-
-
-
-//dd($availablesLessons);
-
 
         return view('admin.lessons.lessons_edit',compact('lesson','id','instructors', 'status','availablesLessons'));
     }
@@ -438,19 +365,10 @@ class LessonController extends Controller
             $lesson->number =$request->number;
             $lesson->instructor_id=$request->instructor;
             $lesson->status_id=$request->status;
-
-
             $lesson->save();
-            //dd($lesson);
-
-            //return redirect()->route('lessons.index', [$lesson->course->type->description.'#'.$lesson->course->id])->with('success',trans('lesson.updated'));
-
             return redirect()->route('lessons.edit',['lesson'=>$lesson->id])->with('id',trans('lesson.updated'));
 
         }
-
-
-
     }
 
     /**
@@ -466,14 +384,9 @@ class LessonController extends Controller
         $lesson->delete();
         $course=Course::find($course_id);
 
+       /* //delete course if it has no lessons
         if(!Lesson::where('course_id', '=', $course_id)->first()){
             $course->delete();
-        }
-
- /*       if($actualMembers=LessonLicenseMember::where('lesson_id','=',$id)->get()){
-            foreach ($actualMembers as $actualMember) {
-                $actualMember->delete();
-            }
         }*/
 
         return redirect()->route('lessons.index',[$course->type->description.'#'.$course->id])->with('success',trans('lesson.deleted'))->with('typ',$lesson->course->type->description);
@@ -482,27 +395,10 @@ class LessonController extends Controller
     public function removeMember($licenseMemberId)
     {
         $lessonLicenseMember=LessonLicenseMember::findOrFail($licenseMemberId);
-        //dd($lessonLicenseMember);
         $lesson=$lessonLicenseMember->lesson;
-        //$type=$lesson->course->type->description;
-        //$courseId=$lessonLicenseMember->lesson->course->id;
         $lessonLicenseMember->delete();
-//dd($licenseMemberId);
-        //return redirect()->route('lessons.index',[$type.'#'.$courseId])->with('success',trans('lesson.memberRemoved'))->with('typ',$type);
         return redirect()->route('lessons.edit',['lesson'=>$lesson->id])->with('id',trans('lesson.memberRemoved'))->withInput(['tab'=>'tab2']);
-        //return view('admin.lessons.lessons_edit',compact('lesson'))->with('success',trans('lesson.memberRemoved'))->with('typ',$type);
     }
-
-    public function removeCourse($courseId)
-    {
-        $course=Course::findOrFail($courseId);
-        $course->delete();
-
-
-        return redirect()->route('lessons.index',[$course->type->description])->with('success',trans('course.deleted'))->with('typ',$course->type->description);
-    }
-
-
 }
 
 

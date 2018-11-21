@@ -2,10 +2,12 @@
 
 return [
     'delete'=> 'Cancella il corso e tutte le sue lezioni',
-    'deleted'=> 'IL corso e tutte le sue lezioni sono stati cancellati correttamente',
-
-
-
+    'deleted'=> 'Il corso e tutte le sue lezioni sono stati cancellati correttamente',
+    'create'=> 'Aggiungi corso',
+    'type'=> 'Tipo di corso',
+    'facebook'=> 'Facebook',
+    'added'=> 'Corso inserito correttamente',
+    'noLesson'=> 'al momento nessuna lezione',
 
 
 ];
