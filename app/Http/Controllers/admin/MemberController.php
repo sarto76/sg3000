@@ -320,6 +320,7 @@ class MemberController extends Controller
         foreach ( Member::find($licenseMember->member_id)->licenseMember as $item) {
             if($licenseMember->member_id != $item->member_id){
                 $actualLicensesId[]=$item->license_id;
+                //TODO togliere possibilità di scegliere la stessa licenza che già si ha
             }
         }
         //dd($actualLicensesId);
