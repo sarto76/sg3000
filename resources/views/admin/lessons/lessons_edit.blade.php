@@ -114,22 +114,14 @@
                                             @foreach($lesson->LessonLicenseMember as $llm)
                                                 <tr data-id="{{$llm->id}}">
                                                     <td>{{$llm->licenseMember->member->id}}</td>
-                                                    <td data-field="nip">{{$llm->licenseMember->member->nip}}</td>
-                                                    <td data-field="firstname">{{$llm->licenseMember->member->firstname}}</td>
-                                                    <td data-field="lastname">{{$llm->licenseMember->member->lastname}}</td>
-                                                    <td data-field="birthdate">{{$llm->licenseMember->member->birthdate}}</td>
-                                                    @if (!empty($llm->licenseMember->member->mobile))
-                                                        <td class="table-text" data-field="mobile">
-                                                            <div>
-                                                                <a href="tel:{{ $llm->licenseMember->member->mobile }}">{{ $llm->licenseMember->member->mobile }}</a>
-                                                            </div>
-                                                        </td>
+                                                    <td>{{$llm->licenseMember->member->nip}}</td>
+                                                    <td>{{$llm->licenseMember->member->firstname}}</td>
+                                                    <td>{{$llm->licenseMember->member->lastname}}</td>
+                                                    <td>{{\Carbon\Carbon::parse($llm->licenseMember->member->birthdate)->format('d-m-Y')}}</td>
+                                                    @if (!empty($member->mobile))
+                                                        <td class="table-text"><div><a href="tel:{{ $llm->licenseMember->member->mobile }}">{{ $llm->licenseMember->member->mobile }}</a></div></td>
                                                     @else
-                                                        <td class="table-text" data-field="phone">
-                                                            <div>
-                                                                <a href="tel:{{ $llm->licenseMember->member->phone }}">{{ $llm->licenseMember->member->phone }}</a>
-                                                            </div>
-                                                        </td>
+                                                        <td class="table-text"><div><a href="tel:{{ $llm->licenseMember->member->phone }}">{{ $llm->licenseMember->member->phone }}</a></div></td>
                                                     @endif
                                                     <td data-field="notes">{{$llm->notes}}</td>
                                                     <td>

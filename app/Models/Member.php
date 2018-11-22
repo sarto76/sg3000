@@ -83,7 +83,9 @@ class Member extends Model
     }
 
     public function licenses(){
-        return $this->belongsToMany(License::class,'license_member','member_id','license_id')->withPivot('valid_from');
+        return $this->belongsToMany(License::class,'license_member','member_id','license_id')
+            ->whereNull('license_member.deleted_at')
+            ->withPivot('valid_from');
     }
 
     public function licenseMember(){

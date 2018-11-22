@@ -163,6 +163,8 @@ return [
             'number'=> 'Numero della lezione',
             'date_time'=> 'Data ed ora',
             'instructor'=> 'Istruttore',
+            'license'=> 'Il tipo di licenza',
+            'valid_from'=> 'Data emissione',
         ],
 
     'title' => 'Errore di inserimento!',

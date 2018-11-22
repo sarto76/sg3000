@@ -85,9 +85,9 @@
                                     @if (count($member->licenses) > 0)
                                         <table class="table">
                                             <tr>
-                                                <th scope="row">{{__('member.license_description')}}</th>
-                                                <th scope="row">{{__('member.license_long_description')}}</th>
-                                                <th scope="row">{{__('member.license_valid_from')}}</th>
+                                                <th scope="row">{{__('license.description')}}</th>
+                                                <th scope="row">{{__('license.long_description')}}</th>
+                                                <th scope="row">{{__('license.valid_from')}}</th>
                                             </tr>
                                             @foreach($member->licenses as $license)
                                                 <tr>

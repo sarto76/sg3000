@@ -24,6 +24,11 @@ Route::view('/', 'contact');
 Route::group(['prefix' => 'admin', 'namespace' => 'admin'], function () {
     //Route::get('members/anydata', 'MemberController@anyData')->name('members.anydata');
     Route::get('members/search', 'MemberController@search')->name('members.search');
+    Route::get('members/addLicense/{memberId}', 'MemberController@addLicense')->name('members.addLicense');
+    Route::post('members/storeLicense', 'MemberController@storeLicense')->name('members.storeLicense');
+    Route::delete('members/removeLicense/{licenseMemberId}', 'MemberController@removeLicense')->name('members.removeLicense');
+    Route::get('members/editLicense/{licenseMemberId}', 'MemberController@editLicense')->name('members.editLicense');
+
     Route::resource('members', 'MemberController');
 
     Route::get('lessons/search/{type}', 'LessonController@search')->name('lessons.search');

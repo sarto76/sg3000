@@ -352,12 +352,36 @@
         },
         save: function (values) {
 
-            var lessonLicenseMemberId = $(this).data('id');
+            values._token = '<?php echo csrf_token(); ?>';
+            values.id = $(this).data('id');
 
-            var token="<input type='hidden' name='_token' value='<?php echo csrf_token(); ?>'";
-            //$.post('/api/object/' + id, values);
-            $.post('/admin/lessons/editLessonLicenseMember/' + lessonLicenseMemberId, values,token);
-           // /admin/lessons/removeMember/{llm}
+            console.log(values);
+
+            //$.post('/admin/lessons/editLessonLicenseMember/' + lessonLicenseMemberId, values);
+
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+            var lessonLicenseMemberId = $(this).data('id');
+            $.ajax({
+//TODO bottone edit non va sugli elememti creati dal JS
+                method: 'POST',
+                url: '/admin/lessons/editLessonLicenseMember/'+values.id,
+                data: {'notes' : values.notes},
+                success: function(response){
+                },
+                error: function(jqXHR, textStatus, errorThrown) {
+
+                }
+            });
+
+
+
+
+
+
         },
         cancel: function(values) {
             $(".edit i", this)

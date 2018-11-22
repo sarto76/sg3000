@@ -5,16 +5,19 @@ namespace App\Http\Controllers\admin;
 
 use App\Models\Course;
 use App\Models\LicenseMember;
+use App\Models\Member;
 use App\Models\Status;
 use App\Models\Instructor;
 use App\Models\Lesson;
 use App\Models\LessonLicenseMember;
 use Carbon\Carbon;
 
+use DateTime;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Validation\Validator;
 use Yajra\DataTables\DataTables;
-use Validator;
+
 
 class LessonController extends Controller
 {
@@ -402,10 +405,10 @@ class LessonController extends Controller
 
     public function editLessonLicenseMember($lessonLicenseMemberId,Request $request)
     {
+
         $lessonLicenseMember=LessonLicenseMember::findOrFail($lessonLicenseMemberId);
         $lessonLicenseMember->notes=$request->notes;
-        dd($lessonLicenseMember);
-
+        $lessonLicenseMember->save();
 
         //return redirect()->route('lessons.edit',['lesson'=>$lesson->id])->with('id',trans('lesson.memberRemoved'))->withInput(['tab'=>'tab2']);
     }
