@@ -279,6 +279,30 @@ class MemberController extends Controller
 
     }
 
+    public function updateLicense(Request $request){
+
+        //dd($request->all());
+        $licenseMember=LicenseMember::find($request->licenseMemberId);
+
+        $validator=Validator::make($request->all(),[
+            'license'=> 'bail|required',
+            'valid_from'=> 'bail|required|date',
+        ]);
+
+        if($validator->fails()){
+            return redirect("/admin/members/addLicense/$licenseMember->member_id")
+                ->withInput()
+                ->withErrors($validator);
+        }
+
+        $licenseMember->valid_from=Carbon::parse($request->valid_from)->format('Y-m-d');
+        $licenseMember->license_id=$request->license;
+        $licenseMember->save();
+
+        return redirect()->route('members.edit',['member'=>$licenseMember->member_id])->with('success',trans('license.added'))->withInput(['tab'=>'tab2']);
+
+    }
+
     public function removeLicense($licenseMemberId)
     {
         $licenseMember=LicenseMember::find($licenseMemberId);
@@ -291,7 +315,6 @@ class MemberController extends Controller
 
         $actualLicensesId=[];
         $licenseMember=LicenseMember::find($licenseMemberId);
-        $memberId=$licenseMember->member_id;
         $selectedValidFrom=$licenseMember->valid_from;
         $selectedLicense=$licenseMember->license_id;
         foreach ( Member::find($licenseMember->member_id)->licenseMember as $item) {
@@ -304,7 +327,7 @@ class MemberController extends Controller
             ->whereNotIn('id', $actualLicensesId)
             ->pluck('license', 'id');
 
-        return view('admin.members.members_edit_license',compact('licenses','memberId','selectedLicense','selectedValidFrom'));
+        return view('admin.members.members_edit_license',compact('licenses','licenseMemberId','selectedLicense','selectedValidFrom'));
 
     }
 }

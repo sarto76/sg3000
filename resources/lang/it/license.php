@@ -11,7 +11,8 @@ return [
     'no_license'=> 'Nessuna licenza',
     'add'=> 'Aggiungi licenza',
     'added'=> 'Licenza aggiunta',
-    'removed'=> 'Licenza romossa correttamente',
+    'removed'=> 'Licenza rimossa correttamente',
+    'edited'=> 'Licenza modificata correttamente',
     'edit'=> 'Modifica licenza',
     'delete'=> 'Cancella licenza',
 

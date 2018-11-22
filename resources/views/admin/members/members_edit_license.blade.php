@@ -15,7 +15,7 @@
         @include('common.errors')
 
         <!-- New lesson Form -->
-            <form action="{{ route('members.storeLicense') }}" method="POST" class="form-horizontal ">
+            <form action="{{ route('members.updateLicense') }}" method="POST" class="form-horizontal ">
                 {{ csrf_field() }}
                 <div class="form-group">
                 </div>
@@ -42,13 +42,13 @@
 
                 <div class="form-group">
                 </div>
-                <input type="hidden" name="memberId" value="{{$memberId}}">
+                <input type="hidden" name="licenseMemberId" value="{{$licenseMemberId}}">
                 <input type="hidden" name="_token" value="{{ Session::token() }}">
                 <!-- Add lesson Button -->
                 <div class="form-group">
                     <a href="{{ url()->previous() }}"class="btn btn-primary"><i class="fa fa-angle-double-left"></i>{{__('general.back')}}</a>
                     <button type="submit" class="btn btn-primary">
-                        <i class="fa fa-plus"></i> {{__('license.add')}}
+                        <i class="fa fa-plus"></i> {{__('license.edit')}}
                     </button>
 
                 </div>
