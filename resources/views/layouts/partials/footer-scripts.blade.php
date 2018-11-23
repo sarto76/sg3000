@@ -205,11 +205,11 @@
         serverSide: true,
         ajax: '{{ route('lessons.getMembersDirect') }}',
         columns: [
-            { data: 'nip', name: 'nip' },
+            { data: 'nip', name: 'nip',visible : false , searchable: false },
             { data: 'firstname', name: 'firstname' },
             { data: 'lastname', name: 'lastname' },
             { data: 'birthdate', name: 'birthdate' ,visible : false},
-            { data: 'description', name: 'description',visible : false , searchable: false},
+            { data: 'description', name: 'description',visible : true , searchable: false},
             {data: 'action', name: 'action', orderable: false, searchable: false}
 
         ],

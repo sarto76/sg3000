@@ -114,7 +114,6 @@ class MemberController extends Controller
         $member->birthdate=Carbon::parse($request->birthdate)->format('Y-m-d');
 
         $member->save();
-        //return redirect()->route('members.index')->with('success','Member Added');
         return redirect()->route('members.index')->with('success',trans('member.added'));
     }
 
@@ -128,13 +127,10 @@ class MemberController extends Controller
     {
         $member = Member::find($id);
         $licenseMember=$member->licenseMember;
-//dd($licenseMember);
         $licenseMemberId=[];
         foreach ($licenseMember as $license){
             $licenseMemberId[]=$license->id;
         }
-
-        //dd($licenseMemberId);
 
         $courses = Course::select ('courses.id','courses.course_type_id','courses.facebook','licenses.description')
             ->distinct('courses.id')
@@ -147,24 +143,11 @@ class MemberController extends Controller
             ->whereIn('lesson_license_member.license_member_id',$licenseMemberId)
             ->paginate(10);
 
-        //dd($courses);
-
-       /* $lessonsId=LessonLicenseMember::select('lesson_id')
-            ->distinct('lesson_id')
-            ->whereIn('license_member_id',$licenseMemberId)
-            ->get();*/
-
-
         $lessonsId=LessonLicenseMember::all('lesson_id','license_member_id')
             ->whereIn('license_member_id',$licenseMemberId)
             ->pluck('lesson_id')
             ->toArray();
 
-        //dd($lessonsId);
-
-       // dd($licenseMember[1]->lessonLicenseMember);
-
-        //dd($member);
         return view('admin.members.members_detail',compact('member','id','licenseMember','courses','lessonsId'));
     }
 
@@ -206,7 +189,7 @@ class MemberController extends Controller
 
 
         if($validator->fails()){
-            return redirect("members/' . $id->id . '/edit")
+            return redirect("/admin/members/$id/edit")
                 ->withInput()
                 ->withErrors($validator);
         }
@@ -227,9 +210,6 @@ class MemberController extends Controller
             $member->save();
             return redirect()->route('members.index')->with('success',trans('member.updated'));
         }
-
-
-
     }
 
     /**
@@ -258,6 +238,10 @@ class MemberController extends Controller
 
     }
 
+    /**
+     * @param Request $request
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     */
     public function storeLicense(Request $request){
 
         //dd($request->all());
@@ -279,6 +263,11 @@ class MemberController extends Controller
 
     }
 
+
+    /**
+     * @param Request $request
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     */
     public function updateLicense(Request $request){
 
         //dd($request->all());
@@ -303,6 +292,10 @@ class MemberController extends Controller
 
     }
 
+    /**
+     * @param $licenseMemberId
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function removeLicense($licenseMemberId)
     {
         $licenseMember=LicenseMember::find($licenseMemberId);
@@ -311,6 +304,10 @@ class MemberController extends Controller
         return redirect()->route('members.edit',['member'=>$memberId])->with('success',trans('license.removed'))->withInput(['tab'=>'tab2']);
     }
 
+    /**
+     * @param $licenseMemberId
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function editLicense($licenseMemberId){
 
         $actualLicensesId=[];
@@ -318,12 +315,11 @@ class MemberController extends Controller
         $selectedValidFrom=$licenseMember->valid_from;
         $selectedLicense=$licenseMember->license_id;
         foreach ( Member::find($licenseMember->member_id)->licenseMember as $item) {
-            if($licenseMember->member_id != $item->member_id){
+            if($item->license_id != $selectedLicense){
                 $actualLicensesId[]=$item->license_id;
-                //TODO togliere possibilità di scegliere la stessa licenza che già si ha
             }
         }
-        //dd($actualLicensesId);
+
         $licenses = License::select(DB::raw("CONCAT(description,' (',long_description,')')as license"),'id')
             ->whereNotIn('id', $actualLicensesId)
             ->pluck('license', 'id');
