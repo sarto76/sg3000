@@ -136,6 +136,9 @@
                             <div class="tab-pane" id="tab2" role="tabpanel">
                                 @include('admin.members.members_edit_licenses')
                             </div>
+                            <div class="tab-pane" id="tab3" role="tabpanel">
+                                @include('admin.members.members_edit_lessons')
+                            </div>
                         </div>
                     </div>
                 </div>

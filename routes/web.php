@@ -28,6 +28,7 @@ Route::group(['prefix' => 'admin', 'namespace' => 'admin'], function () {
     Route::post('members/storeLicense', 'MemberController@storeLicense')->name('members.storeLicense');
     Route::post('members/updateLicense', 'MemberController@updateLicense')->name('members.updateLicense');
     Route::delete('members/removeLicense/{licenseMemberId}', 'MemberController@removeLicense')->name('members.removeLicense');
+    Route::post('members/unsuscribe/{lessonLicenseMemberId}', 'MemberController@unsuscribe')->name('members.unsuscribe');
     Route::get('members/editLicense/{licenseMemberId}', 'MemberController@editLicense')->name('members.editLicense');
 
     Route::resource('members', 'MemberController');

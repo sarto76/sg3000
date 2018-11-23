@@ -20,7 +20,7 @@ td input[type=text], td select {
     padding: 2px 8px;
 }
 
-th:last-child {
+/*th:last-child {
     text-align: right;
 }
 
@@ -41,4 +41,4 @@ td:last-child .button {
 td:last-child .button .fa {
     line-height: 30px;
     width: 30px;
-}
+}*/

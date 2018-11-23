@@ -327,4 +327,30 @@ class MemberController extends Controller
         return view('admin.members.members_edit_license',compact('licenses','licenseMemberId','selectedLicense','selectedValidFrom'));
 
     }
+
+
+    public function editLesson($licenseMemberId){
+
+        $actualLicensesId=[];
+        $licenseMember=LicenseMember::find($licenseMemberId);
+        $selectedValidFrom=$licenseMember->valid_from;
+        $selectedLicense=$licenseMember->license_id;
+        foreach ( Member::find($licenseMember->member_id)->licenseMember as $item) {
+            if($item->license_id != $selectedLicense){
+                $actualLicensesId[]=$item->license_id;
+            }
+        }
+
+        $licenses = License::select(DB::raw("CONCAT(description,' (',long_description,')')as license"),'id')
+            ->whereNotIn('id', $actualLicensesId)
+            ->pluck('license', 'id');
+
+        return view('admin.members.members_edit_license',compact('licenses','licenseMemberId','selectedLicense','selectedValidFrom'));
+
+    }
+
+    public function unsiscribe($lessonLicenseMemberId){
+
+
+    }
 }

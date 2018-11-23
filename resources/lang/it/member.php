@@ -47,6 +47,9 @@ return [
     'detach' => 'Togli dalla lezione',
     'selectAll' => 'Seleziona tutti',
     'no_inscriptions' => 'Nessuna iscrizione con questa licenza',
+    'unsuscribe' => 'Rimuovi dalla lezione',
+    'noLesson' => 'Nessuna iscrizione alle lezioni',
+
 
 
 
