@@ -99,21 +99,7 @@ class MemberController extends Controller
                 ->withInput()
                 ->withErrors($validator);
         }
-        $member=new Member();
-
-        $member->title =$request->title;
-        $member->firstname=$request->firstname;
-        $member->lastname=$request->lastname;
-        $member->email=$request->email;
-        $member->address=$request->address;
-        $member->zip=$request->zip;
-        $member->city=$request->city;
-        $member->phone=$request->phone;
-        $member->mobile=$request->mobile;
-        $member->work=$request->work;
-        $member->birthdate=Carbon::parse($request->birthdate)->format('Y-m-d');
-
-        $member->save();
+        Member::create($request->all());
         return redirect()->route('members.index')->with('success',trans('member.added'));
     }
 
@@ -160,7 +146,7 @@ class MemberController extends Controller
     public function edit($id)
     {
         $member = Member::find($id);
-        return view('admin.members.members_edit',compact('member','id'));
+        return view('admin.members.members_edit',compact('member'));
     }
 
     /**
@@ -194,20 +180,8 @@ class MemberController extends Controller
                 ->withErrors($validator);
         }
         else{
-            $member = Member::find($id);
-            $member->title =$request->title;
-            $member->firstname=$request->firstname;
-            $member->lastname=$request->lastname;
-            $member->email=$request->email;
-            $member->address=$request->address;
-            $member->zip=$request->zip;
-            $member->city=$request->city;
-            $member->phone=$request->phone;
-            $member->mobile=$request->mobile;
-            $member->work=$request->work;
-            $member->birthdate=Carbon::parse($request->birthdate)->format('Y-m-d');
-
-            $member->save();
+            $member = Member::findOrFail($id);
+            $member->fill($request->all())->save();
             return redirect()->route('members.index')->with('success',trans('member.updated'));
         }
     }

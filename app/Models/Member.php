@@ -7,6 +7,7 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 
 
@@ -24,13 +25,13 @@ use Illuminate\Database\Eloquent\Model;
  * @property string $phone
  * @property string $mobile
  * @property string $work
- * @property \Carbon\Carbon $birthdate
+ * @property Carbon $birthdate
  * @property int $instructor_id
  * @property int $user_status_id
  * @property string $session
  * @property string $deleted_at
- * @property \Carbon\Carbon $created_at
- * @property \Carbon\Carbon $updated_at
+ * @property Carbon $created_at
+ * @property Carbon $updated_at
  *
  * @package App\Models
  */
@@ -90,6 +91,14 @@ class Member extends Model
 
     public function licenseMember(){
         return $this->hasMany(LicenseMember::class,'member_id','id');
+    }
+
+    public function getBirthdateAttribute($date){
+        return \Carbon\Carbon::parse($date)->format('d-m-Y');
+    }
+
+    public function setBirthdateAttribute($date) {
+        $this->attributes['birthdate']= \Carbon\Carbon::parse($date)->format('Y-m-d');
     }
 
 

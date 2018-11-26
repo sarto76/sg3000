@@ -36,9 +36,9 @@
                 <div class="row">
 
                     <div class="col-sm-3">
-                        <label for="instructor">{{__('lesson.instructor')}}</label>
+                        <label for="instructor_id">{{__('lesson.instructor')}}</label>
                         <p>
-                        {!! Form::select('instructor', $instructors, null) !!}
+                        {!! Form::select('instructor_id', $instructors, null) !!}
                     </div>
 
                     <div class="col-sm-3">
@@ -56,9 +56,9 @@
                         {!! Form::select('number', $availablesLessons, null) !!}
                     </div>
                     <div class="col-sm-3">
-                        <label for="status">{{__('lesson.status')}}</label>
+                        <label for="status_id">{{__('lesson.status')}}</label>
                         <p>
-                        {!! Form::select('status', $status, null) !!}
+                        {!! Form::select('status_id', $status, null) !!}
                     </div>
                 </div>
 

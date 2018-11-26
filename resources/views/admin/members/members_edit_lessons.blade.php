@@ -21,7 +21,7 @@
                 <tr>
                     <td>{{$lessonLicenseMember->id}}</td>
                     <td>{{$lessonLicenseMember->lesson->course->type->description}}</td>
-                    <td>{{\Carbon\Carbon::parse($lessonLicenseMember->lesson->date_time)->format('d-m-Y H:i')}}</td>
+                    <td>{{ $lessonLicenseMember->lesson->date_time }}</td>
                     <td>{{$lessonLicenseMember->lesson->number}}</td>
                     <td>{{ $lessonLicenseMember->lesson->instructor->firstname }} {{ $lessonLicenseMember->lesson->instructor->lastname }}</td>
                     <td>

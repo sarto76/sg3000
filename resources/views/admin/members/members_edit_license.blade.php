@@ -29,7 +29,7 @@
                     <div class="col-sm-5">
                         <label for="valid_from">{{__('license.valid_from')}}</label>
                         <div class="input-append date form_date">
-                            <input size="16" type="text" value="{{ \Carbon\Carbon::parse($selectedValidFrom)->format('d-m-Y') }}" readonly id="valid_from" name="valid_from">
+                            <input size="16" type="text" value="{{ $selectedValidFrom }}" readonly id="valid_from" name="valid_from">
                             <span class="add-on"><i class="fa fa-calendar"></i></span>
                         </div>
                     </div>

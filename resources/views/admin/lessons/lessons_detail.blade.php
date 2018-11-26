@@ -34,7 +34,7 @@
                                         <tbody>
                                         <tr>
                                             <th scope="row">{{__('lesson.date_time')}}</th>
-                                            <td>{{ \Carbon\Carbon::parse($lesson->date_time)->format('d-m-Y') }}</td>
+                                            <td>{{ $lesson->date_time }}</td>
                                         </tr>
                                         <tr>
                                             <th scope="row">{{__('lesson.number')}}</th>

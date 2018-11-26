@@ -15,7 +15,7 @@ use Carbon\Carbon;
 use DateTime;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Validation\Validator;
+use Validator;
 use Yajra\DataTables\DataTables;
 
 
@@ -196,7 +196,7 @@ class LessonController extends Controller
         $typ=$course->type->description;
         $previousLessonsInCourse=$course->lessons;
 
-        $idActualLesson = $this->createLesson($request);
+        $idActualLesson = Lesson::create($request->all())->id;
 
         if(isset($request->member)) {
             foreach ($request->member as $licenseMemberId) {
@@ -249,22 +249,6 @@ class LessonController extends Controller
         } else {
             return redirect()->route('lessons.index', [$typ.'#'.$course->id])->with('success', trans('lesson.added'));
         }
-    }
-
-    /**
-     * @param Request $request
-     * @return int
-     */
-    protected function createLesson(Request $request): int
-    {
-        $lesson = new Lesson();
-        $lesson->course_id = $request->course_id;
-        $lesson->status_id = $request->status;
-        $lesson->instructor_id = $request->instructor;
-        $lesson->number = $request->number;
-        $lesson->date_time = Carbon::parse($request->date_time)->format('Y-m-d H:i:s');
-        $lesson->save();
-        return $lesson->id;
     }
 
     /**
@@ -339,7 +323,6 @@ class LessonController extends Controller
         $uniqueOccupedLessons=array_unique($occupedLessons);
         $availablesLessons = array_diff($allLessons, $uniqueOccupedLessons);
         $availablesLessons=array_combine($availablesLessons,$availablesLessons);
-
         return view('admin.lessons.lessons_edit',compact('lesson','id','instructors', 'status','availablesLessons'));
     }
 
@@ -363,12 +346,8 @@ class LessonController extends Controller
                 ->withErrors($validator);
         }
         else{
-            $lesson = Lesson::find($id);
-            $lesson->date_time=Carbon::parse($request->date_time)->format('Y-m-d');
-            $lesson->number =$request->number;
-            $lesson->instructor_id=$request->instructor;
-            $lesson->status_id=$request->status;
-            $lesson->save();
+            $lesson = Lesson::findOrFail($id);
+            $lesson->fill($request->all())->save();
             return redirect()->route('lessons.edit',['lesson'=>$lesson->id])->with('id',trans('lesson.updated'));
 
         }

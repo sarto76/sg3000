@@ -10,7 +10,7 @@ use Illuminate\Database\Eloquent\Model;
 
 /**
  * Class LicenseMember
- * 
+ *
  * @property int $id
  * @property int $license_id
  * @property int $member_id
@@ -56,5 +56,12 @@ class LicenseMember extends Model
     }
     public function license(){
         return $this->belongsTo(License::class,'license_id');
+    }
+    public function getValidFromAttribute($date){
+        return \Carbon\Carbon::parse($date)->format('d-m-Y');
+    }
+
+    public function settValidFromAttribute($date) {
+        $this->attributes['valid_from']= \Carbon\Carbon::parse($date)->format('Y-m-d');
     }
 }

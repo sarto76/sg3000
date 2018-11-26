@@ -14,7 +14,7 @@
                     <td>{{$licenseMember->license->description}}</td>
                     <td>{{$licenseMember->license->long_description}}</td>
                     <td>{{$licenseMember->license->month_duration}}</td>
-                    <td>{{ \Carbon\Carbon::parse($licenseMember->valid_from)->format('d-m-Y') }}</td>
+                    <td>{{ $licenseMember->valid_from }}</td>
                     <td>
                         <a href="/admin/members/editLicense/{{ $licenseMember->id }}" class="btn btn-info btn-xs edit"><i class="fa fa-pencil" title="{{__('license.edit')}}"></i></a>
                     </td>

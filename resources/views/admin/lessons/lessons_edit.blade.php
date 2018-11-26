@@ -45,7 +45,7 @@
                                                 <td>
                                                     <div class="input-append date form_datetime ">
                                                         <input size="16" type="text"
-                                                               value="{{ \Carbon\Carbon::parse($lesson->date_time)->format('d-m-Y h:i') }}"
+                                                               value="{{ $lesson->date_time }}"
                                                                readonly id="date_time" name="date_time">
                                                         <span class="add-on" id="dateTimePic"><i
                                                                     class="fa fa-calendar"></i></span>
@@ -111,13 +111,15 @@
                                             </tr>
                                             </thead>
                                             <tbody>
+                                            @if (!is_null($lesson->LessonLicenseMember))
                                             @foreach($lesson->LessonLicenseMember as $llm)
+                                                @if (!is_null($llm->licenseMember))
                                                 <tr data-id="{{$llm->id}}">
                                                     <td>{{$llm->licenseMember->member->id}}</td>
                                                     <td>{{$llm->licenseMember->member->nip}}</td>
                                                     <td>{{$llm->licenseMember->member->firstname}}</td>
                                                     <td>{{$llm->licenseMember->member->lastname}}</td>
-                                                    <td>{{\Carbon\Carbon::parse($llm->licenseMember->member->birthdate)->format('d-m-Y')}}</td>
+                                                    <td>{{$llm->licenseMember->member->birthdate}}</td>
                                                     @if (!empty($member->mobile))
                                                         <td class="table-text"><div><a href="tel:{{ $llm->licenseMember->member->mobile }}">{{ $llm->licenseMember->member->mobile }}</a></div></td>
                                                     @else
@@ -143,7 +145,9 @@
                                                             </button>
                                                         </form>
                                                     </td>
+                                                @endif
                                             @endforeach
+                                            @endif
                                             </tbody>
                                         </table>
                                     </div>

@@ -68,4 +68,13 @@ class Lesson extends Model
     public function LessonLicenseMember(){
         return $this->hasMany(LessonLicenseMember::class);
     }
+
+
+    public function getDateTimeAttribute($date){
+        return \Carbon\Carbon::parse($date)->format('d-m-Y G:i');
+    }
+
+    public function setDateTimeAttribute($date) {
+        $this->attributes['date_time']= \Carbon\Carbon::parse($date)->format('Y-m-d G:i:s');
+    }
 }

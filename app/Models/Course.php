@@ -64,4 +64,6 @@ class Course extends Model
         return ($related) ? $related->first_lesson : null;
 
     }
+
+
 }

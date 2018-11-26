@@ -15,7 +15,8 @@
         @include('common.errors')
 
         <!-- New member Form -->
-            <form action="{{ route('members.store') }}" method="POST" class="form-horizontal ">
+            {!! Form::open( ['method' => 'POST','route' => ['members.store'], 'class' => 'form-horizontal']) !!}
+
             {{ csrf_field() }}
 
 
@@ -34,8 +35,8 @@
                     <div class="form-group">
                     </div>
                     <div class="col">
-                        <label for="firstname">{{__('member.firstname')}}</label>
-                            <input type="text" name="firstname" id="firstname" class="form-control" value="{{ old('firstname') }}">
+                        {!! Form::label('firstname', __('member.firstname'), array('class' => 'awesome')); !!}
+                        {!! Form::text('firstname', old('firstname'), array('class' => 'form-control')); !!}
                     </div>
                     <div class="col">
                             <label for="lastname">{{__('member.lastname')}}</label>
