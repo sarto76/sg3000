@@ -245,7 +245,7 @@ class LessonController extends Controller
         }
 
         if ($redirectWithWarning === true) {
-            return redirect()->route('lessons.index', [$typ.'#'.$course->id])->with('warning', trans('lesson.addedButToManyMembers'));
+            return redirect()->route('lessons.index', [$typ.'#'.$course->id])->with('warning', trans('lesson.added_but_too_many_members'));
         } else {
             return redirect()->route('lessons.index', [$typ.'#'.$course->id])->with('success', trans('lesson.added'));
         }
@@ -379,7 +379,7 @@ class LessonController extends Controller
         $lessonLicenseMember=LessonLicenseMember::findOrFail($licenseMemberId);
         $lesson=$lessonLicenseMember->lesson;
         $lessonLicenseMember->delete();
-        return redirect()->route('lessons.edit',['lesson'=>$lesson->id])->with('id',trans('lesson.memberRemoved'))->withInput(['tab'=>'tab2']);
+        return redirect()->route('lessons.edit',['lesson'=>$lesson->id])->with('id',trans('lesson.member_removed'))->withInput(['tab'=>'tab2']);
     }
 
     public function editLessonLicenseMember($lessonLicenseMemberId,Request $request)
@@ -389,7 +389,7 @@ class LessonController extends Controller
         $lessonLicenseMember->notes=$request->notes;
         $lessonLicenseMember->save();
 
-        //return redirect()->route('lessons.edit',['lesson'=>$lesson->id])->with('id',trans('lesson.memberRemoved'))->withInput(['tab'=>'tab2']);
+        //return redirect()->route('lessons.edit',['lesson'=>$lesson->id])->with('id',trans('lesson.member_removed'))->withInput(['tab'=>'tab2']);
     }
 
 

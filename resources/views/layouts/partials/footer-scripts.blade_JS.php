@@ -137,7 +137,7 @@
         var url = $(this).data('remote');
 
         //alert(_token);
-        if (confirm('{{__('member.sureToDelete')}}')) {
+        if (confirm('{{__('member.sure_to_delete')}}')) {
             $.ajax({
                 url: url,
                 type: 'DELETE',

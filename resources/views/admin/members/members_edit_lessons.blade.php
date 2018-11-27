@@ -29,7 +29,7 @@
                             {{ csrf_field() }}
                             {{ method_field('DELETE') }}
                             <button class="btn btn-danger btn-xs btn-delete" >
-                                <i class="fa fa-trash-o" title="{{__('member.noLesson')}}"></i>
+                                <i class="fa fa-trash-o" title="{{__('member.no_lesson')}}"></i>
                             </button>
                         </form>
                     </td>

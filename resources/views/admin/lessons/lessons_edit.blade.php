@@ -168,7 +168,7 @@
                                         class="btn btn-primary"
                                         data-toggle="modal"
                                         data-target="#membersModal">
-                                    {{__('lesson.addMember')}}
+                                    {{__('lesson.add_member')}}
                                 </button>
 
                                 <div class="panel-body" id="allMembers" style="display: none;">

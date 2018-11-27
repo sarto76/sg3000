@@ -75,7 +75,7 @@
 
 <script type="text/javascript">
     $(".delete").on("submit", function(){
-        return confirm('{{__('member.sureToDelete')}}');
+        return confirm('{{__('member.sure_to_delete')}}');
     });
 
 </script>
@@ -168,7 +168,7 @@
                 firstname.style.width = '1%';
                 lastname.style.width = '1%';
                 remove.style.width = '1%';
-                allCourses.innerHTML = "<input type=checkbox value="+id+" id=memberAllLesson"+id+" name=memberAllLesson[]> {{__('lesson.addMemberInEveryCourse')}}</input>";
+                allCourses.innerHTML = "<input type=checkbox value="+id+" id=memberAllLesson"+id+" name=memberAllLesson[]> {{__('lesson.add_member_in_every_course')}}</input>";
                 uid.innerHTML = "<input type=hidden value="+id+" id=member"+id+" name=member[]>"+id+"</input>";
                 notes.innerHTML = "<textarea id=notes name=notes"+id+" rows=2 cols=30></textarea>";
                 firstname.innerHTML = first;
@@ -177,11 +177,11 @@
                 remove.innerHTML = "<a class='btn btn-primary'><i class='fa fa-trash-o' title='{{__('member.detach')}}'></i></a>";
             }
             else {
-                return alert('{{__('lesson.cannotAddMoreMembers')}}');
+                return alert('{{__('lesson.cannot_add_more_members')}}');
             }
         }
         else {
-            return alert('{{__('lesson.memberPresent')}}');
+            return alert('{{__('lesson.member_present')}}');
         }
     }
 
@@ -302,7 +302,7 @@
         if (dateValue == "") {
             var datetimeErrorDiv= document.getElementById('errorDateTime');
             datetimeErrorDiv.style.display = "block";
-            datetimeErrorDiv.innerHTML= '{{__('lesson.datetimeNotPresent')}}';
+            datetimeErrorDiv.innerHTML= '{{__('lesson.datetime_not_present')}}';
 
             $('html, body').animate({
                 scrollTop: ($('#errorDateTime').offset().top - 300)

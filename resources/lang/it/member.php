@@ -27,7 +27,7 @@ return [
     'ms'=> 'Signora',
     'id'=> 'id',
     'update'=> 'modifica',
-    'sureToDelete'=> 'Sicuro di volerlo eliminare?',
+    'sure_to_delete'=> 'Sicuro di volerlo eliminare?',
     'updated'=> 'Allievo modificato correttamente',
     'added'=> 'Allievo aggiunto correttamente',
     'deleted'=> 'Allievo eliminato correttamente',
@@ -48,7 +48,7 @@ return [
     'selectAll' => 'Seleziona tutti',
     'no_inscriptions' => 'Nessuna iscrizione con questa licenza',
     'unsuscribe' => 'Rimuovi dalla lezione',
-    'noLesson' => 'Nessuna iscrizione alle lezioni',
+    'no_lesson' => 'Nessuna iscrizione alle lezioni',
 
 
 

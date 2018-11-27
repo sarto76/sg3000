@@ -7,7 +7,7 @@ return [
     'type'=> 'Tipo di corso',
     'facebook'=> 'Facebook',
     'added'=> 'Corso inserito correttamente',
-    'noLesson'=> 'al momento nessuna lezione',
+    'no_lesson'=> 'al momento nessuna lezione',
 
 
 ];

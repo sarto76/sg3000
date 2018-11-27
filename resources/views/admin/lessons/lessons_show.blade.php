@@ -51,7 +51,7 @@
                             {{__('lesson.at')}}
                             {{\Carbon\Carbon::parse($course->firstLesson->first_lesson)->format('H:i')}}
                         @else
-                           ( {{__('course.noLesson')}} )
+                           ( {{__('course.no_lesson')}} )
                         @endif
                     </b>
                 </h6>

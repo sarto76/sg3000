@@ -12,7 +12,7 @@
                     {{__('lesson.at')}}
                     {{\Carbon\Carbon::parse($course->firstLesson->first_lesson)->format('H:i')}}
                 @else
-                          ( {{__('course.noLesson')}} )
+                          ( {{__('course.no_lesson')}} )
                 @endif
             </h5>
             <p hidden id="maxMembers">{{$course->type->max_members}}</p>

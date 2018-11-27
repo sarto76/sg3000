@@ -27,7 +27,7 @@ return [
     'ms'=> 'Signora',
     'id'=> 'id',
     'update'=> 'modifica',
-    'sureToDelete'=> 'Sicuro di volerlo eliminare?',
+    'sure_to_delete'=> 'Sicuro di volerlo eliminare?',
     'updated'=> 'Istruttore modificato correttamente',
     'added'=> 'Istruttore aggiunto correttamente',
     'deleted'=> 'Istruttore eliminato correttamente',
