@@ -410,7 +410,7 @@
         },
         processing: true,
         serverSide: true,
-        ajax: '{{ route('members.getLessons') }}',
+        ajax: '{{ route('members.getAvailablesLessons') }}',
         columns: [
             { data: 'id', name: 'id',visible : true , searchable: false },
             { data: 'description', name: 'description' },

@@ -103,6 +103,7 @@ class LessonController extends Controller
 
     public function index($typ)
     {
+
         $courses = Course::select ('courses.id','courses.course_type_id','courses.facebook')
             ->orderBy('courses.id','desc')
             ->leftJoin('lessons','lessons.course_id','courses.id')

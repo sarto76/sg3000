@@ -89,4 +89,27 @@ class Lesson extends Model
             ->join('status','lessons.status_id','status.id')
             ;
     }
+
+    public function scopeConcluded($query, $flag=true)
+    {
+        if($flag){
+            return $query
+                ->where('date_time','<' ,now());
+        }
+        else{
+            return $query
+                ->where('date_time','>' ,now());
+        }
+    }
+
+    public function isFull(){
+        $maxMembers=$this->course->type->max_members;
+        $countActualMembers=LessonLicenseMember::where('lesson_id',$this->id)->count();
+        if( $countActualMembers < $maxMembers) {
+            return false;
+        }
+        else{
+            return true;
+        }
+    }
 }

@@ -331,10 +331,10 @@ class MemberController extends Controller
         }
     }
 
-    public function getLessons()
+    public function getAvailablesLessons(Request $request)
     {
-
-        return Datatables::of( $this->getOpenLessonsInCourses())
+        $licenseMemberId = $request->session('licenseMemberId',1);
+        return Datatables::of( $this->getOpenLessonsInCourses($licenseMemberId))
             ->addIndexColumn()
             ->addColumn('action', function ($lesson) {
 
