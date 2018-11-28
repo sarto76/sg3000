@@ -14,6 +14,7 @@
                 @csrf
                 <div class="input-group">
                     <input name="search" class="form-control input-search" type="text" placeholder="{{__('member.search')}}" value="{{ app('request')->input('search') }}">
+                    &nbsp;
                     <span class="input-group-btn">
                         <button class="btn btn-success" type="submit"><i class="fa fa-search"></i></button>
                     </span>

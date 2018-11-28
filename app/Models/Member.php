@@ -32,7 +32,6 @@ use Illuminate\Database\Eloquent\Model;
  * @property string $deleted_at
  * @property Carbon $created_at
  * @property Carbon $updated_at
- *
  * @package App\Models
  */
 class Member extends Model
@@ -99,6 +98,37 @@ class Member extends Model
 
     public function setBirthdateAttribute($date) {
         $this->attributes['birthdate']= \Carbon\Carbon::parse($date)->format('Y-m-d');
+    }
+
+    /**
+     * @param  $licenseMemberId
+     * @return mixed
+     */
+    public function getCoursesByLicenseMember($licenseMemberId){
+        return Course::select ('courses.id','courses.course_type_id','courses.facebook','licenses.description')
+            ->distinct('courses.id')
+            ->orderBy('courses.id','desc')
+            ->join('lessons','lessons.course_id','courses.id')
+            ->join('course_type','courses.course_type_id','course_type.id')
+            ->join('lesson_license_member','lessons.id','lesson_license_member.lesson_id')
+            ->join('license_member','license_member.id','lesson_license_member.license_member_id')
+            ->join('licenses','licenses.id','license_member.license_id')
+            ->whereIn('lesson_license_member.license_member_id',$licenseMemberId)
+            ->where ('lesson_license_member.deleted_at',null)
+            ->get();
+    }
+
+    /**
+     * @param $licenseMemberId
+     * @return array
+     */
+    public function getLessonsIdByLicenseMemberId($licenseMemberId)
+    {
+        $lessonsId = LessonLicenseMember::all('lesson_id', 'license_member_id')
+            ->whereIn('license_member_id', $licenseMemberId)
+            ->pluck('lesson_id')
+            ->toArray();
+        return $lessonsId;
     }
 
 

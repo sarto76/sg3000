@@ -77,4 +77,10 @@ class Lesson extends Model
     public function setDateTimeAttribute($date) {
         $this->attributes['date_time']= \Carbon\Carbon::parse($date)->format('Y-m-d G:i:s');
     }
+
+    public function getLessonLicenseMemberIdByLicenseMemberId($licenseMemberId){
+        //dd($this->LessonLicenseMember()->distinct()->where('license_member_id',$licenseMemberId)->first()->id);
+        return $this->LessonLicenseMember()->distinct()->where('license_member_id',$licenseMemberId)->first()->id;
+
+    }
 }

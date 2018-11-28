@@ -374,9 +374,9 @@ class LessonController extends Controller
         return redirect()->route('lessons.index',[$course->type->description.'#'.$course->id])->with('success',trans('lesson.deleted'))->with('typ',$lesson->course->type->description);
     }
 
-    public function removeMember($licenseMemberId)
+    public function removeMember($lessonLicenseMemberId)
     {
-        $lessonLicenseMember=LessonLicenseMember::findOrFail($licenseMemberId);
+        $lessonLicenseMember=LessonLicenseMember::findOrFail($lessonLicenseMemberId);
         $lesson=$lessonLicenseMember->lesson;
         $lessonLicenseMember->delete();
         return redirect()->route('lessons.edit',['lesson'=>$lesson->id])->with('id',trans('lesson.member_removed'))->withInput(['tab'=>'tab2']);

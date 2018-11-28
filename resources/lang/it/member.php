@@ -49,6 +49,11 @@ return [
     'no_inscriptions' => 'Nessuna iscrizione con questa licenza',
     'unsuscribe' => 'Rimuovi dalla lezione',
     'no_lesson' => 'Nessuna iscrizione alle lezioni',
+    'edit__lesson_inscription' => 'Modifica iscrizioni',
+    'no_lesson' => 'L\'allievo non è iscritto a nessun corso con questa licenza' ,
+    'manage_inscriptions' => 'Gestione iscrizioni' ,
+
+
 
 
 

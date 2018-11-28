@@ -170,20 +170,6 @@
                                         data-target="#membersModal">
                                     {{__('lesson.add_member')}}
                                 </button>
-
-                                <div class="panel-body" id="allMembers" style="display: none;">
-
-                                    <div class="form-group">
-                                    </div>
-
-                                    <hr>
-                                    <div class="form-group">
-                                    </div>
-                                    <h6><b>{{__('member.list')}}</b></h6>
-                                    {{-- @include('admin.lessons.lessons_members_direct') --}}
-                                </div>
-
-
                             </div>
                         </div>
                     </div>
@@ -192,8 +178,5 @@
 
         </div>
     </div>
-
-
     @include('admin.lessons.lessons_members_direct')
-
 @endsection

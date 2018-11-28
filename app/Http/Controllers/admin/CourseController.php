@@ -85,4 +85,6 @@ class CourseController extends Controller
 
         return redirect()->route('lessons.index',[$course->type->description])->with('success',trans('course.deleted'))->with('typ',$course->type->description);
     }
+
 }
+

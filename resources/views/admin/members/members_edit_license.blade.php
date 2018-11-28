@@ -23,21 +23,18 @@
                 <div class="row">
 
                     <div class="col-sm-5">
-                        <label for="type">{{__('member.licenses')}}</label><p>
+                        <label for="type">{{__('member.licenses')}}</label>
+                        <p>
                         {!! Form::select('license', $licenses, $selectedLicense) !!}
                     </div>
                     <div class="col-sm-5">
                         <label for="valid_from">{{__('license.valid_from')}}</label>
                         <div class="input-append date form_date">
-                            <input size="16" type="text" value="{{ $selectedValidFrom }}" readonly id="valid_from" name="valid_from">
+                            <input size="16" type="text" value="{{ $selectedValidFrom }}" readonly id="valid_from"
+                                   name="valid_from">
                             <span class="add-on"><i class="fa fa-calendar"></i></span>
                         </div>
                     </div>
-
-
-
-
-
                 </div>
 
                 <div class="form-group">
@@ -46,7 +43,8 @@
                 <input type="hidden" name="_token" value="{{ Session::token() }}">
                 <!-- Add lesson Button -->
                 <div class="form-group">
-                    <a href="{{ url()->previous() }}"class="btn btn-primary"><i class="fa fa-angle-double-left"></i>{{__('general.back')}}</a>
+                    <a href="{{ url()->previous() }}" class="btn btn-primary"><i
+                                class="fa fa-angle-double-left"></i>{{__('general.back')}}</a>
                     <button type="submit" class="btn btn-primary">
                         <i class="fa fa-plus"></i> {{__('license.edit')}}
                     </button>

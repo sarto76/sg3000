@@ -28,7 +28,8 @@ Route::group(['prefix' => 'admin', 'namespace' => 'admin'], function () {
     Route::post('members/storeLicense', 'MemberController@storeLicense')->name('members.storeLicense');
     Route::post('members/updateLicense', 'MemberController@updateLicense')->name('members.updateLicense');
     Route::delete('members/removeLicense/{licenseMemberId}', 'MemberController@removeLicense')->name('members.removeLicense');
-    Route::post('members/unsuscribe/{lessonLicenseMemberId}', 'MemberController@unsuscribe')->name('members.unsuscribe');
+    Route::delete('members/removeMember/{lessonLicenseMemberId}', 'MemberController@removeMember')->name('members.removeMember');
+    Route::get('members/editLessonInscription/{lessonLicenseMemberId}', 'MemberController@editLessonInscription')->name('members.editLessonInscription');
     Route::get('members/editLicense/{licenseMemberId}', 'MemberController@editLicense')->name('members.editLicense');
 
     Route::resource('members', 'MemberController');
@@ -39,7 +40,7 @@ Route::group(['prefix' => 'admin', 'namespace' => 'admin'], function () {
     Route::get('lessons/getMembers', 'LessonController@getMembers')->name('lessons.getMembers');
     Route::get('lessons/getMembersDirect', 'LessonController@getMembersDirect')->name('lessons.getMembersDirect');
     Route::post('lessons/addMember/{licenseMemberId}', 'LessonController@addMember')->name('lessons.addMember');
-    Route::delete('lessons/removeMember/{licenseMemberId}', 'LessonController@removeMember')->name('lessons.removeMember');
+    Route::delete('lessons/removeMember/{lessonLicenseMemberId}', 'LessonController@removeMember')->name('lessons.removeMember');
     Route::post('lessons/editLessonLicenseMember/{lessonLicenseMemberId}', 'LessonController@editLessonLicenseMember')->name('lessons.editLessonLicenseMember');
     Route::delete('lessons/removeCourse/{courseId}', 'LessonController@removeCourse')->name('lessons.removeCourse');
     Route::resource('lessons', 'LessonController', array('except' => array('create', 'index')));

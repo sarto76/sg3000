@@ -10,7 +10,7 @@ return [
     'email'=> 'E-mail',
     'firstname'=> 'Nome',
     'lastname'=> 'Cognome',
-    'fullname'=> 'Nome e cognome',
+    'fullname'=> 'Istruttore',
     'title'=> 'Titolo',
     'address'=> 'Indirizzo',
     'zip'=> 'NAP',

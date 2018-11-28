@@ -33,9 +33,6 @@
                             <span class="add-on"><i class="fa fa-calendar"></i></span>
                         </div>
                     </div>
-
-
-
                 </div>
 
                 <div class="form-group">

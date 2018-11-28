@@ -10,6 +10,7 @@
         <table class="table">
             <tr>
                 <th scope="row">lessonLicenseMemberID</th>
+                <th scope="row">course_id</th>
                 <th scope="row">{{__('lesson.type')}}</th>
                 <th scope="row">{{__('lesson.date_time')}}</th>
                 <th scope="row">{{__('lesson.number')}}</th>
@@ -20,6 +21,7 @@
             @foreach($licenseMember->lessonLicenseMember as $lessonLicenseMember)
                 <tr>
                     <td>{{$lessonLicenseMember->id}}</td>
+                    <td>{{$lessonLicenseMember->lesson->course->id}}</td>
                     <td>{{$lessonLicenseMember->lesson->course->type->description}}</td>
                     <td>{{ $lessonLicenseMember->lesson->date_time }}</td>
                     <td>{{$lessonLicenseMember->lesson->number}}</td>

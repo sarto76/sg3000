@@ -12,11 +12,13 @@ use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Validator;
+use \App\Http\Controllers\Traits;
 
 class MemberController extends Controller
 {
 
 
+    use Traits\InscriptionTraitController;
 
     /**
      * Display a listing of the resource.
@@ -112,28 +114,11 @@ class MemberController extends Controller
     public function show($id)
     {
         $member = Member::find($id);
-        $licenseMember=$member->licenseMember;
-        $licenseMemberId=[];
-        foreach ($licenseMember as $license){
-            $licenseMemberId[]=$license->id;
-        }
+        list($licenseMember, $licenseMemberId) = $this->getLicensesMemberId($member);
 
-        $courses = Course::select ('courses.id','courses.course_type_id','courses.facebook','licenses.description')
-            ->distinct('courses.id')
-            ->orderBy('courses.id','desc')
-            ->join('lessons','lessons.course_id','courses.id')
-            ->join('course_type','courses.course_type_id','course_type.id')
-            ->join('lesson_license_member','lessons.id','lesson_license_member.lesson_id')
-            ->join('license_member','license_member.id','lesson_license_member.license_member_id')
-            ->join('licenses','licenses.id','license_member.license_id')
-            ->whereIn('lesson_license_member.license_member_id',$licenseMemberId)
-            ->paginate(10);
-
-        $lessonsId=LessonLicenseMember::all('lesson_id','license_member_id')
-            ->whereIn('license_member_id',$licenseMemberId)
-            ->pluck('lesson_id')
-            ->toArray();
-
+        $courses = $member->getCoursesByLicenseMember($licenseMemberId);
+        //dd($courses);
+        $lessonsId = $member->getLessonsIdByLicenseMemberId($licenseMemberId);
         return view('admin.members.members_detail',compact('member','id','licenseMember','courses','lessonsId'));
     }
 
@@ -146,7 +131,23 @@ class MemberController extends Controller
     public function edit($id)
     {
         $member = Member::find($id);
-        return view('admin.members.members_edit',compact('member'));
+        return view('admin.members.members_edit',compact('member','id'));
+    }
+
+
+
+    /**
+     * @param $member
+     * @return array
+     */
+    public function getLicensesMemberId($member)
+    {
+        $licenseMember = $member->licenseMember;
+        $licenseMemberId = [];
+        foreach ($licenseMember as $license) {
+            $licenseMemberId[] = $license->id;
+        }
+        return array($licenseMember, $licenseMemberId);
     }
 
     /**
@@ -172,8 +173,6 @@ class MemberController extends Controller
             'birthdate'=> 'bail|required|date',
 
         ]);
-
-
         if($validator->fails()){
             return redirect("/admin/members/$id/edit")
                 ->withInput()
@@ -237,7 +236,29 @@ class MemberController extends Controller
 
     }
 
+    /**
+     * @param $licenseMemberId
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function editLicense($licenseMemberId){
 
+        $actualLicensesId=[];
+        $licenseMember=LicenseMember::find($licenseMemberId);
+        $selectedValidFrom=$licenseMember->valid_from;
+        $selectedLicense=$licenseMember->license_id;
+        foreach ( Member::find($licenseMember->member_id)->licenseMember as $item) {
+            if($item->license_id != $selectedLicense){
+                $actualLicensesId[]=$item->license_id;
+            }
+        }
+
+        $licenses = License::select(DB::raw("CONCAT(description,' (',long_description,')')as license"),'id')
+            ->whereNotIn('id', $actualLicensesId)
+            ->pluck('license', 'id');
+
+        return view('admin.members.members_edit_license',compact('licenses','licenseMemberId','selectedLicense','selectedValidFrom'));
+
+    }
     /**
      * @param Request $request
      * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
@@ -278,53 +299,39 @@ class MemberController extends Controller
         return redirect()->route('members.edit',['member'=>$memberId])->with('success',trans('license.removed'))->withInput(['tab'=>'tab2']);
     }
 
-    /**
-     * @param $licenseMemberId
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
-     */
-    public function editLicense($licenseMemberId){
 
-        $actualLicensesId=[];
-        $licenseMember=LicenseMember::find($licenseMemberId);
-        $selectedValidFrom=$licenseMember->valid_from;
-        $selectedLicense=$licenseMember->license_id;
-        foreach ( Member::find($licenseMember->member_id)->licenseMember as $item) {
-            if($item->license_id != $selectedLicense){
-                $actualLicensesId[]=$item->license_id;
-            }
+
+
+    public function editLessonInscription($licenseMemberId){
+        $licenseMember = LicenseMember::find($licenseMemberId);
+        $member=Member::find($licenseMember->member_id);
+
+        $license[]=$licenseMemberId;
+
+        $courses = $member->getCoursesByLicenseMember($license);
+        //dd($courses);
+        $lessonsId = $member->getLessonsIdByLicenseMemberId($license);
+
+
+
+        return view('admin.members.members_edit_lessons_inscription',compact('member','id','licenseMember','courses','lessonsId'));
+    }
+
+
+    public function removeMember($lessonLicenseMemberId)
+    {
+        //dd($lessonLicenseMemberId);
+        $lessonLicenseMember=LessonLicenseMember::find($lessonLicenseMemberId);
+        if($this->removeMemberByLessonLicenseMemberId($lessonLicenseMemberId)){
+            return redirect()->route('members.editLessonInscription',['licenseMemberId'=>$lessonLicenseMember->license_member_id])->with('id',trans('lesson.member_removed'));
         }
-
-        $licenses = License::select(DB::raw("CONCAT(description,' (',long_description,')')as license"),'id')
-            ->whereNotIn('id', $actualLicensesId)
-            ->pluck('license', 'id');
-
-        return view('admin.members.members_edit_license',compact('licenses','licenseMemberId','selectedLicense','selectedValidFrom'));
-
-    }
-
-
-    public function editLesson($licenseMemberId){
-
-        $actualLicensesId=[];
-        $licenseMember=LicenseMember::find($licenseMemberId);
-        $selectedValidFrom=$licenseMember->valid_from;
-        $selectedLicense=$licenseMember->license_id;
-        foreach ( Member::find($licenseMember->member_id)->licenseMember as $item) {
-            if($item->license_id != $selectedLicense){
-                $actualLicensesId[]=$item->license_id;
-            }
+        else
+        {
+            return redirect()->route('members.editLessonInscription',['licenseMemberId'=>$lessonLicenseMember->license_member_id])->with('id',trans('lesson.member_remove_error'));
         }
-
-        $licenses = License::select(DB::raw("CONCAT(description,' (',long_description,')')as license"),'id')
-            ->whereNotIn('id', $actualLicensesId)
-            ->pluck('license', 'id');
-
-        return view('admin.members.members_edit_license',compact('licenses','licenseMemberId','selectedLicense','selectedValidFrom'));
-
     }
 
-    public function unsiscribe($lessonLicenseMemberId){
 
 
-    }
+
 }

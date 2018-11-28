@@ -22,14 +22,11 @@
                                                     data-toggle="tab">{{__('member.details')}}</a></li>
                             <li class="nav-item"><a class="nav-link" href="#tab2"
                                                     data-toggle="tab">{{__('member.licenses')}}</a></li>
-                            <li class="nav-item"><a class="nav-link" href="#tab3"
-                                                    data-toggle="tab">{{__('member.courses')}}</a></li>
                         </ul>
                         <div class="tab-content">
                             <div class="tab-pane active" id="tab1" role="tabpanel">
                                 <div class="panel panel-default p-3 mb-2 bg-light text-dark">
                                     <div class="form-group"></div>
-
                                     {!! Form::model($member, ['method' => 'PUT','route' => ['members.update', $member->id]]) !!}
                                     @include('admin.members.members_form', ['submitButtonText' => __('member.edit')])
                                     {!! Form::close() !!}
@@ -37,9 +34,6 @@
                             </div>
                             <div class="tab-pane" id="tab2" role="tabpanel">
                                 @include('admin.members.members_edit_licenses')
-                            </div>
-                            <div class="tab-pane" id="tab3" role="tabpanel">
-                                @include('admin.members.members_edit_lessons')
                             </div>
                         </div>
                     </div>

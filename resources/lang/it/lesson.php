@@ -45,7 +45,7 @@ return [
     'member_removed' => 'Allievo eliminato dalla lezione',
     'member_added' => 'Allievo aggiunto alla lezione',
     'add_member' => 'Aggiungi allievo',
-
+    'member_remove_error' => 'Errore nell\'eliminazione dell\'allievo dalla lezione',
 
 
 
