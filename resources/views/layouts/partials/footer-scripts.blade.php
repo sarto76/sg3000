@@ -392,7 +392,7 @@
 
     });
 
-  /////////////////////////////////////////
+
     var table = $('#datatable-show-lessons').DataTable({
         responsive: {
             details: {
@@ -425,74 +425,26 @@
         table.responsive.recalc();
     });
 
-
-
     function addMemberIntoLesson(id)
     {
-        console.log(id);
-
         $.ajaxSetup({
             headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             }
         });
-
         $.ajax({
             method: 'POST', // Type of response and matches what we said in the route
             url: '/admin/members/addLesson/lessonId', // This is the url we gave in the route
             data: {'lessonId' : id},
             success: function(response){ // What to do if we succeed
-                console.log(response);
-
-               /* if ($.trim(response)) {
-                    var actualMembers = document.getElementById("actual-member");
-
-                    if (!$.trim(actualMembers)) {
-
-                        $('#no_members').hide();
-                        var div1 = document.createElement('div');
-                        div1.setAttribute('class','table-responsive');
-                        $('#space').append(div1);
-                        var actualMembers = document.createElement('table');
-                        actualMembers.setAttribute('class','table');
-                        div1.append(actualMembers);
-                    }
-
-                    var newRow = actualMembers.insertRow(actualMembers.length);
-                    newRow.setAttribute( "data-id",response['llm']['id']);
-                    id = newRow.insertCell(0);
-                    id.innerHTML = response['user_saved']['id'];
-                    nip = newRow.insertCell(1);
-                    nip.innerHTML = response['user_saved']['nip'];
-                    firstname = newRow.insertCell(2);
-                    firstname.innerHTML = response['user_saved']['firstname'];
-                    lastname = newRow.insertCell(3);
-                    lastname.innerHTML = response['user_saved']['lastname'];
-                    birthdate = newRow.insertCell(4);
-                    birthdate.innerHTML = response['user_saved']['birthdate'];
-                    mobile = newRow.insertCell(5);
-                    mobile.innerHTML = response['user_saved']['mobile'];
-                    notes = newRow.insertCell(6);
-                    update = newRow.insertCell(7);
-                    update.innerHTML ="<a class='btn btn-info btn-xs edit' title=''> <i class='fa fa-pencil'></i> </a>";
-
-
-                    id = newRow.insertCell(8);
-                    var llmId=response['llm']['id'];
-
-
-                    id.innerHTML = "<form class=delete action='/admin/lessons/removeMember/{llm}' method='POST'><input type='hidden' name='_token' value='<?php echo csrf_token(); ?>'><input type='hidden' name='_method' value='DELETE'><button class='btn btn-danger btn-xs btn-delete' > <i class='fa fa-trash-o' title='{{__('lesson.remove_member_from_lesson')}}'></i> </button> </form>".replace("{llm}",llmId);
-                }*/
                 $('#membersModal').modal('hide');
                 location.reload();
-
             },
             error: function(jqXHR, textStatus, errorThrown) { // What to do if we fail
                 console.log(JSON.stringify(jqXHR));
                 console.log("AJAX error: " + textStatus + ' : ' + errorThrown);
             }
         });
-
     }
 
 

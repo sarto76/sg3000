@@ -1,6 +1,7 @@
 <?php
 namespace App\Http\Controllers\Traits;
 use App\Models\Course;
+use App\Models\Lesson;
 use App\Models\LessonLicenseMember;
 
 trait InscriptionTraitController {
@@ -12,11 +13,12 @@ trait InscriptionTraitController {
         $lessonLicenseMember->delete();
     }
 
-    public function getLessonsInCourses()
+    public function getOpenLessonsInCourses()
     {
-        $lessons = Course::select ('lessons.id as idLesson','courses.id as id','description as description'
+        $lessons =Lesson::select ('lessons.id as idLesson','courses.id as id','course_type.description as description'
             ,'lessons.number as number','lessons.date_time as date_time')
-            ->join('lessons','lessons.course_id','courses.id')
+            ->status('aperto')
+            ->join('courses','lessons.course_id','courses.id')
             ->join('course_type','courses.course_type_id','course_type.id')
             ->get();
         return $lessons;

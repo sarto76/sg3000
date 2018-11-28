@@ -334,7 +334,7 @@ class MemberController extends Controller
     public function getLessons()
     {
 
-        return Datatables::of( $this->getLessonsInCourses())
+        return Datatables::of( $this->getOpenLessonsInCourses())
             ->addIndexColumn()
             ->addColumn('action', function ($lesson) {
 
