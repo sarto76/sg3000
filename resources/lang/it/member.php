@@ -52,6 +52,7 @@ return [
     'edit__lesson_inscription' => 'Modifica iscrizioni',
     'no_lesson' => 'L\'allievo non è iscritto a nessun corso con questa licenza' ,
     'manage_inscriptions' => 'Gestione iscrizioni' ,
+    'add_inscription' => 'Iscrivi ad un corso' ,
 
 
 

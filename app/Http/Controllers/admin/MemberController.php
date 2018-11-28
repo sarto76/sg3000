@@ -13,6 +13,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Validator;
 use \App\Http\Controllers\Traits;
+use Yajra\DataTables\DataTables;
 
 class MemberController extends Controller
 {
@@ -27,7 +28,6 @@ class MemberController extends Controller
      */
     public function index()
     {
-
         //return view('admin.members.members_index');
 
         //return Datatables::of(Member::select('email','firstname','lastname','address','zip','city','phone','mobile','work','birthdate'))->make(true);
@@ -320,7 +320,6 @@ class MemberController extends Controller
 
     public function removeMember($lessonLicenseMemberId)
     {
-        //dd($lessonLicenseMemberId);
         $lessonLicenseMember=LessonLicenseMember::find($lessonLicenseMemberId);
         if($this->removeMemberByLessonLicenseMemberId($lessonLicenseMemberId)){
             return redirect()->route('members.editLessonInscription',['licenseMemberId'=>$lessonLicenseMember->license_member_id])->with('id',trans('lesson.member_removed'));
@@ -331,7 +330,19 @@ class MemberController extends Controller
         }
     }
 
+    public function getLessons()
+    {
 
+        return Datatables::of( $this->getLessonsInCourses())
+            ->addIndexColumn()
+            ->addColumn('action', function ($lesson) {
+
+
+                $clic="addMemberIntoLesson($lesson->id)";
+                $link='<a onclick="'.$clic.'" class="btn btn-info btn-xs"><i class="fa fa-arrow-up" title="Add to lesson"></i></a>';
+                return $link;})->make(true);
+
+    }
 
 
 }

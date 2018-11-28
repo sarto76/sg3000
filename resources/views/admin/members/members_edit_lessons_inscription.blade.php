@@ -76,14 +76,18 @@
                 <div class="form-group">
                     <a href="{{ url()->previous() }}" class="btn btn-primary"><i
                                 class="fa fa-angle-double-left"></i>{{__('general.back')}}</a>
-                    <a href="{{ route('members.addLicense', ['memberId' => $member->id]) }}" class="btn btn-primary">
-                        <i class="fa"></i> {{__('member.addLicense')}}
-                    </a>
+                    <button
+                            type="button"
+                            class="btn btn-primary"
+                            data-toggle="modal"
+                            data-target="#coursesModal">
+                        {{__('member.add_inscription')}}
+                    </button>
 
                 </div>
             </div>
         </div>
     </div>
 
-
+    @include('admin.members.members_show_courses_modal')
 @endsection
