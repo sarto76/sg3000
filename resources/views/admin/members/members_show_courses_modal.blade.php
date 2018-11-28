@@ -16,7 +16,7 @@
                     <div class="table-responsive">
                         <table id="datatable-show-lessons" class="table table-hover table-bordered table-striped" name ="datatable" style="width:100%";cellspacing="0">
                             <thead>
-                            <th>{{__('lesson.id')}}</th>
+                            <th>{{__('course.number')}}</th>
                             <th>{{__('course.type')}}</th>
                             <th>{{__('lesson.number')}}</th>
                             <th>{{__('lesson.date_time')}}</th>

@@ -32,6 +32,7 @@ Route::group(['prefix' => 'admin', 'namespace' => 'admin'], function () {
     Route::get('members/editLessonInscription/{lessonLicenseMemberId}', 'MemberController@editLessonInscription')->name('members.editLessonInscription');
     Route::get('members/editLicense/{licenseMemberId}', 'MemberController@editLicense')->name('members.editLicense');
     Route::get('members/getLessons', 'MemberController@getLessons')->name('members.getLessons');
+    Route::post('members/addLesson/{lessonId}', 'MemberController@addLesson')->name('members.addLesson');
 
     Route::resource('members', 'MemberController');
 

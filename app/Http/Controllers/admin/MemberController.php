@@ -303,6 +303,7 @@ class MemberController extends Controller
 
 
     public function editLessonInscription($licenseMemberId){
+        session(['licenseMemberId' => $licenseMemberId]);
         $licenseMember = LicenseMember::find($licenseMemberId);
         $member=Member::find($licenseMember->member_id);
 
@@ -338,10 +339,33 @@ class MemberController extends Controller
             ->addColumn('action', function ($lesson) {
 
 
-                $clic="addMemberIntoLesson($lesson->id)";
+                $clic="addMemberIntoLesson($lesson->idLesson)";
                 $link='<a onclick="'.$clic.'" class="btn btn-info btn-xs"><i class="fa fa-arrow-up" title="Add to lesson"></i></a>';
                 return $link;})->make(true);
 
+    }
+
+    public function addLesson(Request $request){
+        $lessonLicenseMember=new LessonLicenseMember();
+
+
+        $licenseMemberId = $request->session()->get('licenseMemberId',1);
+
+        if((!($lessonLicenseMember::where('lesson_id',$request->lessonId)
+                ->where('license_member_id',$licenseMemberId)
+                ->exists())) ) {
+
+            $lessonLicenseMember->lesson_id = $request->lessonId;
+            $lessonLicenseMember->license_member_id = $licenseMemberId;
+            $lessonLicenseMember->save();
+
+            $member=LicenseMember::find($licenseMemberId)->member;
+            return response()->json([ 'user_saved' => $member ,'llm'=>$lessonLicenseMember]);
+
+        }
+        else{
+            return null;
+        }
     }
 
 

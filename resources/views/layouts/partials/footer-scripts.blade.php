@@ -439,12 +439,12 @@
 
         $.ajax({
             method: 'POST', // Type of response and matches what we said in the route
-            url: '/admin/lessons/addMember/licenseMemberId', // This is the url we gave in the route
-            data: {'licenseMemberId' : id},
+            url: '/admin/members/addLesson/lessonId', // This is the url we gave in the route
+            data: {'lessonId' : id},
             success: function(response){ // What to do if we succeed
                 console.log(response);
 
-                if ($.trim(response)) {
+               /* if ($.trim(response)) {
                     var actualMembers = document.getElementById("actual-member");
 
                     if (!$.trim(actualMembers)) {
@@ -474,7 +474,7 @@
                     mobile.innerHTML = response['user_saved']['mobile'];
                     notes = newRow.insertCell(6);
                     update = newRow.insertCell(7);
-                    update.innerHTML ="<a class='btn btn-info btn-xs edit' title='{{__('member.edit')}}'> <i class='fa fa-pencil'></i> </a>";
+                    update.innerHTML ="<a class='btn btn-info btn-xs edit' title=''> <i class='fa fa-pencil'></i> </a>";
 
 
                     id = newRow.insertCell(8);
@@ -482,8 +482,9 @@
 
 
                     id.innerHTML = "<form class=delete action='/admin/lessons/removeMember/{llm}' method='POST'><input type='hidden' name='_token' value='<?php echo csrf_token(); ?>'><input type='hidden' name='_method' value='DELETE'><button class='btn btn-danger btn-xs btn-delete' > <i class='fa fa-trash-o' title='{{__('lesson.remove_member_from_lesson')}}'></i> </button> </form>".replace("{llm}",llmId);
-                }
+                }*/
                 $('#membersModal').modal('hide');
+                location.reload();
 
             },
             error: function(jqXHR, textStatus, errorThrown) { // What to do if we fail

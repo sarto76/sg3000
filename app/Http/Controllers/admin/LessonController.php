@@ -304,7 +304,6 @@ class LessonController extends Controller
         session(['lessonId' => $id]);
         $lesson= Lesson::find($id);
 
-
         $instructors = Instructor::select(DB::raw("CONCAT(firstname,' ',lastname)as name"),'id')
             ->pluck('name', 'id');
         $course=Course::find($lesson->course->id);

@@ -14,10 +14,8 @@ trait InscriptionTraitController {
 
     public function getLessonsInCourses()
     {
-        $lessons = Course::select ('courses.id as id','description as description'
+        $lessons = Course::select ('lessons.id as idLesson','courses.id as id','description as description'
             ,'lessons.number as number','lessons.date_time as date_time')
-            ->orderBy('id','desc')
-            ->orderBy('lessons.id','esc')
             ->join('lessons','lessons.course_id','courses.id')
             ->join('course_type','courses.course_type_id','course_type.id')
             ->get();

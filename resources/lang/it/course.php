@@ -8,7 +8,7 @@ return [
     'facebook'=> 'Facebook',
     'added'=> 'Corso inserito correttamente',
     'no_lesson'=> 'al momento nessuna lezione',
-
+    'number'=> 'Nr. corso',
 
 
 ];
