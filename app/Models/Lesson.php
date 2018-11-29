@@ -79,7 +79,7 @@ class Lesson extends Model
     }
 
     public function getLessonLicenseMemberIdByLicenseMemberId($licenseMemberId){
-        //dd($this->LessonLicenseMember()->distinct()->where('license_member_id',$licenseMemberId)->first()->id);
+        //dd($this->LessonLicenseMember()->distinct()->where('license_member_id',$licenseMemberId)->get());
         return $this->LessonLicenseMember()->distinct()->where('license_member_id',$licenseMemberId)->first()->id;
     }
     public function scopeStatus($query, $value)
