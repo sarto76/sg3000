@@ -55,7 +55,7 @@
                                         <td>{{ $lesson->instructor->firstname }} {{ $lesson->instructor->lastname }}</td>
                                         <td>
                                             <form class="delete"
-                                                  action="/admin/members/removeMember/{{$lesson->getLessonLicenseMemberIdByLicenseMemberId($licenseMember->id)}}"
+                                                  action="{{ route('members.removeMember', ['lessonLicenseMemberId' => $lesson->getLessonLicenseMemberIdByLicenseMemberId($licenseMember->id)]) }}"
                                                   method="POST">
                                                 {{ csrf_field() }}
                                                 {{ method_field('DELETE') }}

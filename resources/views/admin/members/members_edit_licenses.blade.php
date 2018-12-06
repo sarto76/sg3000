@@ -26,11 +26,11 @@
                                 </a>
                             </td>
                             <td>
-                                <a href="/admin/members/editLicense/{{ $licenseMember->id }}"
+                                <a href="{{ route('members.editLicense', ['licenseMemberId' => $licenseMember->id]) }}"
                                    class="btn btn-info btn-xs edit"><i class="fa fa-pencil"
                                                                        title="{{__('license.edit')}}"></i></a>
                             <td>
-                                <form class="delete" action="/admin/members/removeLicense/{{ $licenseMember->id }}"
+                                <form class="delete" action="{{ route('members.removeLicense',['member'=>$licenseMember->id]) }}"
                                       method="POST">
                                     {{ csrf_field() }}
                                     {{ method_field('DELETE') }}

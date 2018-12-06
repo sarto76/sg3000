@@ -174,8 +174,7 @@
                                                                        class="btn btn-info btn-xs"><i
                                                                                 class="fa fa-pencil"
                                                                                 title="{{__('lesson.edit')}}"></i></a>
-
-                                                                    <form action="/admin/lessons/{{ $lesson->id }}"
+                                                                    <form action="{{ route('lessons.destroy',['member'=>$lesson->id]) }}"
                                                                           method="POST"
                                                                           style="display:inline;margin:0px;padding:0px;">
                                                                         {!! method_field('DELETE') !!}

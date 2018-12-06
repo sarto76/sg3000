@@ -62,16 +62,14 @@
                                     @else
                                      <td class="table-text"><div><a href="tel:{{ $member->phone }}">{{ $member->phone }}</a></div></td>
                                     @endif
-
-
                                     <td>
-                                        <a href="/admin/members/{{ $member->id }}" class="btn btn-info btn-xs"><i class="fa fa-eye" title="{{__('member.show')}}"></i></a>
+                                        <a href="{{ route('members.show',['member'=>$member->id]) }}" class="btn btn-info btn-xs"><i class="fa fa-eye" title="{{__('member.show')}}"></i></a>
                                     </td>
                                     <td>
-                                        <a href="/admin/members/{{ $member->id }}/edit" class="btn btn-info btn-xs edit"><i class="fa fa-pencil" title="{{__('member.edit')}}"></i></a>
+                                        <a href="{{ route('members.edit',['member'=>$member->id]) }}" class="btn btn-info btn-xs edit"><i class="fa fa-pencil" title="{{__('member.edit')}}"></i></a>
                                     </td>
                                     <td>
-                                        <form class="delete" action="/admin/members/{{ $member->id }}" method="POST">
+                                        <form class="delete" action="{{ route('members.destroy',['member'=>$member->id]) }}" method="POST">
                                             {{ csrf_field() }}
                                             {{ method_field('DELETE') }}
                                             <button class="btn btn-danger btn-xs btn-delete" >

@@ -27,6 +27,7 @@
                     <td>{{$lessonLicenseMember->lesson->number}}</td>
                     <td>{{ $lessonLicenseMember->lesson->instructor->firstname }} {{ $lessonLicenseMember->lesson->instructor->lastname }}</td>
                     <td>
+
                         <form class="delete" action="/admin/members/unsuscribe/{{ $lessonLicenseMember->id }}" method="POST">
                             {{ csrf_field() }}
                             {{ method_field('DELETE') }}
