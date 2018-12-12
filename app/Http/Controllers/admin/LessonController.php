@@ -382,10 +382,10 @@ class LessonController extends Controller
         return redirect()->route('lessons.edit',['lesson'=>$lesson->id])->with('id',trans('lesson.member_removed'))->withInput(['tab'=>'tab2']);
     }
 
-    public function editLessonLicenseMember($lessonLicenseMemberId,Request $request)
+    public function editLessonLicenseMember(Request $request)
     {
 
-        $lessonLicenseMember=LessonLicenseMember::findOrFail($lessonLicenseMemberId);
+        $lessonLicenseMember=LessonLicenseMember::findOrFail($request->lessonLicenseMemberId);
         $lessonLicenseMember->notes=$request->notes;
         $lessonLicenseMember->save();
 
