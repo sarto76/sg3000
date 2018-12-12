@@ -435,7 +435,7 @@
         });
         $.ajax({
             method: 'POST', // Type of response and matches what we said in the route
-            url: '/admin/members/addLesson/lessonId', // This is the url we gave in the route
+            url: '{{URL::to("/admin/members/addLesson/lessonId")}}',
             data: {'lessonId' : id},
             success: function(response){ // What to do if we succeed
                 $('#membersModal').modal('hide');
