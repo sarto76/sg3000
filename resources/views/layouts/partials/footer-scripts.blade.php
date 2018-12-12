@@ -235,7 +235,7 @@
 
         $.ajax({
             method: 'POST', // Type of response and matches what we said in the route
-            url: '/admin/lessons/addMember/licenseMemberId', // This is the url we gave in the route
+            url: '{{URL::to("admin/lessons/addMember/licenseMemberId")}}', // This is the url we gave in the route
             data: {'licenseMemberId' : id},
             success: function(response){ // What to do if we succeed
                 console.log(response);
@@ -277,7 +277,7 @@
                     var llmId=response['llm']['id'];
 
 
-                    id.innerHTML = "<form class=delete action='/admin/lessons/removeMember/{llm}' method='POST'><input type='hidden' name='_token' value='<?php echo csrf_token(); ?>'><input type='hidden' name='_method' value='DELETE'><button class='btn btn-danger btn-xs btn-delete' > <i class='fa fa-trash-o' title='{{__('lesson.remove_member_from_lesson')}}'></i> </button> </form>".replace("{llm}",llmId);
+                    id.innerHTML = "<form class=delete action='{{URL::to('/admin/lessons/removeMember/{llm}')}}' method='POST'><input type='hidden' name='_token' value='<?php echo csrf_token(); ?>'><input type='hidden' name='_method' value='DELETE'><button class='btn btn-danger btn-xs btn-delete' > <i class='fa fa-trash-o' title='{{__('lesson.remove_member_from_lesson')}}'></i> </button> </form>".replace("{llm}",llmId);
                 }
                 $('#membersModal').modal('hide');
 
@@ -368,8 +368,9 @@
             $.ajax({
 //TODO bottone edit non va sugli elememti creati dal JS
                 method: 'POST',
-                url: '/admin/lessons/editLessonLicenseMember/'+values.id,
-                data: {'notes' : values.notes},
+                url: '{{URL::to("/admin/lessons/editLessonLicenseMember")}}',
+                //url: '/admin/lessons/editLessonLicenseMember/'+values.id,
+                data: {'notes' : values.notes , 'lessonLicenseMemberId' : values.id},
                 success: function(response){
                 },
                 error: function(jqXHR, textStatus, errorThrown) {
