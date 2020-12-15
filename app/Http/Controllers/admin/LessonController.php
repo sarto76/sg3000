@@ -111,7 +111,7 @@ class LessonController extends Controller
             ->where('course_type.description','=', $typ)
             ->paginate(10);
 
-        return view('admin.lessons.lessons_show',compact('lessons','typ','courses'));
+        return view('admin.lessons.lessons_show',compact('courses','typ','courses'));
     }
 
 
